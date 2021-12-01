@@ -1,38 +1,57 @@
-.App {
-  text-align: center;
+* {
+    color: white;
+    font-weight: normal;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+h1:not(#title), h2, h3, h4, label, button, p, input {
+    font-family: 'Open Sans', sans-serif;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+h1#title {
+    font-family: 'Chakra Petch', monospace;
+    font-weight: 700;
+    font-size: calc(24px * 1em);
+    margin-bottom: calc(24/640 * 100vh);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+h1, h2, h3, h4 {
+    text-align: center;
 }
 
-.App-link {
-  color: #61dafb;
+h4, label {
+    color: #7F8896;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.bold {
+    font-weight: 700 !important;
 }
+
+/* Background Component */
+    #background {
+        background: linear-gradient(180deg, #06030E 0%, #200B36 100%);
+        width: 100%;
+        height: 100%;
+        position: absolute;
+    }
+
+    #background main {
+        position: absolute;
+        width: 100%;
+        padding: 0 calc(34/360 * 100vw);
+        padding-top: calc(75/640 * 100vh);
+    }
+
+    #background img {
+        position: absolute;
+    }
+
+    #background img.bottomLeftCoins {
+        left: 20px;
+        bottom: 14px;
+    }
+
+    #background img.bottomRightLights {
+        right: 0;
+        bottom: 0;
+    }
+/**/

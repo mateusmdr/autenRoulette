@@ -2,15 +2,13 @@ import React, {useState} from "react";
 
 import Background from './components/Background';
 
-import personIcon from './assets/personIcon.svg';
-import phoneIcon from './assets/phoneIcon.svg';
+import {personIcon, phoneIcon, bottomLeftCoins, bottomRightLights} from './assets/export';
 
-const Home = (setCurrentPage) => {
+const Home = ({setCurrentPage}) => {
     const [input, setInput] = useState({name: '', phone: '', remember: false});
-    console.log(input);
     return (
         <Background id='home'>
-            <h1 id='title'>TENTE A SORTE</h1>
+            <h1 id='title'>TENTA A SORTE</h1>
             <hgroup>
                 <h3>Concorra a prêmio em dinheiro ao girar a roleta.</h3>
                 <h3>Você pode girar a roleta <span className='bold'>uma vez ao dia</span></h3>
@@ -47,9 +45,14 @@ const Home = (setCurrentPage) => {
                     <label htmlFor='remember'>Lembrar de mim</label>
                 </div>
                 <div className='center'>
-                    <input type='submit' value='Girar Roleta'/>
+                    <input 
+                        type='submit' value='Girar Roleta'
+                        onClick={() => setCurrentPage('roulette')}
+                    />
                 </div>
             </form>
+            <img className='bottomLeftCoins' src={bottomLeftCoins} alt='Moedas douradas'/>
+            <img className='bottomRightLights' src={bottomRightLights} alt='Arco de luzes brancas'/>
         </Background>
     );
 }

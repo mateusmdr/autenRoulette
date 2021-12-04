@@ -51,6 +51,13 @@ img {
     -ms-user-select: none;
 }
 
+button {
+    font-weight: bold;
+    font-size: calc(14/360 * 100vw);
+    background-color: transparent;
+    border: none;
+}
+
 /* Background Component */
     #background {
         background: linear-gradient(180deg, #06030E 0%, #200B36 100%);
@@ -62,11 +69,10 @@ img {
     #background main {
         position: absolute;
         width: 100%;
-        padding: 0 calc(34/360 * 100vw);
-        padding-top: calc(75/640 * 100vh);
+        height: 100%;
     }
 
-    #background > img {
+    #background main > img {
         position: absolute;
     }
 
@@ -134,6 +140,11 @@ img {
 /**/
 
 /* Home */
+    #home {
+        padding: 0 calc(34/360 * 100vw);
+        padding-top: calc(75/640 * 100vh);
+    }
+
     #home form {
         margin-top: calc(36/640 * 100vh);
     }

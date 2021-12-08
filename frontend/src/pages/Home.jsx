@@ -2,6 +2,8 @@ import React, {useState} from "react";
 
 import Background from './components/Background';
 
+import '../styles/Home.css';
+
 import {personIcon, phoneIcon, bottomLeftCoins, bottomRightLights} from './assets/export';
 
 const Home = ({setCurrentPage}) => {

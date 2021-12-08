@@ -10,5 +10,6 @@ import success from './success.svg';
 import tryAgain from './tryAgain.svg';
 import outerRoulette from './outerRoulette.svg';
 import innerRoulette from './innerRoulette.svg';
+import rouletteBackground from './rouletteBackground.svg';
 
-export {bottomLeftCoins, bottomRightLights, closeSign, failure, gift, key, personIcon, phoneIcon, success, tryAgain, outerRoulette, innerRoulette};
+export {bottomLeftCoins, bottomRightLights, closeSign, failure, gift, key, personIcon, phoneIcon, success, tryAgain, outerRoulette, innerRoulette, rouletteBackground};

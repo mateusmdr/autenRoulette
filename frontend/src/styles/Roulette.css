@@ -7,8 +7,12 @@
 }
 
 #roulette > img.outer {
+    position: absolute;
     width: 100%;
     height: 100%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
 }
 
 #roulette > .inner {        
@@ -39,24 +43,52 @@
     z-index: 4;
 }
 
-#roulette .segments {
-    left: 55%;
-    top: 0;
+#roulette #segments {
+    left: 50%;
+    top: 50%;
     position: absolute;
+
     width: 100%;
     height: 100%;
 
-    transform: translateX(-50%);
+    animation-timing-function: linear;
+    animation-name: spin;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+
+    border-radius: 50%;
+}
+
+#roulette #segments img {
+    position: absolute;
+    width: 83%;
+    height: 83%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) rotateZ(15deg);
 }
 
 #roulette .segment {
     position: absolute;
     width: 80%;
     z-index: 2;
-    top: 40%;
+    top: 50%;
+    left: 50%;
 }
 
 #roulette .segment h2 {
     text-align: right;
+    font-weight: 700;
+    font-size: calc(12/360 * 100vw);
+    padding-right: 10px;
+}
+
+@keyframes spin{
+    from {
+        transform: translate(-50%, -50%) rotateZ(0deg);
+    }
+    to {
+        transform: translate(-50%, -50%) rotateZ(360deg);
+    }
 }
 /**/

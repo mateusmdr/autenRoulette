@@ -1,0 +1,8 @@
+times are in GMT-4
+
+01/12/21 (15:00 - 15:30) | Visão geral e estrutura de arquivos - 30min
+01/12/21 (15:30 - 16:40) | Tela principal frontend e importação de assets do figma - 1h 10min
+03/12/21 (07:40 - 08:50) | Formulário da página principal - 1h 10min
+03/12/21 (09:40 - 12:30) | Página da roleta - 2h 50min
+08/12/21 (07:50 - 09:00) | Animação de rotação e background a roleta - 1h 10min
+09/12/21 (09:10 - 10:40) | Finalizando estrutura da roleta - 1h 30min

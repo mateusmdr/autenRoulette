@@ -11,5 +11,8 @@ import tryAgain from './tryAgain.svg';
 import outerRoulette from './outerRoulette.svg';
 import innerRoulette from './innerRoulette.svg';
 import rouletteBackground from './rouletteBackground.svg';
+import ad1 from './ad1.png';
+import ad2 from './ad2.png';
+import rouletteBackgroundCoins from './rouletteBackgroundCoins.svg';
 
-export {bottomLeftCoins, bottomRightLights, closeSign, failure, gift, key, personIcon, phoneIcon, success, tryAgain, outerRoulette, innerRoulette, rouletteBackground};
+export {bottomLeftCoins, bottomRightLights, closeSign, failure, gift, key, personIcon, phoneIcon, success, tryAgain, outerRoulette, innerRoulette, rouletteBackground, ad1, ad2, rouletteBackgroundCoins};

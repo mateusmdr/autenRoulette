@@ -6,7 +6,7 @@ import '../styles/Home.css';
 
 import {personIcon, phoneIcon, bottomLeftCoins, bottomRightLights} from './assets/export';
 
-const Home = ({setCurrentPage}) => {
+const Home = ({setCurrentPage, setLogin}) => {
     const [input, setInput] = useState({name: '', phone: '', remember: false});
     return (
         <Background id='home'>
@@ -49,7 +49,10 @@ const Home = ({setCurrentPage}) => {
                 <div className='center'>
                     <input 
                         type='submit' value='Girar Roleta'
-                        onClick={() => setCurrentPage('roulette')}
+                        onClick={() => {
+                            setLogin(input);
+                            setCurrentPage('roulette');
+                        }}
                     />
                 </div>
             </form>

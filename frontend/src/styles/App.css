@@ -8,10 +8,22 @@ Ref height: 640px
     font-weight: normal;
 }
 
-.center {
+.row {
     width: 100%;
     display: flex;
     justify-content: center;
+}
+
+.column {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: calc(20/640 * 100vh);
+}
+
+.spacer {
+    margin: calc(24/640 * 100vh) 0;
 }
 
 h1:not(#title), h2, h3, h4, label, button, p, input {
@@ -36,6 +48,10 @@ h4, label {
 .bold {
     font-weight: 700 !important;
     display: inline;
+}
+
+h2 {
+    font-size: calc(16/360 * 100vw);
 }
 
 h3 {
@@ -73,6 +89,11 @@ button {
         margin-bottom: calc(16/640 * 100vh);
     }
 
+    .field h4 {
+        text-align: left;
+        padding: 8px 0 0 8px;
+    }
+
     input[type='text']{
         width: 100%;
         height: calc(48/640 * 100vh);
@@ -96,13 +117,14 @@ button {
     }
 
     input[type='submit'] {
-        margin-top: calc(52/640 * 100vh);
         display: inline-block;
+        margin-top: calc(16/640 * 100vh);
 
         font-weight: 600;
         font-size: calc(16/360 * 100vw);
-        width: calc(151/360 * 100vw);
         height: calc(44/640 * 100vh);
+
+        padding: 0 24px;
         
         background: linear-gradient(180deg, #6600E8 0%, #28007B 100%);
         box-shadow: 0px 8px 56px -10px rgba(127, 136, 150, 0.16);

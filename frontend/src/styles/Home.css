@@ -16,4 +16,8 @@
     top: 50%;
     transform: translateY(-50%);
 }
+
+#home input[type='submit'] {
+    margin-top: calc(52/640 * 100vh);
+}
 /**/

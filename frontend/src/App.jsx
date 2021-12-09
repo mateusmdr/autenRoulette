@@ -24,6 +24,34 @@ const App = () => {
                     login={login}
                 />
             );
+        case 'won':
+            return (
+                <Pages.Won
+                    setCurrentPage={setCurrentPage}
+                    login={login}
+                />
+            );
+        case 'key':
+            return (
+                <Pages.Key
+                    setCurrentPage={setCurrentPage}
+                    login={login}
+                />
+            );
+        case 'success':
+            return (
+                <Pages.Success
+                    setCurrentPage={setCurrentPage}
+                    login={login}
+                />
+            );
+        case 'failure':
+            return (
+                <Pages.Failure
+                    setCurrentPage={setCurrentPage}
+                    login={login}
+                />
+            );
         default: return null;
     }    
 }

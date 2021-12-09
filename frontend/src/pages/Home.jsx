@@ -46,7 +46,7 @@ const Home = ({setCurrentPage, setLogin}) => {
                     />
                     <label htmlFor='remember'>Lembrar de mim</label>
                 </div>
-                <div className='center'>
+                <div className='row'>
                     <input 
                         type='submit' value='Girar Roleta'
                         onClick={() => {

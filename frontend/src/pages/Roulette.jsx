@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 
 import '../styles/Roulette.css';
 
-import Background from './components/Background';
+import AdBackground from './components/AdBackground';
 
-import { outerRoulette, innerRoulette, rouletteBackground, ad1, ad2 , rouletteBackgroundCoins} from './assets/export';
+import { outerRoulette, innerRoulette, rouletteBackground, rouletteBackgroundCoins} from './assets/export';
 
-const Roulette = ({login}) => {
+const Roulette = ({login, setCurrentPage}) => {
     const values = [
         {displayText: 'R$ 5.000'},
         {displayText: 'R$ 5.000'},
@@ -24,24 +24,18 @@ const Roulette = ({login}) => {
 
     const [isSpinning, setSpinning] = useState(false);
     return (
-        <Background id='spin'>
+        <AdBackground login={login}>
             <div className='background'>
                 <img src={rouletteBackgroundCoins} alt='Moedas de plano de fundo'/>
             </div>
-            <header>
-                <h3>TENTA A SORTE</h3>
-                <div className='username'>
-                    <h2>{login.name}</h2>
-                </div>
-            </header>
-            <aside>
-                <img className='ad' src={ad1} alt='Anúncio superior'/>
-            </aside>
             <div id='roulette'>
                 <img className='outer' src={outerRoulette} alt='Círculo de luzes brancas ao redor da roleta'/>
                 <div className='inner'>
                     <img src={innerRoulette} alt='Círculo central da roleta'/>
-                    <button onClick={()=> setSpinning(true)}>{isSpinning ? null : 'GIRAR'}</button>
+                    <button onClick={()=> {
+                        setSpinning(true);
+                        setTimeout(() => setCurrentPage('won'), 2000);
+                    }}>{isSpinning ? null : 'GIRAR'}</button>
                 </div>
                 <div id='segments' style={isSpinning ? {'animationPlayState': 'running'}:{'animationPlayState': 'paused'}}>
                     <img src={rouletteBackground} alt='Plano de fundo da roleta'/>
@@ -62,10 +56,7 @@ const Roulette = ({login}) => {
                 Concorra a prêmio em dinheiro ao girar a roleta
                 Você pode girar a roleta <span className='bold'>uma vez ao dia</span>
             </p>
-            <aside>
-                <img className='ad' src={ad2} alt='Anúncio inferior'/>
-            </aside>
-        </Background>
+        </AdBackground>
     );
 }
 

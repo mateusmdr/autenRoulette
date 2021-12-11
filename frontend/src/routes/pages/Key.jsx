@@ -1,12 +1,12 @@
-import React, {useState} from 'react';
-
-import '../styles/Roulette.css';
+import React, {useState, useEffect} from 'react';
 
 import {key as keyImg} from './assets/export';
 
 import AdBackground from './components/AdBackground';
 
 const Key = ({login, setCurrentPage}) => {
+    useEffect(() => import('../styles/Roulette.css'));
+
     const [keyInput, setKeyInput] = useState('');
     return (
         <AdBackground login={login}>

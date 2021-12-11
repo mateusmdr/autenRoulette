@@ -8,3 +8,4 @@ times are in GMT-4
 09/12/21 (09:10 - 10:40) | Finalizando estrutura da roleta - 1h 30min
 09/12/21 (15:20 - 16:35) | Adicionando páginas restandes do frontend - 1h 15min
 10/12/21 (07:10 - 10:40) | Banco de dados - 3h 30min
+10/12/21 (15:30 - 19:30) | Roteamento admin, Tela Login, Header - 4h

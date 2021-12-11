@@ -1,10 +1,9 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
-import * as Pages from './pages';
+import * as Pages from './pages'
 
-import './styles/App.css';
-
-const App = () => {
+const Public = () => {
+    useEffect(() => import('./styles/App.css'));
     const [currentPage, setCurrentPage] = useState('home');
 
     const [login, setLogin] = useState({name: '', phone: ''});
@@ -56,4 +55,4 @@ const App = () => {
     }    
 }
 
-export default App;
+export default Public;

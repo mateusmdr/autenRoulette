@@ -1,0 +1,48 @@
+#login {
+    padding: 0 calc(475/1440 * 100vw);
+}
+
+#login .bottomRightImg {
+    position: absolute;
+    bottom:0;
+    right:0;
+
+    width: calc(600/1024 * 100vh);
+    height: calc(600/1024 * 100vh);
+}
+
+#login .topRightCoins {
+    position: absolute;
+    top:0;
+    right:0;
+    transform: translate(50%,-50%);
+}
+
+#login .bottomLeftCoins {
+    position: absolute;
+    bottom:0;
+    left:0;
+    transform: translate(-50%, 100%);
+}
+
+#login hgroup {
+    display: inline-block;
+    margin: 0 auto calc(64/1024 * 100vh) auto;
+}
+
+#login h1#title {
+    font-size: calc(36/1440 * 100vw);
+}
+
+#login hgroup h3 {
+    text-align: left;
+    font-weight: 400;
+    font-size: calc(12/1440 * 100vw);
+}
+
+#login main {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+}

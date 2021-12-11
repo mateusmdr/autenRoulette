@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-
-import '../styles/Roulette.css';
+import React, { useState, useEffect } from 'react';
 
 import AdBackground from './components/AdBackground';
 
 import { outerRoulette, innerRoulette, rouletteBackground, rouletteBackgroundCoins} from './assets/export';
 
 const Roulette = ({login, setCurrentPage}) => {
+    useEffect(() => import('../styles/Roulette.css'));
+    
     const values = [
         {displayText: 'R$ 5.000'},
         {displayText: 'R$ 5.000'},
@@ -34,7 +34,7 @@ const Roulette = ({login, setCurrentPage}) => {
                     <img src={innerRoulette} alt='Círculo central da roleta'/>
                     <button onClick={()=> {
                         setSpinning(true);
-                        setTimeout(() => setCurrentPage('won'), 2000);
+                        setTimeout(() => setCurrentPage('failure'), 2000);
                     }}>{isSpinning ? null : 'GIRAR'}</button>
                 </div>
                 <div id='segments' style={isSpinning ? {'animationPlayState': 'running'}:{'animationPlayState': 'paused'}}>

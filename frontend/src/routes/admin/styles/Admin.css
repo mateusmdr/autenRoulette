@@ -1,0 +1,101 @@
+/*
+Ref width: 1440px
+Ref height: 1024px
+*/
+
+/* Form */
+.field {
+    width: 100%;
+    position: relative;
+    margin-top: 4px;
+    margin-bottom: 16px;
+}
+
+.field h4 {
+    text-align: left;
+    padding: 8px 0 0 8px;
+}
+
+.horizontalAlign {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.verticalAlign {
+    display: flex;
+    align-items: center;
+}
+
+.spaceBetween {
+    justify-content: space-between;
+}
+
+.relative {
+    position: relative;
+}
+
+label {
+    font-weight: 600;
+}
+
+input[type='text'], input[type='email'], input[type='password']{
+    font-size: 16px;
+    width: 100%;
+    border: 1px solid #E9EEF5;
+    border-radius: 8px;
+    background-color: transparent;
+
+    font-size: calc(16/1440 * 100vw);
+    
+    padding: calc(14/1024 * 100vh) calc(50/1440 * 100vw) calc(14/1024 * 100vh) calc(16/1440 * 100vw);
+}
+
+.inputIcon {
+    position: absolute;
+    z-index: 2;
+    width: calc(24/1440 * 100vw);
+    height: calc(24/1440 * 100vw);
+    right: calc(16/1440 * 100vw);
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+input[type='submit'] {
+    display: inline-block;
+    margin-top: calc(40/1024 * 100vh);
+
+    font-weight: 600;
+    font-size: calc(16/1440 * 100vw);
+
+    padding: calc(12/1024 * 100vh) calc(36/1440 * 100vw);
+    
+    background: linear-gradient(180deg, #6600E8 0%, #28007B 100%);
+    border: none;
+    border-radius: 8px;
+    
+    cursor: pointer;
+}
+
+input[type='checkbox'] {
+    width: calc(28/1440 * 100vw);
+    height: calc(28/1440 * 100vw);
+    border-radius: 4px;
+    margin-right: calc(12/1440 * 100vw);
+}
+
+.field.checkbox {
+    margin-top: 24px;
+}
+
+.checkboxLabel {
+    color: #E9EEF5;
+    font-family: 'Open Sans';
+    font-size: 16px;
+    font-weight: 400;
+}
+/**/
+
+button, select, a {
+    cursor: pointer;
+}

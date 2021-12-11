@@ -1,8 +1,8 @@
-import React from "react";
-
-import '../../styles/Background.css';
+import React, {useEffect} from "react";
 
 const Background = (props) => {
+    useEffect(() => import('../../styles/Background.css'));
+    
     return (
         <div id='background'>
             <main id={props.id}>

@@ -1,12 +1,12 @@
-import React from 'react';
-
-import '../styles/Roulette.css';
+import React, {useEffect} from 'react';
 
 import {gift} from './assets/export';
 
 import AdBackground from './components/AdBackground';
 
 const Won = ({login, setCurrentPage, amount}) => {
+    useEffect(() => import('../styles/Roulette.css'));
+    
     return (
         <AdBackground login={login}>
             <div id='won' className='column'>

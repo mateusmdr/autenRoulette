@@ -1,12 +1,12 @@
-import React from "react";
-
-import '../../styles/AdBackground.css';
+import React, {useEffect} from "react";
 
 import Background from './Background';
 
 import {ad1, ad2} from '../assets/export';
 
 const AdBackground = ({children, login}) => {
+    useEffect(() => import('../../styles/AdBackground.css'));
+    
     return (
         <Background id={'adbackground'}>
             <header>

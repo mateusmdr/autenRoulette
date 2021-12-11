@@ -1,12 +1,12 @@
-import React from 'react';
-
-import '../styles/Roulette.css';
+import React, {useEffect} from 'react';
 
 import {failure as failureImg} from './assets/export';
 
 import AdBackground from './components/AdBackground';
 
 const Failure = ({login, setCurrentPage}) => {
+    useEffect(() => import('../styles/Roulette.css'));
+    
     return (
         <AdBackground login={login}>
             <div id='failure' className='column'>

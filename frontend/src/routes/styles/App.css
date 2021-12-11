@@ -3,51 +3,17 @@ Ref width: 360px
 Ref height: 640px
 */
 
-* {
-    color: white;
-    font-weight: normal;
-}
-
-.row {
-    width: 100%;
-    display: flex;
-    justify-content: center;
+h1#title {
+    font-size: calc(24/360 * 100vw);
+    margin-bottom: calc(24/640 * 100vh);
 }
 
 .column {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
     gap: calc(20/640 * 100vh);
 }
 
 .spacer {
     margin: calc(24/640 * 100vh) 0;
-}
-
-h1:not(#title), h2, h3, h4, label, button, p, input {
-    font-family: 'Open Sans', sans-serif;
-}
-
-h1#title {
-    font-family: 'Chakra Petch', monospace;
-    font-weight: 700;
-    font-size: calc(24/360 * 100vw);
-    margin-bottom: calc(24/640 * 100vh);
-}
-
-h1, h2, h3, h4, hgroup {
-    text-align: center;
-}
-
-h4, label {
-    color: #7F8896;
-}
-
-.bold {
-    font-weight: 700 !important;
-    display: inline;
 }
 
 h2 {
@@ -65,20 +31,8 @@ p {
     text-align: center;
 }
 
-img {
-    user-drag: none;
-    -webkit-user-drag: none;
-    user-select: none;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-}
-
-button {
-    font-weight: bold;
+button {    
     font-size: calc(14/360 * 100vw);
-    background-color: transparent;
-    border: none;
 }
 
 /* Form */
@@ -140,7 +94,7 @@ button {
 /**/
 
 @media screen and (min-width: 481px) {
-    body *{
+    body * {
         display: none !important;
     }
 

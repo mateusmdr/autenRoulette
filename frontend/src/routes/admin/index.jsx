@@ -24,6 +24,20 @@ const Admin = () => {
                     login={login}
                 />
             );
+        case 'pendingPrizes':
+            return (
+                <Pages.PendingPrizes
+                    setCurrentPage={setCurrentPage}
+                    login={login}
+                />
+            );
+        case 'givenPrizes':
+            return (
+                <Pages.GivenPrizes
+                    setCurrentPage={setCurrentPage}
+                    login={login}
+                />
+            );
         default: return null;
     }    
 }

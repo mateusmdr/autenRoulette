@@ -99,3 +99,88 @@ input[type='checkbox'] {
 button, select, a {
     cursor: pointer;
 }
+
+.pageTitle {
+    justify-content: space-between;
+}
+
+.pageTitle h1 {
+    text-align: left;
+    font-weight: 700;
+    font-size: calc(24/1440 * 100vw);
+    color: #BFC9DB;
+}
+
+.pageTitle input {
+    width: calc(411/1440 * 100vw);
+}
+
+#home > main {
+    margin: calc(120/1024 * 100vh) calc(64/1440 * 100vw) 0 calc(64/1440 * 100vw) !important;
+}
+
+:not(#login) > main{
+    margin: calc(60/1024 * 100vh) calc(64/1440 * 100vw) 0 calc(64/1440 * 100vw);
+    max-height: calc(571/1024 * 100vh);
+
+    display: flex;
+    flex-direction: column;
+    gap: calc(44/1024 * 100vh);
+}
+
+:not(#login) main > div {
+    gap: calc(40/1440 * 100vw);
+}
+
+.table {
+    width: 100%;
+    background-color: #221B2E;
+    border-radius: 8px;
+    padding: calc(32/1024 * 100vh) calc(32/1440 *100vw);
+
+    border-spacing: calc(12/1024 * 100vh);
+}
+
+.table tr {
+    height: calc(40/1024 * 100vh);
+}
+
+.table tr:first-of-type {
+    margin-bottom: calc(28/1024 * 100vh);
+    display: block;
+}
+
+.table tr:first-of-type th{
+    text-align: left;
+    font-weight: 700;
+    font-size: calc(18/1440 * 100vw);
+    color: #BFC9DB;
+}
+
+.table tr th {
+    text-align: left;
+    font-weight: 700;
+    font-size: calc(14/1440 * 100vw);
+    color: #E9EEF5;
+}
+
+.table tr td {
+    font-size: calc(16/1440 * 100vw);
+    font-weight: 400;
+    color: #BFC9DB;
+}
+
+.table tr td button {
+    font-weight: 400;
+    font-size: calc(16/1440 * 100vw);
+    text-decoration: underline;
+    color: #E9EEF5;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.table tr td button img{
+    width: calc(40/1024 * 100vh);
+    height: calc(40/1024 * 100vh);
+}

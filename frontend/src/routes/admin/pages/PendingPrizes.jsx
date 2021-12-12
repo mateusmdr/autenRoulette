@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import PaginatedItems from '../components/PaginatedItems';
 
-import {trophy, coloredUser, flag, checkImg} from '../assets';
+import {trophy, money, checkImg, searchIcon} from '../assets';
 
 import Background from '../components/Background';
 import Header from '../components/Header';
@@ -10,14 +10,18 @@ import Card from '../components/Card';
 
 import {formatDouble, formatPhone, formatPixKey, formatDate, formatTime} from '../utils';
 
-const Home = ({setCurrentPage, login}) => {
+const PendingPrizes = ({setCurrentPage, login}) => {
+    const [filter, setFilter] = useState('');
+
     const cards = {
         pendingPrizes: {amount: 8, text: 'Prêmios Pendentes'},
-        publishedAds: {amount: 10, text: 'Prêmios Pendentes'},
-        registeredUsers: {amount: 1032, text: 'Usuários Cadastrados'},
+        totalPendingAmount: {amount: 'R$ 0000,00', text: 'Total em Prêmios Pendentes'},
     }
 
     const items = new Array(50).fill({name : 'João Alves da Silva Gomes', phone: '(00) 00000-0000', amount: 0, pixKey: '000.000.000-00', dateTime: '2007-03-01T13:00:00Z'});
+
+    const filterRow = (item) => String(item.name + item.phone + `R$ ${formatDouble(item.amount)}` + formatPixKey(item.pixKey) + formatDate(item.dateTime) + formatTime(item.dateTime))
+        .toLocaleLowerCase().includes(filter.toLocaleLowerCase());
 
     const Row = (item, index) => {
         return (
@@ -56,18 +60,30 @@ const Home = ({setCurrentPage, login}) => {
     }
 
     return (
-        <Background id='home'>
+        <Background id='pendingPrizes'>
             <Header setCurrentPage={setCurrentPage}/>
             <main>
+                <div className='verticalAlign pageTitle'>
+                    <h1>Prêmios Pendentes</h1>
+                    <div className='relative'>
+                        <input 
+                            type='text' id='filter' name='filter' placeholder='Pesquise aqui'
+                            value={filter}
+                            onChange={e => setFilter(e.target.value)}
+                            maxLength={255}
+                            required
+                        />
+                        <img className='inputIcon' src={searchIcon} alt='Ícone de lupa'/>
+                    </div>
+                </div>
                 <div className='verticalAlign'>
                     <Card imgSrc={trophy} imgAlt={'Ícone colorido de Troféu'} {...cards.pendingPrizes}/>
-                    <Card imgSrc={flag} imgAlt={'Ícone colorido de flag'} {...cards.publishedAds}/>
-                    <Card imgSrc={coloredUser} imgAlt={'Ícone colorido de usuário'} {...cards.registeredUsers}/>
+                    <Card imgSrc={money} imgAlt={'Ícone colorido de dinheiro'} {...cards.totalPendingAmount}/>
                 </div>
-                <PaginatedItems itemsPerPage={7} TableComponent={Table} items={items}/>
+                <PaginatedItems itemsPerPage={6} TableComponent={Table} items={items.filter(filterRow)}/>
             </main>
         </Background>
     );
 }
 
-export default Home;
+export default PendingPrizes;

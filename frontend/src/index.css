@@ -36,7 +36,7 @@ ul {
     justify-content: center;
 }
 
-h1:not(#title), h2, h3, h4, label, button, p, input, ul, li {
+h1:not(#title), h2, h3, h4, label, button, p, input, ul, li, td, tr, th, thead, tbody {
     font-family: 'Open Sans', sans-serif;
 }
 

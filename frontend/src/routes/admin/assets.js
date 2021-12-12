@@ -6,5 +6,11 @@ import passwordIcon from './assets/passwordIcon.svg';
 import headerCoins from './assets/headerCoins.svg';
 import arrowDown from './assets/arrowDown.svg';
 import arrowUp from './assets/arrowUp.svg';
+import trophy from './assets/trophy.svg';
+import coloredUser from './assets/coloredUser.svg';
+import flag from './assets/flag.svg';
+import checkImg from './assets/check.svg';
+import money from './assets/money.svg';
+import searchIcon from './assets/searchIcon.svg';
 
-export {loginBottomCoins, loginLights, loginTopCoins, personIcon, passwordIcon, headerCoins, arrowDown, arrowUp};
+export {loginBottomCoins, loginLights, loginTopCoins, personIcon, passwordIcon, headerCoins, arrowDown, arrowUp, trophy, coloredUser, flag, checkImg, money, searchIcon};

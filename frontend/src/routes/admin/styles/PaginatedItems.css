@@ -1,0 +1,23 @@
+.paginate {
+    display: flex;
+    gap: calc(32/1440 * 100vw);
+    position: absolute;
+    bottom: calc(40/1024 * 100vh);
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.paginate li a{
+    color: #E9EEF5;
+    font-size: calc(18/1440 * 100vw);
+    font-family: 'Open Sans', sans-serif;
+    padding: 5px;
+}
+
+.paginate li.selected a{
+    font-weight: 700;
+    background: -webkit-linear-gradient(90deg, #4E2FD2 0%, #9948CA 21.92%, #C7509B 50.05%, #D46A7B 75%, #DFA55B 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}

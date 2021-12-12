@@ -40,7 +40,7 @@ header button.dropdown img {
     margin-left: 4px;
 }
 
-header ul.selectPopUp {
+header ul#selectPopUp {
     position: absolute;
     left: 0;
     width: 100%;
@@ -49,21 +49,28 @@ header ul.selectPopUp {
 
     box-sizing: content-box;
 
-    display: flex;
+    display: none;
     flex-direction: column;
     gap: 24px;
     box-shadow: 0 calc(8/1024 * 100vh) calc(40/1024 * 100vh) 0 rgba(127, 136, 150, 0.16);
-    transition: 1s;
     border-radius: 8px;
+    opacity: 0;
+    transition: 1s;
+    z-index: 2;
 }
 
-header ul.selectPopUp li {
+header ul#selectPopUp li {
     font-size: calc(16/1024 * 100vh);
     font-weight: 400;
     color: #E9EEF5;
     cursor: pointer;
 }
 
-.hide {
-    display: none !important;
+header ul#selectPopUp.popup-shown {
+    opacity: 1 !important;
+}
+
+header ul#selectPopUp.popup-hidden {
+    opacity: 0;
+    overflow: hidden;
 }

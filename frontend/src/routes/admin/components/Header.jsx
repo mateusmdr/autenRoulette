@@ -1,18 +1,25 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 
 import {headerCoins, arrowDown, arrowUp} from '../assets';
+import '../styles/Header.css';
 
-const Header = ({setCurrentPage}) => {
-    useEffect(() => import('../styles/Header.css'));
-
+const Header = ({setCurrentPage}) => {    
     const [selectPopUp, setSelectPopUp] = useState(false);
-    const [displayPopUp, setDisplayPopUp] = useState(false);
+    const [displayTimeout, setDisplayTimeout] = useState(null);
 
     const toggleSelectPopUp = () => {
-        setSelectPopUp(!selectPopUp);
-        setTimeout(() => {
-            setDisplayPopUp(selectPopUp ? 'hide' : false)
-        },1000)
+        clearTimeout(displayTimeout);
+        if (!selectPopUp) {
+            document.getElementById('selectPopUp').style.display = 'flex';
+        }else{
+            setDisplayTimeout(
+                setTimeout(() => {
+                    document.getElementById('selectPopUp').style.display = 'none';
+                }, 1000)
+            );
+        }
+        
+        setTimeout(() => setSelectPopUp(!selectPopUp),0);
     }
 
     return (
@@ -33,7 +40,7 @@ const Header = ({setCurrentPage}) => {
                         <label>Prêmios</label>
                         <img src={selectPopUp ? arrowDown : arrowUp} alt='Seta indicando caixa de seleção'/>
                     </button>
-                    <ul className={'selectPopUp' + (displayPopUp==='hide' ? ' hide' : '')} style={{opacity: selectPopUp ? 1 : 0}}>
+                    <ul id='selectPopUp' className={`${selectPopUp ? 'popup-shown' : 'popup-hidden'}`}>
                         <li onClick={() => setCurrentPage('registeredPrizes')}>Cadastrados</li>
                         <li onClick={() => setCurrentPage('pendingPrizes')}>Pendentes</li>
                         <li onClick={() => setCurrentPage('givenPrizes')}>Entregues</li>

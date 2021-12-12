@@ -1,0 +1,33 @@
+.card {
+    min-width: calc(300/1440 * 100vw);
+    min-height: calc(120/1024 * 100vh);
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+
+    border-radius: 8px;
+    background-color: #221B2E;
+    padding: calc(20/1024 * 100vh) calc(28/1440 * 100vw);
+}
+
+.card img {
+    position: absolute;
+    top: 20px;
+    right: 28px;
+}
+
+.card h1 {
+    color: #BFC9DB;
+    font-weight: 700;
+    margin-right: calc(16/1440 * 100vw);
+    font-size: calc(32/1440 * 100vw);
+}
+
+.card h2 {
+    color: white;
+    font-weight: 400;
+    font-size: calc(16/1440 * 100vw);
+    max-width: calc(160/1440 * 100vw);
+    font-size: calc(16/1440 * 100vw);
+    text-align: left;
+}

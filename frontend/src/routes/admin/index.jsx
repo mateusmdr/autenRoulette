@@ -38,6 +38,13 @@ const Admin = () => {
                     login={login}
                 />
             );
+        case 'registeredPrizes':
+            return (
+                <Pages.RegisteredPrizes 
+                    setCurrentPage={setCurrentPage}
+                    login={login}
+                />
+            );
         default: return null;
     }    
 }

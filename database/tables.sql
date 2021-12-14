@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS admins (
 
 CREATE TABLE IF NOT EXISTS availablePrizes (
     id SERIAL NOT NULL,
-    maxDraws INTEGER NOT NULL,
+    maxDraws INTEGER,
     amount NUMERIC,
     resultType result_t NOT NULL,
     resetPeriod period_t NOT NULL,
@@ -68,10 +68,14 @@ CREATE TABLE IF NOT EXISTS availablePrizes (
 
     /*Require field to be filled and positive if result type was success*/
     CHECK (
+        (resultType!='success' AND amount IS NULL AND maxDraws IS NULL) OR 
+        (resultType='success' AND amount IS NOT NULL AND amount>0 AND maxDraws IS NOT NULL)
+    ),
+    CHECK (
         (resultType!='success' AND amount IS NULL) OR 
         (resultType='success' AND amount IS NOT NULL AND amount>0)
     ),
-    /*Require field to be positive*/
+    /*Require field to be positive*/    
     CHECK (maxDraws > 0),
     CHECK (drawNumber >= 0),
     /*Can't draw more than the maximum*/

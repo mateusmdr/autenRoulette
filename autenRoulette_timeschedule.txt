@@ -9,3 +9,5 @@ times are in GMT-4
 09/12/21 (15:20 - 16:35) | Adicionando páginas restandes do frontend - 1h 15min
 10/12/21 (07:10 - 10:40) | Banco de dados - 3h 30min
 10/12/21 (15:30 - 19:30) | Roteamento admin, Tela Login, Header - 4h
+12/12/21 (14:00 - 16:30) | Páginas GivenPrizes, Home, e PendingPrizes, com paginação dinâmica - ~2h 30min
+14/12/21 (11:00 - 13:30) | Página RegisteredPrizes (exceto evento de edição de prêmios)

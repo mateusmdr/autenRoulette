@@ -12,5 +12,12 @@ import flag from './assets/flag.svg';
 import checkImg from './assets/check.svg';
 import money from './assets/money.svg';
 import searchIcon from './assets/searchIcon.svg';
+import innerRoulette from './assets/innerRoulette.svg';
+import outerRoulette from './assets/outerRoulette.svg';
+import rouletteBackground from './assets/rouletteBackground.svg';
+import editIcon from './assets/editIcon.svg';
 
-export {loginBottomCoins, loginLights, loginTopCoins, personIcon, passwordIcon, headerCoins, arrowDown, arrowUp, trophy, coloredUser, flag, checkImg, money, searchIcon};
+export {
+    loginBottomCoins, loginLights, loginTopCoins, personIcon, passwordIcon, headerCoins, arrowDown, arrowUp, trophy,
+    coloredUser, flag, checkImg, money, searchIcon, innerRoulette, outerRoulette, rouletteBackground, editIcon
+};

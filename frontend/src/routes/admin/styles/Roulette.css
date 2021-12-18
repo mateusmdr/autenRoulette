@@ -69,11 +69,11 @@
 }
 
 #roulette .segment h2 {
-    padding-left:  10px;
     box-sizing: content-box;
     text-align: left;
     font-weight: 700;
     font-size: calc(11/1440 * 100vw);
     max-width: calc(60/1440 * 100vw);
+    text-align: center;
 }
 /**/

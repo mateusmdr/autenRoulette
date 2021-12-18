@@ -1,0 +1,51 @@
+.modal {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top:0;
+    left:0;
+}
+
+.modal .modalBackground {
+    position: fixed;
+    background-color: rgba(0,0,0,.3);
+    width: 100vw;
+    height: 100vh;
+}
+
+.modal .modalContainer {
+    position: absolute;
+    width: calc(80/100 * 100vw);
+    height: calc(80/100 * 100vh);
+    background-color: #221B2E;;
+    z-index: 6;
+    padding-top: calc(40/1024 * 100vh);
+    display: flex;
+    justify-content: center;
+}
+
+.modal .modalContainer > div {
+    width: 35%;
+}
+
+.modal .modalCloseButton {
+    right: 2vw;
+    top: 2vw;
+    position: absolute;
+}
+
+.modal .modalContainer hgroup {
+    margin-bottom: calc(80/1024 * 100vh);
+    display: flex;
+    flex-direction: column;
+    gap: calc(20/1024* 100vh);
+}
+
+.modal .modalContainer .title {
+    font-size: calc(32/1440 * 100vw);
+    font-weight: 700;
+}

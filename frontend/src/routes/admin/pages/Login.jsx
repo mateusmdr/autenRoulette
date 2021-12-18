@@ -22,7 +22,7 @@ const Login = ({setCurrentPage, setLogin}) => {
                             </div>
                         </hgroup>
                     </div>
-                    <label htmlFor='name'>Login</label>
+                    <label htmlFor='email'>Email</label>
                     <div className='field'>
                         <input 
                             type='email' id='email' name='email' placeholder='E-mail'
@@ -33,7 +33,7 @@ const Login = ({setCurrentPage, setLogin}) => {
                         />
                         <img className='inputIcon' src={personIcon} alt='Ícone de usuário'/>
                     </div>
-                    <label htmlFor='password'>Telefone</label>
+                    <label htmlFor='password'>Senha</label>
                     <div className='field'>
                         <input 
                             type='password' id='password' name='password' placeholder='Senha'

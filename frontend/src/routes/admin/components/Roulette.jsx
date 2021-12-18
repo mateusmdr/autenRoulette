@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { innerRoulette, outerRoulette, rouletteBackground } from '../assets';
-
-import '../styles/Roulette.css';
+import { formatResultType } from '../utils';
 
 const Roulette = ({values}) => {
+    useEffect(() => import('../styles/Roulette.css'));
     return (
         <div id='roulette'>
             <img className='outer' src={outerRoulette} alt='Círculo de luzes brancas ao redor da roleta'/>
@@ -20,7 +20,7 @@ const Roulette = ({values}) => {
                     };
                     return (
                         <div style={segmentStyle} className='segment' key={item.position}>
-                            <h2>{item.resultType === 'success' ? `R$ ${item.amount}` : 'Outro tipo'}</h2>
+                            <h2>{item.resultType === 'success' ? `R$ ${item.amount}` : formatResultType(item.resultType)}</h2>
                         </div>
                     );
                 })} 

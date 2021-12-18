@@ -77,9 +77,7 @@ CREATE TABLE IF NOT EXISTS availablePrizes (
     ),
     /*Require field to be positive*/    
     CHECK (maxDraws > 0),
-    CHECK (drawNumber >= 0),
-    /*Can't draw more than the maximum*/
-    CHECK (drawNumber <= maxDraws)
+    CHECK (drawNumber >= 0)
 );
 
 CREATE TABLE IF NOT EXISTS ads (

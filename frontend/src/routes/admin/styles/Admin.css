@@ -27,6 +27,10 @@ Ref height: 1024px
     align-items: center;
 }
 
+.noScroll {
+    overflow: hidden !important;
+}
+
 .spaceBetween {
     justify-content: space-between;
 }
@@ -39,7 +43,7 @@ label {
     font-weight: 600;
 }
 
-input[type='text'], input[type='email'], input[type='password']{
+input[type='text'], input[type='email'], input[type='password'], input[type='number'], select{
     font-size: 16px;
     width: 100%;
     border: 1px solid #E9EEF5;
@@ -49,6 +53,8 @@ input[type='text'], input[type='email'], input[type='password']{
     font-size: calc(16/1440 * 100vw);
     
     padding: calc(14/1024 * 100vh) calc(50/1440 * 100vw) calc(14/1024 * 100vh) calc(16/1440 * 100vw);
+
+    -moz-appearance: textfield;
 }
 
 .inputIcon {
@@ -183,4 +189,14 @@ button, select, a {
 .table tr td button img{
     width: calc(40/1024 * 100vh);
     height: calc(40/1024 * 100vh);
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+option {
+    color: black;
 }

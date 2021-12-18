@@ -13,7 +13,6 @@ ul {
 
 *:focus {
     outline: none;
-    border: 0;
 }
 
 * {

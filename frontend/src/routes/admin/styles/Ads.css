@@ -1,0 +1,46 @@
+#ads{
+    overflow-y: scroll;
+}
+
+#ads table {
+    padding: calc(32/1440*100vw);
+    background-color: #221B2E;
+
+    border-spacing: calc(40/1440 * 100vw);
+    width: calc(1311/1440 * 100vw);
+}
+
+#ads td {
+    vertical-align: super;
+    background: linear-gradient(180deg, #10061D 0%, #200B36 100%, #120721 100%);
+    padding: calc(12/1440*100vw);
+    border-radius: 8px;
+}
+
+#ads .adCard {
+    height: 100%;
+    max-width: calc(389/1440 * 100vw);
+    display: flex;
+    align-items: flex-start;
+    gap: 4px;
+    overflow: hidden;
+}
+
+#ads .adCard h3 {
+    font-size: 16px;
+}
+
+#ads .adCard h3.bold {
+    margin-right: 10px;
+    font-size: 14px;
+}
+
+#ads .adCard > :first-child {
+    align-self: flex-end;
+    gap: 10px;
+    z-index: 3;
+}
+
+#registeredPrizes .adCard :first-child img {
+    display: block;
+}

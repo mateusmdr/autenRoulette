@@ -3,5 +3,7 @@ import Home from './pages/Home';
 import PendingPrizes from './pages/PendingPrizes';
 import GivenPrizes from './pages/GivenPrizes';
 import RegisteredPrizes from './pages/RegisteredPrizes';
+import Ads from './pages/Ads';
+import CreateAd from './pages/CreateAd';
 
-export {Login, Home, PendingPrizes, GivenPrizes, RegisteredPrizes};
+export {Login, Home, PendingPrizes, GivenPrizes, RegisteredPrizes, Ads, CreateAd};

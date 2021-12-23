@@ -33,4 +33,6 @@ const formatPeriodType = (type) => {
     }
 }
 
-export {formatDouble, formatPhone, formatPixKey, formatDate, formatTime, formatResultType, formatPeriodType}
+const formatLocationFilter = (locationFilter) => locationFilter[0].locationName;
+
+export {formatDouble, formatPhone, formatPixKey, formatDate, formatTime, formatResultType, formatPeriodType, formatLocationFilter}

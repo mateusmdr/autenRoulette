@@ -45,6 +45,20 @@ const Admin = () => {
                     login={login}
                 />
             );
+        case 'ads':
+            return (
+                <Pages.Ads
+                    setCurrentPage={setCurrentPage}
+                    login={login}
+                />
+            );
+        case 'createAd':
+            return (
+                <Pages.CreateAd
+                    setCurrentPage={setCurrentPage}
+                    login={login}
+                />
+            );
         default: return null;
     }    
 }

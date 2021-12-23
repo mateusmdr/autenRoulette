@@ -17,8 +17,10 @@ import outerRoulette from './assets/outerRoulette.svg';
 import rouletteBackground from './assets/rouletteBackground.svg';
 import editIcon from './assets/editIcon.svg';
 import closeIcon from './assets/closeIcon.svg';
+import removeIcon from './assets/removeIcon.svg';
 
 export {
     loginBottomCoins, loginLights, loginTopCoins, personIcon, passwordIcon, headerCoins, arrowDown, arrowUp, trophy,
-    coloredUser, flag, checkImg, money, searchIcon, innerRoulette, outerRoulette, rouletteBackground, editIcon, closeIcon
+    coloredUser, flag, checkImg, money, searchIcon, innerRoulette, outerRoulette, rouletteBackground, editIcon, closeIcon,
+    removeIcon
 };

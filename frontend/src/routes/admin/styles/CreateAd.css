@@ -1,0 +1,89 @@
+#createAd .formContainer {
+    display: flex;
+    flex-direction: column;
+
+    width: calc(636/1440 * 100vw);
+    background-color: #221B2E;
+    border-radius: 8px;
+    margin: 0 auto;
+    padding: calc(64/1024 * 100vh) calc(114/1440 * 100vw);
+
+    gap: calc(48/1024 * 100vh);
+}
+
+#createAd .formTitle h1{
+    font-weight: 700;
+    margin-left: 30px;
+    color: #BFC9DB;
+}
+
+#createAd .stageBar {
+    gap: 36px;
+}
+
+#createAd .stageBar li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#createAd .stageBar li img {
+    margin-right: 12px;
+}
+
+#createAd .stageBar li .currentStage {
+    color: #F550CA;
+}
+
+#createAd .formActions {
+    align-self: flex-end;
+    display: flex;
+    gap: 24px;
+}
+
+#createAd .formActions .cancel {
+    background: #BFC9DB;
+    color:#28007B;
+}
+
+#createAd .formContainer label {
+    color:#7F8896;
+}
+
+#createAd input[type='text'] {
+    color: #BFC9DB;
+    font-size: calc(16/1440 * 100vw);
+}
+
+#createAd .dates {
+    display: flex;
+    align-items: center;
+}
+
+#createAd .dateSpacer {
+    display: inline-block;
+    width: 10%;
+    text-align: center;
+    font-size: 16px;
+}
+
+#createAd input[type='date'] {
+    width: 45%;
+    padding: calc(14/1024 * 100vh) 20px calc(14/1024 * 100vh) calc(16/1440 * 100vw);
+    background-color: transparent;
+    border: 1px solid #BFC9DB;
+    border-radius: 8px;
+
+    color: #BFC9DB;
+    font-size: calc(16/1440 * 100vw);
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    color: rgba(0, 0, 0, 0);
+    opacity: 1;
+    display: block;
+    background: url('../assets/calendar.svg') no-repeat;
+    width: 20px;
+    height: 20px;
+    border-width: thin;
+}

@@ -35,4 +35,30 @@ const formatPeriodType = (type) => {
 
 const formatLocationFilter = (locationFilter) => locationFilter[0].locationName;
 
-export {formatDouble, formatPhone, formatPixKey, formatDate, formatTime, formatResultType, formatPeriodType, formatLocationFilter}
+const formatDateHtml = (date) => {
+    return date.toISOString().split('T')[0];
+}
+
+const getStates = async() => {
+    const states = await fetch('https://servicodados.ibge.gov.br/api/v1/localidades/estados',{
+        method: 'GET',
+        mode: 'no-cors',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    });
+    return await states;
+}
+
+const getCitiesByState = async(stateId) => {
+    const cities = await fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${stateId}/municipios`,{
+        method: 'GET',
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    });
+    return await cities.json();
+}
+
+export {formatDouble, formatPhone, formatPixKey, formatDate, formatTime, formatResultType, formatPeriodType, formatLocationFilter, formatDateHtml,getStates,getCitiesByState}

@@ -44,3 +44,14 @@
 #registeredPrizes .adCard :first-child img {
     display: block;
 }
+
+.adBanner {
+    width: calc(312/1440 * 100vw);
+    height: calc((60/312) * 312/1440 * 100vw);
+    display: block;
+    margin-top: 20px;
+}
+
+#ads input[type='submit'] {
+    padding: calc(12/1024 * 100vh) calc(24/1440*100vw);
+}

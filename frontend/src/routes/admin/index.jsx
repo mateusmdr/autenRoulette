@@ -9,6 +9,8 @@ const Admin = () => {
 
     const [login, setLogin] = useState({email: '', password: ''});
 
+    const [selectedAd, setSelectedAd] = useState(null);
+
     switch(currentPage) {
         case 'login':
             return (
@@ -50,6 +52,7 @@ const Admin = () => {
                 <Pages.Ads
                     setCurrentPage={setCurrentPage}
                     login={login}
+                    setSelectedAd={setSelectedAd}
                 />
             );
         case 'createAd':
@@ -57,6 +60,7 @@ const Admin = () => {
                 <Pages.CreateAd
                     setCurrentPage={setCurrentPage}
                     login={login}
+                    selectedAd={selectedAd}
                 />
             );
         default: return null;

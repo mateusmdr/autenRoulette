@@ -117,7 +117,7 @@ button, select, a {
     color: #BFC9DB;
 }
 
-.pageTitle input {
+.pageTitle input[type='text'] {
     width: calc(411/1440 * 100vw);
 }
 

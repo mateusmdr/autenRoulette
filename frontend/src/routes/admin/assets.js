@@ -19,8 +19,16 @@ import editIcon from './assets/editIcon.svg';
 import closeIcon from './assets/closeIcon.svg';
 import removeIcon from './assets/removeIcon.svg';
 
+import radioDefault from './assets/radio-default.svg';
+import radioCurrent from './assets/radio-current.svg';
+import radioComplete from './assets/radio-complete.svg';
+
+import linkIcon from './assets/linkIcon.svg';
+
+const radio = {radioDefault, radioCurrent ,radioComplete}
+
 export {
     loginBottomCoins, loginLights, loginTopCoins, personIcon, passwordIcon, headerCoins, arrowDown, arrowUp, trophy,
     coloredUser, flag, checkImg, money, searchIcon, innerRoulette, outerRoulette, rouletteBackground, editIcon, closeIcon,
-    removeIcon
+    removeIcon, radio, linkIcon
 };

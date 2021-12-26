@@ -1,86 +1,174 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
-import PaginatedItems from '../components/PaginatedItems';
-
-import {trophy, money, checkImg, searchIcon} from '../assets';
+import {flag, radio, linkIcon} from '../assets';
 
 import Background from '../components/Background';
 import Header from '../components/Header';
-import Card from '../components/Card';
 
-import {formatDouble, formatPhone, formatPixKey, formatDate, formatTime} from '../utils';
+import {formatDateHtml, getStates, getCitiesByState} from '../utils';
 
-const CreateAd = ({setCurrentPage, login}) => {
-    const [filter, setFilter] = useState('');
+import '../styles/CreateAd.css';
 
-    const cards = {
-        pendingPrizes: {amount: 8, text: 'Prêmios Pendentes'},
-        totalPendingAmount: {amount: 'R$ 0000,00', text: 'Total em Prêmios Pendentes'},
+const StageImg = ({stageNumber, formStage}) => {
+    return(formStage === stageNumber ? (
+        <img src={radio.radioCurrent} alt='Círculo indicando o estágio atual'/>
+    ) : formStage > stageNumber ? (
+        <img src={radio.radioComplete} alt='Círculo indicando um estágio já preenchido'/>
+    ) : (
+        <img src={radio.radioDefault} alt='Círculo indicando um estágio a preencher'/>
+    ));
+}
+
+const Form = ({selectedAd, setCurrentPage}) => {
+    const today = new Date();
+
+    const [input, setInput] = useState({
+        companyName: '', initialDate: today, expirationDate: new Date(Date.now().valueOf() + 86400000), linkUrl : '',
+        state: '', city: ''
+    });
+    const [stage, setStage] = useState(0);
+
+    const [states, setStates] = useState([]);
+    const [cities, setCities] = useState([]);
+
+    useEffect(async () => {
+        const availableStates = await getCitiesByState();
+        console.log(availableStates);
+        setStates(availableStates);
+    },[]);
+
+    const createAd = () => {
+        console.log(input);
     }
 
-    const items = new Array(50).fill({name : 'João Alves da Silva Gomes', phone: '(00) 00000-0000', amount: 0, pixKey: '000.000.000-00', dateTime: '2007-03-01T13:00:00Z'});
-
-    const filterRow = (item) => String(item.name + item.phone + `R$ ${formatDouble(item.amount)}` + formatPixKey(item.pixKey) + formatDate(item.dateTime) + formatTime(item.dateTime))
-        .toLocaleLowerCase().includes(filter.toLocaleLowerCase());
-
-    const Row = (item, index) => {
-        return (
-            <tr key={index}>
-                <td>{item.name}</td>
-                <td>{formatPhone(item.phone)}</td>
-                <td>{`R$ ${formatDouble(item.amount)}`}</td>
-                <td>{formatPixKey(item.pixKey)}</td>
-                <td>{formatDate(item.dateTime)}</td>
-                <td>{formatTime(item.dateTime)}</td>
-                <td>
-                    <button onClick={() => console.log('Confirmar pagamento de id ' + index)}><img src={checkImg} alt='Ícone verde de confirmação'/>Confirmar Pagamento</button>
-                </td>
-            </tr>
-        );
-    }
-
-    const Table = ({currentItems}) => {
-        return(
-            <table className='table'>
-                <tbody>
-                    <tr><th>Prêmios Pendentes</th></tr>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Telefone</th>
-                        <th>Prêmio</th>
-                        <th>PIX</th>
-                        <th>Data</th>
-                        <th>Hora</th>
-                        <th>Ação</th>
-                    </tr>
-                    {currentItems.map(Row)}
-                </tbody>
-            </table>
-        );
-    }
-
-    return (
-        <Background id='pendingPrizes'>
-            <Header setCurrentPage={setCurrentPage}/>
-            <main>
-                <div className='verticalAlign pageTitle'>
-                    <h1>Prêmios Pendentes</h1>
-                    <div className='relative'>
+    return(<>
+        <ul className='stageBar verticalAlign'>
+            <li>
+                <StageImg stageNumber={0} formStage={stage}/>
+                <label className={stage===0 ? 'currentStage' : ''}>Identificação</label>
+            </li>
+            <li>
+                <StageImg stageNumber={1} formStage={stage}/>
+                <label className={stage===1 ? 'currentStage' : ''}>Localização</label>
+            </li>
+            <li>
+                <StageImg stageNumber={2} formStage={stage}/>
+                <label className={stage===2 ? 'currentStage' : ''}>Imagem</label>
+            </li>
+        </ul>
+        {(stage === 0 ? (
+            <>
+                <div>
+                    <label htmlFor='companyName'>Empresa *</label>
+                    <div className='field'>
                         <input 
-                            type='text' id='filter' name='filter' placeholder='Pesquise aqui'
-                            value={filter}
-                            onChange={e => setFilter(e.target.value)}
-                            maxLength={255}
-                            required
+                            type='text' id='companyName' name='companyName'
+                            placeholder='Nome da Empresa'
+                            value={input.companyName}
+                            onChange={e => setInput({...input, companyName: e.target.value})}
+                            required={true}
                         />
-                        <img className='inputIcon' src={searchIcon} alt='Ícone de lupa'/>
                     </div>
                 </div>
-                <div className='verticalAlign'>
-                    <Card imgSrc={trophy} imgAlt={'Ícone colorido de Troféu'} {...cards.pendingPrizes}/>
-                    <Card imgSrc={money} imgAlt={'Ícone colorido de dinheiro'} {...cards.totalPendingAmount}/>
+                <div>
+                    <label htmlFor='initialDate'>Tempo de exibição *</label>
+                    <div className='field dates'>
+                        <input 
+                            type='date' id='initialDate' name='initialDate'
+                            min={formatDateHtml(today)}
+                            value={formatDateHtml(input.initialDate)}
+                            onChange={e => setInput({...input, initialDate: new Date(e.target.value)})}
+                            required={true}
+                        />
+                        <h2 className='dateSpacer'>Até</h2>
+                        <input 
+                            type='date' id='expirationDate' name='expirationDate'
+                            min={formatDateHtml(today)}
+                            value={formatDateHtml(input.expirationDate)}
+                            onChange={e => setInput({...input, expirationDate: new Date(e.target.value)})}
+                            required={true}
+                        />
+                    </div>
                 </div>
-                <PaginatedItems itemsPerPage={6} TableComponent={Table} items={items.filter(filterRow)}/>
+                <div>
+                    <label htmlFor='linkUrl'>Link *</label>
+                    <div className='field'>
+                        <input 
+                            type='text' id='linkUrl' name='linkUrl'
+                            placeholder='Link do Anúncio'
+                            value={input.linkUrl}
+                            onChange={e => setInput({...input, linkUrl: e.target.value})}
+                            required={true}
+                        />
+                        <img className='inputIcon' src={linkIcon} alt='Ícone de clipe representando link'/>
+                    </div>
+                </div>
+            </>
+        ) : stage === 1 ? (
+            <div>
+                <div className='field'>
+                    <label htmlFor='state'>Estado</label>
+                    <select 
+                        id='state' required={true}
+                        value={input.state}
+                        onChange={e => setInput({...input, state: e.target.value})}
+                    >
+                        <option disabled value={''}>Selecione</option>
+                        {states.length > 0 && states.map(state => <option value={state.id} key={state.id}>{state.nome}</option>)}
+                    </select>
+                    <span>Você pode escolher mais de um</span>
+                </div>
+                <label htmlFor='country'>Link *</label>
+                <div className='field'>
+                    <input 
+                        type='text' id='country' name='country'
+                        placeholder='País'
+                        value={input.linkUrl}
+                        onChange={e => setInput({...input, linkUrl: e.target.value})}
+                        required={true}
+                    />
+                    <img className='inputIcon' src={linkIcon} alt='Ícone de clipe representando link'/>
+                </div>
+            </div>
+        ) : (
+            null
+        ))}
+        <div className='formActions'>
+            <input className='cancel' type='submit' value={stage===0 ? 'Cancelar' : 'Voltar'}
+                onClick={() => {
+                    if(stage===0)
+                        setCurrentPage('ads');
+                    else
+                        setStage(stage-1);
+                }}
+            />
+            <input type='submit' value={stage===2 ? 'Concluir' : 'Continuar'}
+                onClick={() => {
+                    if(stage===2){
+                        createAd();
+                        setCurrentPage('ads');
+                    }
+                    else{
+                        setStage(stage+1);
+                    }
+                }}
+            />
+        </div>
+    </>);
+}
+
+const CreateAd = ({setCurrentPage, login, selectedAd}) => {
+    return (
+        <Background id='createAd'>
+            <Header setCurrentPage={setCurrentPage}/>
+            <main>
+                <div className='formContainer'>
+                    <div className='formTitle verticalAlign'>
+                        <img src={flag} alt='Ícone colorido de bandeira'/>
+                        <h1>{selectedAd ? 'Editar Anúncio' : 'Novo Anúncio'}</h1>
+                    </div>
+                    <Form selectedAd={selectedAd} setCurrentPage={setCurrentPage}/>
+                </div>
             </main>
         </Background>
     );

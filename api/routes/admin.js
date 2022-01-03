@@ -1,10 +1,10 @@
 import express from "express";
-const router = express.Router();
+const route = express.Router();
 
 /**API routes */
-router.get('/', (req,res) => {
+route.get('/', (req,res) => {
     res.send('Admin Home Page');
 });
 /***/
 
-export default router;
+export default route;

@@ -1,9 +1,9 @@
 import express from 'express';
 import cors from 'cors';
 
-import admin from './routes/admin';
+import admin from './routes/admin.js';
 
-// import 'dotenv/config';
+import 'dotenv/config';
 
 /**API setup */
 
@@ -14,13 +14,13 @@ api.use(express.urlencoded({ extended: true }));
 
 api.disable('x-powered-by'); //Remove X-Powered-By header
 
-api.use('/admin',admin)
-
-api.listen(3000, () => {
-    console.log(`The API is now listening to port ${3000}!`);
+api.listen(process.env.PORT, () => {
+    console.log(`The API is now listening to port ${process.env.PORT}!`);
 });
 
 /**API routes */
+
+api.use('/admin',admin);
 
 api.get('/',(req, res) => {
     res.sendStatus(200);

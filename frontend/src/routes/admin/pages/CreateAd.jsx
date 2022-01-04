@@ -1,11 +1,14 @@
 import React, {useEffect, useState} from 'react';
 
-import {flag, radio, linkIcon} from '../assets';
+import {flag, radio, linkIcon, deleteIcon, imageInput} from '../assets';
+
+import {Chip, Button} from '@mui/material';
 
 import Background from '../components/Background';
 import Header from '../components/Header';
 
-import {formatDateHtml, getStates, getCitiesByState} from '../utils';
+import {formatDateHtml} from '../utils';
+import {getStates, getCitiesByState} from '../queries/ibge';
 
 import '../styles/CreateAd.css';
 
@@ -23,23 +26,45 @@ const Form = ({selectedAd, setCurrentPage}) => {
     const today = new Date();
 
     const [input, setInput] = useState({
-        companyName: '', initialDate: today, expirationDate: new Date(Date.now().valueOf() + 86400000), linkUrl : '',
-        state: '', city: ''
+        companyName: '', initialDate: today, expirationDate: new Date(Date.now().valueOf() + 86400000), linkUrl : ''
     });
+    const [selectedStates, setSelectedStates] = useState([]);
+    const [selectedCities, setSelectedCities] = useState([]);
+    
     const [stage, setStage] = useState(0);
 
     const [states, setStates] = useState([]);
     const [cities, setCities] = useState([]);
 
-    useEffect(async () => {
-        const availableStates = await getCitiesByState();
-        console.log(availableStates);
-        setStates(availableStates);
+    useEffect(() => {
+        (async() => {
+            const availableStates = await getStates();
+            console.log(availableStates);
+            setStates(availableStates);
+        })();
     },[]);
+
+    useEffect(() => {
+        (async() => {
+            const availableCities = await getCitiesByState(selectedStates);
+            console.log(availableCities);
+            setCities(availableCities);
+        })();
+    },[selectedStates]);
 
     const createAd = () => {
         console.log(input);
     }
+
+    const handleCapture = ({ target }) => {
+        const fileReader = new FileReader();
+        const name = target.accept.includes('image') ? 'images' : 'videos';
+        console.log('aaa')
+        fileReader.readAsDataURL(target.files[0]);
+        fileReader.onload = (e) => {
+            console.log(e.target.result, name);
+        };
+    };
 
     return(<>
         <ul className='stageBar verticalAlign'>
@@ -53,7 +78,7 @@ const Form = ({selectedAd, setCurrentPage}) => {
             </li>
             <li>
                 <StageImg stageNumber={2} formStage={stage}/>
-                <label className={stage===2 ? 'currentStage' : ''}>Imagem</label>
+                <label className={stage===2 ? 'currentStage' : ''}>Banner</label>
             </li>
         </ul>
         {(stage === 0 ? (
@@ -110,28 +135,74 @@ const Form = ({selectedAd, setCurrentPage}) => {
                     <label htmlFor='state'>Estado</label>
                     <select 
                         id='state' required={true}
-                        value={input.state}
-                        onChange={e => setInput({...input, state: e.target.value})}
+                        value=''
+                        onChange={e => setSelectedStates([...selectedStates, states.find(el => (e.target.value.valueOf() === String(el.id).valueOf()))])}
                     >
                         <option disabled value={''}>Selecione</option>
-                        {states.length > 0 && states.map(state => <option value={state.id} key={state.id}>{state.nome}</option>)}
+                        {states.length > 0 && 
+                            states.filter(state => (!selectedStates.find(el => el.id === state.id))) // don't show selectedStates as options
+                                .sort((a,b) => a.nome.localeCompare(b.nome)) // order by name
+                                .map(state => <option value={state.id} key={state.id}>{state.nome}</option>)
+                        }
                     </select>
                     <span>Você pode escolher mais de um</span>
                 </div>
-                <label htmlFor='country'>Link *</label>
+                <div className='verticalAlign' style={{flexWrap: 'wrap', gap: '4px'}}>
+                    {
+                        selectedStates.sort((a,b) => a.nome.localeCompare(b.nome)) // order by name
+                        .map(state => 
+                            <Chip 
+                                label={state.nome}
+                                marginLeft={0}
+                                onDelete={() => setSelectedStates(selectedStates.filter(el => el.id!==state.id))}
+                                deleteIcon={<img src={deleteIcon} alt='Remover estado selecionado'/>}
+                            />
+                        )
+                    }
+                </div>
                 <div className='field'>
-                    <input 
-                        type='text' id='country' name='country'
-                        placeholder='País'
-                        value={input.linkUrl}
-                        onChange={e => setInput({...input, linkUrl: e.target.value})}
-                        required={true}
-                    />
-                    <img className='inputIcon' src={linkIcon} alt='Ícone de clipe representando link'/>
+                    <label htmlFor='city'>Cidade</label>
+                    <select 
+                        id='city' required={true}
+                        value=''
+                        onChange={e => setSelectedCities([...selectedCities, cities.find(el => (e.target.value.valueOf() === String(el.id).valueOf()))])}
+                    >
+                        <option disabled value={''}>Selecione</option>
+                        {cities.length > 0 && 
+                            cities.filter(city => (!selectedCities.find(el => el.id === city.id))) // don't show selectedCities as options
+                                .map(city => <option value={city.id} key={city.id}>{city.nome}</option>)
+                        }
+                    </select>
+                    <span>Você pode escolher mais de um</span>
+                </div>
+                <div className='verticalAlign' style={{flexWrap: 'wrap', gap: '4px'}}>
+                    {
+                        selectedCities.sort((a,b) => a.nome.localeCompare(b.nome)) // order by name
+                        .map(city => 
+                            <Chip 
+                                label={city.nome}
+                                marginLeft={0}
+                                onDelete={() => setSelectedCities(selectedCities.filter(el => el.id!==city.id))}
+                                deleteIcon={<img src={deleteIcon} alt='Remover cidade selecionada'/>}
+                            />
+                        )
+                    }
                 </div>
             </div>
-        ) : (
-            null
+        ) : (<div>
+                <input
+                    accept="image/*"
+                    hidden
+                    id="raised-button-file"
+                    type="file"
+                    onChange={handleCapture}
+                    />
+                <label htmlFor="raised-button-file">
+                    <Button variant="raised" component="span">
+                        <img src={imageInput} alt='Upload de banner para o anúncio' className='imageInput'/>
+                    </Button>
+                </label>
+            </div>
         ))}
         <div className='formActions'>
             <input className='cancel' type='submit' value={stage===0 ? 'Cancelar' : 'Voltar'}

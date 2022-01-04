@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import {editIcon, money, passwordIcon} from '../assets';
+import {editIcon, money} from '../assets';
 
 import Background from '../components/Background';
 import Header from '../components/Header';

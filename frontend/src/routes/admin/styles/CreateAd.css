@@ -87,3 +87,40 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     height: 20px;
     border-width: thin;
 }
+
+#createAd .field span {
+    color: #7F8896;
+    font-weight: 400;
+    font-size: 12px;
+    font-family: 'Open Sans', sans-serif;
+    padding-top: 5px;
+    display: inline-block;
+}
+
+#createAd select{
+    color: #BFC9DB;
+    border: 1px solid #BFC9DB;
+    margin-top: 5px;
+}
+
+#createAd .MuiChip-root {
+    background-color: #BFC9DB;    
+    border-radius: 4px;
+}
+
+#createAd .MuiChip-label {
+    color: #00317C;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    font-size: calc(12/1440 * 100vw);
+    margin-right: 4px;
+}
+
+#createAd .imageInput {
+    width: 100%;
+}
+
+#createAd .MuiButton-root {
+    width: 100%;
+    padding: 0;
+}

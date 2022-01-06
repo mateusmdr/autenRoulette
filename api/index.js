@@ -9,16 +9,23 @@ import 'dotenv/config';
 
 /**API setup */
 const api = express();
-api.disable('x-powered-by'); //Remove X-Powered-By header
+api.disable('x-powered-by'); //Remove X-Powered-By Header
 
 /**General Middlewares */
 api.use(cors());
 api.use(express.json());
 
+/**Validation Middleware */
+api.use((err, req, res, next) => {
+    if (err instanceof SyntaxError && err.status === 400 && 'body' in err) return res.status(400).json({error: 'Malformed JSON'});
+
+    next();
+})
+
 /**API routes */
 api.use('/admin', admin);
 api.use('/', home);
-api.use('*', (req, res) => res.status(404).json());
+api.use('*', (req, res) => res.status(404).json({error: 'Not Found'}));
 
 /**Error handler */
 api.use((err, req, res, next) => {

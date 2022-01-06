@@ -1,28 +1,42 @@
-import crypto from 'crypto';
-
 import {db, pgp} from '../../../utils/db.js';
-import 'dotenv/config';
 
-export const createAdmin = async ({email, password}) => {
-    const pwdHash = crypto.createHash('sha512').update(password).digest('hex');
-    const digest = crypto.createHash('sha512').update(`${email}${pwdHash}${process.env.SALT}`).digest('hex');
-
-    await db.query('INSERT INTO admins (email, pwdHash) VALUES ($1,$2)',[email,digest]);
+export const confirmPayment = async ({id, paymentDateTime}) => {
+    await db.query('UPDATE drawnprizes SET (ispending, paymentdatetime) = (FALSE, $1) WHERE id=$2',[id, paymentDateTime]);
 }
 
-export const createAd = async({companyName, initialDateTime, expirationDateTime, linkURL, locationFilter, imagePath}) => {
+export const updateAvailablePrize = async ({position, resultType, amount, maxDraws, resetPeriod}) => {
+    const cs = new pgp.helpers.ColumnSet(
+        ['maxdraws', 'amount', 'resulttype','resetperiod'],
+        {table: 'availableprizes'}
+    );
+
+    const condition = pgp.as.format(' WHERE id = $1', position);
+    const sql = (pgp.helpers.update({
+        maxdraws: maxDraws,
+        amount,
+        resulttype: resultType,
+        resetperiod: resetPeriod,
+    },cs) + condition);
+
+    await db.query(sql);
+}
+
+export const updateAd = async({id, companyName, initialDateTime, expirationDateTime, linkURL, locationFilter, imagePath}) => {
     const cs = new pgp.helpers.ColumnSet(
         ['companyname', 'initialdatetime', 'expirationdatetime',
         'linkurl', 'locationfilter', 'imagepath'],
         {table: 'ads'}
     );
     
-    await db.query(pgp.helpers.insert({
+    const condition = pgp.as.format(' WHERE id = $1', id);
+    const sql = (pgp.helpers.update({
         companyname: companyName,
         initialdatetime: initialDateTime,
         expirationdatetime: expirationDateTime,
         linkurl: linkURL,
         locationfilter: locationFilter,
         imagepath: imagePath
-    },cs));
+    },cs) + condition);
+
+    await db.query(sql);
 };

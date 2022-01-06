@@ -12,18 +12,20 @@ export const isLoggedIn = async ({email, pwdHash}) => {
     return (digest === query.pwdhash);
 }
 
-export const getPendingPrizes = async () => {
-    const query = await db.any('SELECT * FROM drawnPrizes WHERE ispending');
-    return query.awuidhuwdai;
-}
 export const getAvailablePrizes = async () => {
     const query = await db.any('SELECT * FROM availablePrizes');
+    return query;
+}
+
+export const getPendingPrizes = async () => {
+    const query = await db.any('SELECT * FROM drawnPrizes WHERE ispending');
     return query;
 }
 export const getGivenPrizes = async () => {
     const query = await db.any('SELECT * FROM drawnPrizes WHERE NOT ispending');
     return query;
 }
+
 export const getAds = async () => {
     const query = await db.any('SELECT * FROM ads');
     return query;
@@ -32,19 +34,20 @@ export const getUsers = async () => {
     const query = await db.any('SELECT * FROM users');
     return query;
 }
-export const getPendingPrizesCount = async () => {
+
+export const getPendingPrizeCount = async () => {
     const query = await db.any('SELECT COUNT(*) FROM drawnPrizes WHERE ispending');
     return query;
 }
-export const getGivenPrizesCount = async () => {
+export const getGivenPrizeCount = async () => {
     const query = await db.any('SELECT COUNT(*) FROM drawnPrizes WHERE NOT ispending');
     return query;
 }
-export const getAdsCount = async () => {
+export const getAdCount = async () => {
     const query = await db.any('SELECT COUNT(*) FROM ads');
     return query;
 }
-export const getUsersCount = async () => {
+export const getUserCount = async () => {
     const query = await db.any('SELECT COUNT(*) FROM users');
     return query;
 }

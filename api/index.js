@@ -1,7 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 
-import admin from './routes/admin.js';
+import admin from './routes/admin/route.js';
+import home from './routes/home/route.js'
 
 import 'dotenv/config';
 
@@ -10,7 +11,6 @@ import 'dotenv/config';
 const api = express();
 api.use(cors());
 api.use(express.json());
-api.use(express.urlencoded({ extended: true }));
 
 api.disable('x-powered-by'); //Remove X-Powered-By header
 
@@ -20,10 +20,7 @@ api.listen(process.env.PORT, () => {
 
 /**API routes */
 
-api.use('/admin',admin);
-
-api.get('/',(req, res) => {
-    res.sendStatus(200);
-});
+api.use('/admin', admin);
+api.use('/', home)
 
 /***/

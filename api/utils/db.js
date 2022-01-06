@@ -19,4 +19,4 @@ pgp.pg.types.setTypeParser(1114, str => str);
 
 const db = pgp(cn);
 
-export default db;
+export {db, pgp};

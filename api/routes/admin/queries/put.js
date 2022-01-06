@@ -1,12 +1,28 @@
 import crypto from 'crypto';
 
-import db from '../../../utils/db.js';
+import {db, pgp} from '../../../utils/db.js';
 import 'dotenv/config';
 
-const createAdmin = async ({email, password}) => {
-    const pwdHash = crypto.createHash('sha512').update(`${email}${password}${process.env.SALT}`).digest('hex');
+export const createAdmin = async ({email, password}) => {
+    const pwdHash = crypto.createHash('sha512').update(password).digest('hex');
+    const digest = crypto.createHash('sha512').update(`${email}${pwdHash}${process.env.SALT}`).digest('hex');
 
-    const query = await db.query('INSERT INTO admins (email, pwdHash) VALUES ($1,$2)',[email,pwdHash]);
+    await db.query('INSERT INTO admins (email, pwdHash) VALUES ($1,$2)',[email,digest]);
 }
 
-export {createAdmin};
+export const createAd = async({companyName, initialDateTime, expirationDateTime, linkURL, locationFilter, imagePath}) => {
+    const cs = new pgp.helpers.ColumnSet(
+        ['companyname', 'initialdatetime', 'expirationdatetime',
+        'linkurl', 'locationfilter', 'imagepath'],
+        {table: 'ads'}
+    );
+    
+    await db.query(pgp.helpers.insert({
+        companyname: companyName,
+        initialdatetime: initialDateTime,
+        expirationdatetime: expirationDateTime,
+        linkurl: linkURL,
+        locationfilter: locationFilter,
+        imagepath: imagePath
+    },cs));
+};

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 
 import '../styles/Ads.css';
 
@@ -10,7 +10,7 @@ import Card from '../components/Card';
 
 import {formatDate, formatLocationFilter} from '../utils';
 
-const Ads = ({setCurrentPage, setSelectedAd, login}) => {
+const Page = ({setCurrentPage, setSelectedAd, login}) => {
 
     // const [selectedAd, setSelectedAd] = useState(null);
 
@@ -154,4 +154,4 @@ const Ads = ({setCurrentPage, setSelectedAd, login}) => {
     );
 }
 
-export default Ads;
+export default Page;

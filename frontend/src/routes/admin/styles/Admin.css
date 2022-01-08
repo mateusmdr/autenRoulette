@@ -151,18 +151,6 @@ button, select, a {
     height: calc(40/1024 * 100vh);
 }
 
-.table tr:first-of-type {
-    margin-bottom: calc(28/1024 * 100vh);
-    display: block;
-}
-
-.table tr:first-of-type th{
-    text-align: left;
-    font-weight: 700;
-    font-size: calc(18/1440 * 100vw);
-    color: #BFC9DB;
-}
-
 .table tr th {
     text-align: left;
     font-weight: 700;

@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 
-import {flag, radio, linkIcon, deleteIcon, imageInput} from '../assets';
+import {flag, radio, linkIcon, deleteIcon, imageInput, imgIcon, closeIcon} from '../assets';
 
-import {Chip, Button} from '@mui/material';
+import {Chip, Button, LinearProgress} from '@mui/material';
 
 import Background from '../components/Background';
 import Header from '../components/Header';
@@ -26,7 +26,8 @@ const Form = ({selectedAd, setCurrentPage}) => {
     const today = new Date();
 
     const [input, setInput] = useState({
-        companyName: '', initialDate: today, expirationDate: new Date(Date.now().valueOf() + 86400000), linkUrl : ''
+        companyName: '', initialDate: today, expirationDate: new Date(Date.now().valueOf() + 86400000), linkUrl : '',
+        banner: null
     });
     const [selectedStates, setSelectedStates] = useState([]);
     const [selectedCities, setSelectedCities] = useState([]);
@@ -57,12 +58,13 @@ const Form = ({selectedAd, setCurrentPage}) => {
     }
 
     const handleCapture = ({ target }) => {
+        setInput({...input, banner: target.files[0]});
         const fileReader = new FileReader();
-        const name = target.accept.includes('image') ? 'images' : 'videos';
-        console.log('aaa')
+        const name = 'image';
+        console.log(target.files)
         fileReader.readAsDataURL(target.files[0]);
         fileReader.onload = (e) => {
-            console.log(e.target.result, name);
+            // console.log(e.target.result, name);
         };
     };
 
@@ -190,18 +192,31 @@ const Form = ({selectedAd, setCurrentPage}) => {
                 </div>
             </div>
         ) : (<div>
-                <input
-                    accept="image/*"
+                {!input.banner ? (<><input
+                    accept="image/jpeg,image/png"
                     hidden
                     id="raised-button-file"
                     type="file"
                     onChange={handleCapture}
-                    />
+                />
                 <label htmlFor="raised-button-file">
                     <Button variant="raised" component="span">
                         <img src={imageInput} alt='Upload de banner para o anúncio' className='imageInput'/>
                     </Button>
-                </label>
+                </label></>) :
+                    <div className='imageProgress'>
+                        <img src={imgIcon} alt='Ícone de arquivo de imagem'/>
+                        <div className='progressBar'>
+                            <h3 className='filename'>{input.banner.name}</h3>
+                            <LinearProgress variant="determinate" value={50}/>
+                        </div>
+                        <button onClick={() => {
+                            setInput({...input, banner: null});
+                        }} className='modalCloseButton'>
+                            <img src={closeIcon} alt='Ícone de fechar a janela'/>
+                        </button>
+                    </div>
+                }
             </div>
         ))}
         <div className='formActions'>
@@ -228,7 +243,7 @@ const Form = ({selectedAd, setCurrentPage}) => {
     </>);
 }
 
-const CreateAd = ({setCurrentPage, login, selectedAd}) => {
+const Page = ({setCurrentPage, login, selectedAd}) => {
     return (
         <Background id='createAd'>
             <Header setCurrentPage={setCurrentPage}/>
@@ -245,4 +260,4 @@ const CreateAd = ({setCurrentPage, login, selectedAd}) => {
     );
 }
 
-export default CreateAd;
+export default Page;

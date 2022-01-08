@@ -7,10 +7,11 @@ import {trophy, money, searchIcon} from '../assets';
 import Background from '../components/Background';
 import Header from '../components/Header';
 import Card from '../components/Card';
+import SearchBar from '../components/SearchBar';
 
 import {formatDouble, formatPhone, formatPixKey, formatDate, formatTime} from '../utils';
 
-const GivenPrizes = ({setCurrentPage, login}) => {
+const Page = ({setCurrentPage, login}) => {
     const [filter, setFilter] = useState('');
 
     const cards = {
@@ -45,7 +46,6 @@ const GivenPrizes = ({setCurrentPage, login}) => {
         return(
             <table className='table'>
                 <tbody>
-                    <tr><th>Prêmios Pendentes</th></tr>
                     <tr>
                         <th>Nome</th>
                         <th>Telefone</th>
@@ -67,26 +67,20 @@ const GivenPrizes = ({setCurrentPage, login}) => {
             <Header setCurrentPage={setCurrentPage}/>
             <main>
                 <div className='verticalAlign pageTitle'>
-                    <h1>Prêmios Pendentes</h1>
-                    <div className='relative'>
-                        <input 
-                            type='text' id='filter' name='filter' placeholder='Pesquise aqui'
-                            value={filter}
-                            onChange={e => setFilter(e.target.value)}
-                            maxLength={255}
-                            required
-                        />
-                        <img className='inputIcon' src={searchIcon} alt='Ícone de lupa'/>
-                    </div>
+                    <h1>Prêmios Entregues</h1>
+                    <SearchBar
+                        value={filter}
+                        onChange={e => setFilter(e.target.value)}
+                    />
                 </div>
                 <div className='verticalAlign'>
                     <Card imgSrc={trophy} imgAlt={'Ícone colorido de Troféu'} {...cards.givenPrizes}/>
                     <Card imgSrc={money} imgAlt={'Ícone colorido de dinheiro'} {...cards.totalGivenAmount}/>
                 </div>
-                <PaginatedItems itemsPerPage={6} TableComponent={Table} items={items.filter(filterRow)}/>
+                <PaginatedItems itemsPerPage={7} TableComponent={Table} items={items.filter(filterRow)}/>
             </main>
         </Background>
     );
 }
 
-export default GivenPrizes;
+export default Page;

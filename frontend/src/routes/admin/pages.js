@@ -5,5 +5,6 @@ import GivenPrizes from './pages/GivenPrizes';
 import RegisteredPrizes from './pages/RegisteredPrizes';
 import Ads from './pages/Ads';
 import CreateAd from './pages/CreateAd';
+import Users from './pages/Users';
 
-export {Login, Home, PendingPrizes, GivenPrizes, RegisteredPrizes, Ads, CreateAd};
+export {Login, Home, PendingPrizes, GivenPrizes, RegisteredPrizes, Ads, CreateAd, Users};

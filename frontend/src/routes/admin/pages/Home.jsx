@@ -10,7 +10,7 @@ import Card from '../components/Card';
 
 import {formatDouble, formatPhone, formatPixKey, formatDate, formatTime} from '../utils';
 
-const Home = ({setCurrentPage, login}) => {
+const Page = ({setCurrentPage, login}) => {
     const cards = {
         pendingPrizes: {amount: 8, text: 'Prêmios Pendentes'},
         publishedAds: {amount: 10, text: 'Prêmios Pendentes'},
@@ -70,4 +70,4 @@ const Home = ({setCurrentPage, login}) => {
     );
 }
 
-export default Home;
+export default Page;

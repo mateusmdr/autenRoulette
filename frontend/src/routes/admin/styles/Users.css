@@ -1,0 +1,7 @@
+#users .tableContainer {
+    justify-content: space-between;
+}
+
+#users .table {
+    width: 45%;
+}

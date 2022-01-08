@@ -63,6 +63,13 @@ const Admin = () => {
                     selectedAd={selectedAd}
                 />
             );
+        case 'users':
+            return (
+                <Pages.Users
+                    setCurrentPage={setCurrentPage}
+                    login={login}
+                />
+            );
         default: return null;
     }    
 }

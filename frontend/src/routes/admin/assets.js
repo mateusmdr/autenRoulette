@@ -27,11 +27,12 @@ import radioComplete from './assets/radio-complete.svg';
 import linkIcon from './assets/linkIcon.svg';
 
 import imageInput from './assets/imageInput.svg';
+import imgIcon from './assets/imgIcon.svg';
 
 const radio = {radioDefault, radioCurrent ,radioComplete}
 
 export {
     loginBottomCoins, loginLights, loginTopCoins, personIcon, passwordIcon, headerCoins, arrowDown, arrowUp, trophy,
     coloredUser, flag, checkImg, money, searchIcon, innerRoulette, outerRoulette, rouletteBackground, editIcon, closeIcon,
-    removeIcon, radio, linkIcon, deleteIcon, imageInput
+    removeIcon, radio, linkIcon, deleteIcon, imageInput, imgIcon
 };

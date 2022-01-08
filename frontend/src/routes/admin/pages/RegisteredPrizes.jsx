@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 
 import '../styles/RegisteredPrizes.css';
 
@@ -12,7 +12,7 @@ import Modal from '../components/Modal';
 
 import {formatDouble, formatResultType, formatPeriodType} from '../utils';
 
-const RegisteredPrizes = ({setCurrentPage, login}) => {
+const Page = ({setCurrentPage, login}) => {
 
     const [modalPopup, setModalPopup] = useState(false);
     const [selectedPrize, setSelectedPrize] = useState(null);
@@ -186,4 +186,4 @@ const RegisteredPrizes = ({setCurrentPage, login}) => {
     );
 }
 
-export default RegisteredPrizes;
+export default Page;

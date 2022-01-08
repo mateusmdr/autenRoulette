@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 
 import '../styles/Login.css';
 
@@ -6,7 +6,7 @@ import Background from '../components/Background';
 
 import {loginBottomCoins, loginLights, loginTopCoins, personIcon, passwordIcon} from '../assets';
 
-const Login = ({setCurrentPage, setLogin}) => {
+const Page = ({setCurrentPage, setLogin}) => {
 
     const [input, setInput] = useState({email: '', password: ''});
 
@@ -69,4 +69,4 @@ const Login = ({setCurrentPage, setLogin}) => {
     );
 }
 
-export default Login;
+export default Page;

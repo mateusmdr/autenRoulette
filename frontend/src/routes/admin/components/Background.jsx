@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
 
-const Background = ({children, id}) => {
+const Component = ({children, id}) => {
     useEffect(() => import('../styles/Background.css'));
 
     return (
@@ -10,4 +10,4 @@ const Background = ({children, id}) => {
     );
 }
 
-export default Background;
+export default Component;

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 import {closeIcon} from '../assets';
 
-const Modal = ({show, closeHandler, children, submitHandler}) => {
+const Component = ({show, closeHandler, children, submitHandler}) => {
     useEffect(() => import('../styles/Modal.css'));
     return (show ? (<div className='modal noScroll'>
         <div className='modalBackground'></div>
@@ -25,4 +25,4 @@ const Modal = ({show, closeHandler, children, submitHandler}) => {
     </div>) : null);
 }
 
-export default Modal;
+export default Component;

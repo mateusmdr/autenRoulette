@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
 
-const Card = ({imgSrc, imgAlt, amount, text}) => {
+const Component = ({imgSrc, imgAlt, amount, text}) => {
     useEffect(() => import('../styles/Card.css'));
 
     return (
@@ -16,4 +16,4 @@ const Card = ({imgSrc, imgAlt, amount, text}) => {
     );
 }
 
-export default Card;
+export default Component;

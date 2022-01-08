@@ -3,7 +3,7 @@ import React, {useState} from 'react'
 import {headerCoins, arrowDown, arrowUp} from '../assets';
 import '../styles/Header.css';
 
-const Header = ({setCurrentPage}) => {    
+const Component = ({setCurrentPage}) => {    
     const [selectPopUp, setSelectPopUp] = useState(false);
     const [displayTimeout, setDisplayTimeout] = useState(null);
 
@@ -53,4 +53,4 @@ const Header = ({setCurrentPage}) => {
     );
 }
 
-export default Header;
+export default Component;

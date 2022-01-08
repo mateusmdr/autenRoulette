@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 
 import ReactPaginate from 'react-paginate';
 
-const PaginatedItems = ({ itemsPerPage, TableComponent, items }) => {
+const Component = ({ itemsPerPage, TableComponent, items }) => {
     useEffect(() => import('../styles/PaginatedItems.css'));
 
     const [currentItems, setCurrentItems] = useState([]);
@@ -37,4 +37,4 @@ const PaginatedItems = ({ itemsPerPage, TableComponent, items }) => {
       );
 }
 
-export default PaginatedItems;
+export default Component;

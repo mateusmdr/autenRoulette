@@ -1,6 +1,7 @@
+import React from 'react';
 import { searchIcon } from "../assets";
 
-export default ({value, onChange}) => {
+const Component =  ({value, onChange}) => {
     return (
         <div className='relative'>
             <input 
@@ -14,3 +15,5 @@ export default ({value, onChange}) => {
         </div>
     );
 }
+
+export default Component;

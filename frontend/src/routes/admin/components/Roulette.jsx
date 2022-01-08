@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { innerRoulette, outerRoulette, rouletteBackground } from '../assets';
 import { formatResultType } from '../utils';
 
-const Roulette = ({values}) => {
+const Component = ({values}) => {
     useEffect(() => import('../styles/Roulette.css'));
     return (
         <div id='roulette'>
@@ -29,4 +29,4 @@ const Roulette = ({values}) => {
     );
 }
 
-export default Roulette;
+export default Component;

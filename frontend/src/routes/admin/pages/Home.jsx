@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import PaginatedItems from '../components/PaginatedItems';
 
@@ -8,18 +8,38 @@ import Background from '../components/Background';
 import Header from '../components/Header';
 import Card from '../components/Card';
 
-import {formatDouble, formatPhone, formatPixKey, formatDate, formatTime} from '../utils';
+import {formatDouble, formatPhone, formatPixKey, formatDate, formatTime, getData} from '../utils';
+import { getAdCount, getPendingPrizes, getUserCount } from '../queries/get';
 
 const Page = ({setCurrentPage, credentials}) => {
+    const [pendingPrizes, setPendingPrizes] = useState([]);
+    const [adCount, setAdCount] = useState(null);
+    const [userCount, setUserCount] = useState(null);
+
+    useEffect(() => {
+        getData({
+            method: () => getPendingPrizes(credentials),
+            setter: setPendingPrizes
+        });
+        getData({
+            method: () => getAdCount(credentials),
+            setter: setAdCount
+        });
+        getData({
+            method: () => getUserCount(credentials),
+            setter: setUserCount
+        });
+    },[]);
+
+
     const cards = {
-        pendingPrizes: {amount: 8, text: 'Prêmios Pendentes'},
-        publishedAds: {amount: 10, text: 'Prêmios Pendentes'},
-        registeredUsers: {amount: 1032, text: 'Usuários Cadastrados'},
+        pendingPrizes: {amount: pendingPrizes.length, text: 'Prêmios Pendentes'},
+        publishedAds: {amount: adCount, text: 'Anúncios Publicados'},
+        registeredUsers: {amount: userCount, text: 'Usuários Cadastrados'},
     }
 
-    const items = new Array(50).fill({name : 'João Alves da Silva Gomes', phone: '(00) 00000-0000', amount: 0, pixKey: '000.000.000-00', dateTime: '2007-03-01T13:00:00Z'});
-
     const Row = (item, index) => {
+        console.log(item, adCount, userCount);
         return (
             <tr key={index}>
                 <td>{item.name}</td>
@@ -64,7 +84,7 @@ const Page = ({setCurrentPage, credentials}) => {
                     <Card imgSrc={flag} imgAlt={'Ícone colorido de flag'} {...cards.publishedAds}/>
                     <Card imgSrc={coloredUser} imgAlt={'Ícone colorido de usuário'} {...cards.registeredUsers}/>
                 </div>
-                <PaginatedItems itemsPerPage={7} TableComponent={Table} items={items}/>
+                <PaginatedItems itemsPerPage={7} TableComponent={Table} items={pendingPrizes}/>
             </main>
         </Background>
     );

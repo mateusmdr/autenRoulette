@@ -22,7 +22,7 @@ const Component = ({ itemsPerPage, TableComponent, items }) => {
     return (
         <>
             <TableComponent currentItems={currentItems} />
-            <ReactPaginate
+            {pageCount > 1 ? <ReactPaginate
                 breakLabel="..."
                 nextLabel=">"
                 onPageChange={handlePageClick}
@@ -31,7 +31,7 @@ const Component = ({ itemsPerPage, TableComponent, items }) => {
                 previousLabel="<"
                 renderOnZeroPageCount={null}
                 className='paginate'
-            />
+            />: null}
         </>
       );
 }

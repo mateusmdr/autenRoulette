@@ -54,3 +54,8 @@ export const requestHeaders = ({email, pwdHash}) => {
     return headers;
 }
   
+export const getData = async({method, setter}) => {
+    const res = await method();
+    console.log(res);
+    setter(res);
+}

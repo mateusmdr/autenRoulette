@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS sessions (
 /*Tables related to admin*/
 CREATE TABLE IF NOT EXISTS admins (
     id SERIAL NOT NULL,
-    emain TEXT UNIQUE NOT NULL,
+    email TEXT UNIQUE NOT NULL,
     pwdHash TEXT NOT NULL,
 
     PRIMARY KEY(id)
@@ -61,10 +61,8 @@ CREATE TABLE IF NOT EXISTS availablePrizes (
     resultType result_t NOT NULL,
     resetPeriod period_t NOT NULL,
     drawNumber INTEGER NOT NULL,
-    admin_id INTEGER,
 
     PRIMARY KEY(id),
-    FOREIGN KEY(admin_id) REFERENCES admins(id),
 
     /*Require field to be filled and positive if result type was success*/
     CHECK (
@@ -88,10 +86,8 @@ CREATE TABLE IF NOT EXISTS ads (
     expirationDatetime TIMESTAMP NOT NULL,
     imagePath TEXT NOT NULL,
     linkUrl TEXT NOT NULL,
-    admin_id INTEGER,
 
     PRIMARY KEY(id),
-    FOREIGN KEY(admin_id) REFERENCES admins(id),
 
     /*Require inital date to happen previous to the expiration date*/
     CHECK (

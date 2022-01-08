@@ -37,17 +37,17 @@ export const getUsers = async () => {
 
 export const getPendingPrizeCount = async () => {
     const query = await db.one('SELECT COUNT(*) FROM drawnPrizes WHERE ispending');
-    return query[0];
+    return query;
 }
 export const getGivenPrizeCount = async () => {
     const query = await db.one('SELECT COUNT(*) FROM drawnPrizes WHERE NOT ispending');
-    return query[0];
+    return query;
 }
 export const getAdCount = async () => {
     const query = await db.one('SELECT COUNT(*) FROM ads');
-    return query[0];    
+    return query;    
 }
 export const getUserCount = async () => {
     const query = await db.one('SELECT COUNT(*) FROM users');
-    return query[0];
+    return query;
 }

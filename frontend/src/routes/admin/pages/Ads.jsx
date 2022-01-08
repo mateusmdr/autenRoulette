@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
+import '../styles/Ads.css';
+
 import {editIcon, removeIcon, flag} from '../assets';
 
 import Background from '../components/Background';
@@ -9,7 +11,6 @@ import Card from '../components/Card';
 import {formatDate, formatLocationFilter} from '../utils';
 
 const Ads = ({setCurrentPage, setSelectedAd, login}) => {
-    useEffect(() => import('../styles/Ads.css'));
 
     // const [selectedAd, setSelectedAd] = useState(null);
 

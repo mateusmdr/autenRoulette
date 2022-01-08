@@ -1,11 +1,12 @@
 import React, {useState, useEffect} from 'react';
 
+import '../styles/Login.css';
+
 import Background from '../components/Background';
 
 import {loginBottomCoins, loginLights, loginTopCoins, personIcon, passwordIcon} from '../assets';
 
 const Login = ({setCurrentPage, setLogin}) => {
-    useEffect(() => import('../styles/Login.css'));
 
     const [input, setInput] = useState({email: '', password: ''});
 

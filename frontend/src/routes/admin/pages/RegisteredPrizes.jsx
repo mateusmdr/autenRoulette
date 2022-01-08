@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
+import '../styles/RegisteredPrizes.css';
+
 import {editIcon, money} from '../assets';
 
 import Background from '../components/Background';
@@ -11,7 +13,6 @@ import Modal from '../components/Modal';
 import {formatDouble, formatResultType, formatPeriodType} from '../utils';
 
 const RegisteredPrizes = ({setCurrentPage, login}) => {
-    useEffect(() => import('../styles/RegisteredPrizes.css'));
 
     const [modalPopup, setModalPopup] = useState(false);
     const [selectedPrize, setSelectedPrize] = useState(null);

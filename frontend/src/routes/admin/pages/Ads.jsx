@@ -10,7 +10,7 @@ import Card from '../components/Card';
 
 import {formatDate, formatLocationFilter} from '../utils';
 
-const Page = ({setCurrentPage, setSelectedAd, login}) => {
+const Page = ({setCurrentPage, setSelectedAd, credentials}) => {
 
     // const [selectedAd, setSelectedAd] = useState(null);
 

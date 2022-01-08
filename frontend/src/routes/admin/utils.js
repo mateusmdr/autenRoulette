@@ -1,11 +1,13 @@
-const formatDouble = (number) => String(Number(number).toFixed(2)).replace('.',',');
-const formatPhone = (number) => number;
-const formatPixKey = (number) => number;
+import base64 from 'base-64';
 
-const formatDate = (date) => new Date(date).toLocaleDateString('pt-br');
-const formatTime = (date) => new Date(date).toLocaleTimeString('pt-br', {timeStyle: 'short'});
+export const formatDouble = (number) => String(Number(number).toFixed(2)).replace('.',',');
+export const formatPhone = (number) => number;
+export const formatPixKey = (number) => number;
 
-const formatResultType = (type) => {
+export const formatDate = (date) => new Date(date).toLocaleDateString('pt-br');
+export const formatTime = (date) => new Date(date).toLocaleTimeString('pt-br', {timeStyle: 'short'});
+
+export const formatResultType = (type) => {
     switch (type){
         case 'success':
             return ('Prêmio')
@@ -18,7 +20,7 @@ const formatResultType = (type) => {
     }
 }
 
-const formatPeriodType = (type) => {
+export const formatPeriodType = (type) => {
     switch (type){
         case 'daily':
             return ('Diariamente')
@@ -33,10 +35,22 @@ const formatPeriodType = (type) => {
     }
 }
 
-const formatLocationFilter = (locationFilter) => locationFilter[0].locationName;
+export const formatLocationFilter = (locationFilter) => locationFilter[0].locationName;
 
-const formatDateHtml = (date) => {
+export const formatDateHtml = (date) => {
     return date.toISOString().split('T')[0];
 }
 
-export {formatDouble, formatPhone, formatPixKey, formatDate, formatTime, formatResultType, formatPeriodType, formatLocationFilter, formatDateHtml}
+export const apiUrl = (method) =>
+    `http://${process.env.REACT_APP_API_ADDRESS}:${process.env.REACT_APP_API_PORT}/admin/${method}`;
+
+export const requestHeaders = ({email, pwdHash}) => {
+    const headers = new Headers();
+    // Base64 encrypt authentication data
+    const encoded = base64.encode(`${email}:${pwdHash}`);
+    headers.append('Authorization', 'Basic ' + encoded); 
+    headers.append('Content-Type', 'application/json');
+    
+    return headers;
+}
+  

@@ -60,7 +60,7 @@ const Form = ({selectedAd, setCurrentPage}) => {
     const handleCapture = ({ target }) => {
         setInput({...input, banner: target.files[0]});
         const fileReader = new FileReader();
-        const name = 'image';
+        // const name = 'image';
         console.log(target.files)
         fileReader.readAsDataURL(target.files[0]);
         fileReader.onload = (e) => {
@@ -243,7 +243,7 @@ const Form = ({selectedAd, setCurrentPage}) => {
     </>);
 }
 
-const Page = ({setCurrentPage, login, selectedAd}) => {
+const Page = ({setCurrentPage, credentials, selectedAd}) => {
     return (
         <Background id='createAd'>
             <Header setCurrentPage={setCurrentPage}/>

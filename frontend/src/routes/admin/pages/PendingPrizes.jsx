@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 
 import PaginatedItems from '../components/PaginatedItems';
 
-import {trophy, money, checkImg, searchIcon} from '../assets';
+import {trophy, money, checkImg} from '../assets';
 
 import Background from '../components/Background';
 import Header from '../components/Header';
@@ -11,7 +11,7 @@ import SearchBar from '../components/SearchBar';
 
 import {formatDouble, formatPhone, formatPixKey, formatDate, formatTime} from '../utils';
 
-const Page = ({setCurrentPage, login}) => {
+const Page = ({setCurrentPage, credentials}) => {
     const [filter, setFilter] = useState('');
 
     const cards = {

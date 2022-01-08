@@ -1,8 +1,7 @@
-import React, {useEffect} from 'react'
+import React from 'react'
+import '../styles/Background.css';
 
 const Component = ({children, id}) => {
-    useEffect(() => import('../styles/Background.css'));
-
     return (
         <div className='background' id={id}>
             {children}

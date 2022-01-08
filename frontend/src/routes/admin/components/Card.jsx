@@ -1,8 +1,8 @@
-import React, {useEffect} from 'react'
+import React from 'react';
+
+import '../styles/Card.css';
 
 const Component = ({imgSrc, imgAlt, amount, text}) => {
-    useEffect(() => import('../styles/Card.css'));
-
     return (
         <div className='card relative'>
             <img src={imgSrc} alt={imgAlt}/>

@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+
+import '../styles/Modal.css';
 
 import {closeIcon} from '../assets';
 
 const Component = ({show, closeHandler, children, submitHandler}) => {
-    useEffect(() => import('../styles/Modal.css'));
     return (show ? (<div className='modal noScroll'>
         <div className='modalBackground'></div>
         <div className='modalContainer'>

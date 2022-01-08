@@ -10,7 +10,7 @@ import Card from '../components/Card';
 
 import {formatDouble, formatPhone, formatPixKey, formatDate, formatTime} from '../utils';
 
-const Page = ({setCurrentPage, login}) => {
+const Page = ({setCurrentPage, credentials}) => {
     const cards = {
         pendingPrizes: {amount: 8, text: 'Prêmios Pendentes'},
         publishedAds: {amount: 10, text: 'Prêmios Pendentes'},

@@ -12,7 +12,7 @@ import Modal from '../components/Modal';
 
 import {formatDouble, formatResultType, formatPeriodType} from '../utils';
 
-const Page = ({setCurrentPage, login}) => {
+const Page = ({setCurrentPage, credentials}) => {
 
     const [modalPopup, setModalPopup] = useState(false);
     const [selectedPrize, setSelectedPrize] = useState(null);

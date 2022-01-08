@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
+import '../styles/Roulette.css';
 
 import { innerRoulette, outerRoulette, rouletteBackground } from '../assets';
 import { formatResultType } from '../utils';
 
 const Component = ({values}) => {
-    useEffect(() => import('../styles/Roulette.css'));
     return (
         <div id='roulette'>
             <img className='outer' src={outerRoulette} alt='Círculo de luzes brancas ao redor da roleta'/>

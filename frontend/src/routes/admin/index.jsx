@@ -1,13 +1,26 @@
 import React, {useState, useEffect} from 'react';
+import Cookies from 'universal-cookie';
+
+import './styles/Admin.css';
 
 import * as Pages from './pages';
 
+const cookies = new Cookies();
+
 const Admin = () => {
-    useEffect(() => import('./styles/Admin.css'));
-    
+    useEffect(() => {
+        const authCookies = {
+            email: cookies.get('email',{path:'/admin'}),
+            pwdHash: cookies.get('pwdHash',{path:'/admin'})
+        };
+        if(authCookies.email && authCookies.pwdHash) {
+            setCredentials(authCookies);
+            setCurrentPage('home');
+        }
+    },[])
     const [currentPage, setCurrentPage] = useState('login');
 
-    const [login, setLogin] = useState({email: '', password: ''});
+    const [credentials, setCredentials] = useState(null);
 
     const [selectedAd, setSelectedAd] = useState(null);
 
@@ -16,42 +29,42 @@ const Admin = () => {
             return (
                 <Pages.Login
                     setCurrentPage={setCurrentPage}
-                    setLogin={setLogin}
+                    setCredentials={setCredentials}
                 />
             );
         case 'home':
             return (
                 <Pages.Home
                     setCurrentPage={setCurrentPage}
-                    login={login}
+                    credentials={credentials}
                 />
             );
         case 'pendingPrizes':
             return (
                 <Pages.PendingPrizes
                     setCurrentPage={setCurrentPage}
-                    login={login}
+                    credentials={credentials}
                 />
             );
         case 'givenPrizes':
             return (
                 <Pages.GivenPrizes
                     setCurrentPage={setCurrentPage}
-                    login={login}
+                    credentials={credentials}
                 />
             );
         case 'registeredPrizes':
             return (
                 <Pages.RegisteredPrizes 
                     setCurrentPage={setCurrentPage}
-                    login={login}
+                    credentials={credentials}
                 />
             );
         case 'ads':
             return (
                 <Pages.Ads
                     setCurrentPage={setCurrentPage}
-                    login={login}
+                    credentials={credentials}
                     setSelectedAd={setSelectedAd}
                 />
             );
@@ -59,7 +72,7 @@ const Admin = () => {
             return (
                 <Pages.CreateAd
                     setCurrentPage={setCurrentPage}
-                    login={login}
+                    credentials={credentials}
                     selectedAd={selectedAd}
                 />
             );
@@ -67,7 +80,7 @@ const Admin = () => {
             return (
                 <Pages.Users
                     setCurrentPage={setCurrentPage}
-                    login={login}
+                    credentials={credentials}
                 />
             );
         default: return null;

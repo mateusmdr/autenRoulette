@@ -1,14 +1,19 @@
 import React, {useState} from 'react';
+import {sha512} from 'js-sha512';
+import Cookies from 'universal-cookie';
 
+import {isLoggedIn} from '../queries/get';
 import '../styles/Login.css';
+
 
 import Background from '../components/Background';
 
 import {loginBottomCoins, loginLights, loginTopCoins, personIcon, passwordIcon} from '../assets';
 
-const Page = ({setCurrentPage, setLogin}) => {
+const Page = ({setCurrentPage, setCredentials}) => {
 
     const [input, setInput] = useState({email: '', password: ''});
+    const cookies = new Cookies();
 
     return (
         <Background id='login'>
@@ -55,9 +60,24 @@ const Page = ({setCurrentPage, setLogin}) => {
                     <div className='row'>
                         <input 
                             type='submit' value='Entrar'
-                            onClick={() => {
-                                setLogin(input);
-                                setCurrentPage('home');
+                            onClick={async (e) => {
+                                e.preventDefault();
+                                const pwdHash = sha512(input.password)
+                                const res = await isLoggedIn({
+                                    email: input.email,
+                                    pwdHash
+                                });
+
+                                if(res) {
+                                    if(input.remember){
+                                        cookies.set('email',input.email,{path:'/admin'});
+                                        cookies.set('pwdHash',pwdHash,{path:'/admin'});
+                                    }
+                                    setCredentials({email: input.email, pwdHash});
+                                    setCurrentPage('home');
+                                }else {
+                                    alert("Não autorizado: Credenciais inválidas");
+                                }
                             }}
                         />
                     </div>

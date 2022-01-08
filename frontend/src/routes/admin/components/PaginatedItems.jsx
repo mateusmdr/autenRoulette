@@ -1,10 +1,9 @@
 import React, {useState, useEffect} from 'react';
 
+import '../styles/PaginatedItems.css';
 import ReactPaginate from 'react-paginate';
 
 const Component = ({ itemsPerPage, TableComponent, items }) => {
-    useEffect(() => import('../styles/PaginatedItems.css'));
-
     const [currentItems, setCurrentItems] = useState([]);
     const [pageCount, setPageCount] = useState(0);
     const [itemOffset, setItemOffset] = useState(0);

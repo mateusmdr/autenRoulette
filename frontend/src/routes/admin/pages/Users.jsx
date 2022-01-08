@@ -13,7 +13,7 @@ import SearchBar from '../components/SearchBar';
 
 import {formatDouble, formatPhone, formatPixKey, formatDate, formatTime} from '../utils';
 
-const Page = ({setCurrentPage, login}) => {
+const Page = ({setCurrentPage, credentials}) => {
     const [filter, setFilter] = useState('');
 
     const cards = {

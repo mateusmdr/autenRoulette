@@ -14,25 +14,69 @@ export const isLoggedIn = async ({email, pwdHash}) => {
 
 export const getAvailablePrizes = async () => {
     const query = await db.any('SELECT * FROM availablePrizes');
-    return query;
+    return query.map((item, index) => {
+        return {
+            position: index,
+            resultType: item.resulttype,
+            amount: Number(item.amount),
+            maxDraws: Number(item.maxdraws),
+            resetPeriod: item.resetperiod,
+            drawNumber: Number(item.drawnumber)
+        };
+    });
 }
 
 export const getPendingPrizes = async () => {
-    const query = await db.any('SELECT * FROM drawnPrizes WHERE ispending');
-    return query;
+    const query = await db.any('SELECT * FROM (drawnPrizes as d JOIN users as u ON d.user_id = u.id) WHERE d.ispending');
+    return query.map(item => {
+        return {
+            id: item.id,
+            amount: Number(item.amount),
+            pixKey: item.pixkey,
+            winDateTime: item.windatetime,
+            name: item.name,
+            phone: item.phone
+        };
+    });
 }
 export const getGivenPrizes = async () => {
-    const query = await db.any('SELECT * FROM drawnPrizes WHERE NOT ispending');
-    return query;
+    const query = await db.any('SELECT * FROM (drawnPrizes as d JOIN users as u ON d.user_id = u.id) WHERE NOT d.ispending');
+    return query.map(item => {
+        return {
+            id: item.id,
+            amount: Number(item.amount),
+            pixKey: item.pixkey,
+            winDateTime: item.windatetime,
+            name: item.name,
+            phone: item.phone
+        };
+    });
 }
 
 export const getAds = async () => {
     const query = await db.any('SELECT * FROM ads');
-    return query;
+    return query.map(item => {
+        return {
+            id: item.id,
+            companyName: item.companyname,
+            locationFilter: item.locationfilter,
+            initialDateTime: item.initialdatetime,
+            expirationDateTime: item.expirationdatetime,
+            imgFileName: item.imgfilename,
+            linkURL: item.linkurl
+        };
+    });
 }
 export const getUsers = async () => {
     const query = await db.any('SELECT * FROM users');
-    return query;
+    return query.map(item => {
+        return {
+            id: item.id,
+            name: item.name,
+            phone: item.phone,
+            userAgent: item.useragent,
+        };
+    });
 }
 
 export const getPendingPrizeCount = async () => {
@@ -45,7 +89,7 @@ export const getGivenPrizeCount = async () => {
 }
 export const getAdCount = async () => {
     const query = await db.one('SELECT COUNT(*) FROM ads');
-    return query;    
+    return query;
 }
 export const getUserCount = async () => {
     const query = await db.one('SELECT COUNT(*) FROM users');

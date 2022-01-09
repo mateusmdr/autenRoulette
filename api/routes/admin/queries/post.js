@@ -10,10 +10,10 @@ export const createAdmin = async ({email, password}) => {
     await db.query('INSERT INTO admins (email, pwdHash) VALUES ($1,$2)',[email,digest]);
 }
 
-export const createAd = async({companyName, initialDateTime, expirationDateTime, linkURL, locationFilter, imagePath}) => {
+export const createAd = async({companyName, initialDateTime, expirationDateTime, linkURL, locationFilter, imgFileName}) => {
     const cs = new pgp.helpers.ColumnSet(
         ['companyname', 'initialdatetime', 'expirationdatetime',
-        'linkurl', 'locationfilter', 'imagepath'],
+        'linkurl', 'locationfilter', 'imgfilename'],
         {table: 'ads'}
     );
     
@@ -23,6 +23,6 @@ export const createAd = async({companyName, initialDateTime, expirationDateTime,
         expirationdatetime: expirationDateTime,
         linkurl: linkURL,
         locationfilter: locationFilter,
-        imagepath: imagePath
+        imgfilename: imgFileName
     },cs));
 };

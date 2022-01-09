@@ -26,11 +26,6 @@ route.get('/isLoggedIn', async(req, res) => {
     }
 });
 
-route.post('/createAd', upload, resize, (req, res) => {
-    // await post.createAd({...req.body, filename: req.file.filename});
-    res.json();
-});
-
 /**Authentication Middleware */
 route.use('*', async (req, res, next) => {
     if (!req.headers.authorization) {
@@ -61,6 +56,11 @@ route.put('/:action', async (req,res) => {
 
     await method(req.body);
     return res.json();
+});
+
+route.post('/createAd', upload, resize, async (req, res) => {
+    await post.createAd({...req.body, imgFileName: req.file.filename});
+    res.json();
 });
 
 route.post('/:action', async (req,res) => {

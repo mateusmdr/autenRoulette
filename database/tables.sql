@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS users (
     id SERIAL NOT NULL,
     name TEXT NOT NULL,
     phone TEXT NOT NULL,
-    ipAddress TEXT,
+    userAgent TEXT,
 
     PRIMARY KEY(id)
 );
@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS drawnPrizes (
     winDateTime TIMESTAMP NOT NULL,
     isPending BOOLEAN NOT NULL,
     paymentDatetime TIMESTAMP,
-    user_id INTEGER,
+    user_id INTEGER NOT NULL,
 
     PRIMARY KEY(id),
     FOREIGN KEY(user_id) REFERENCES users(id),
@@ -84,7 +84,7 @@ CREATE TABLE IF NOT EXISTS ads (
     locationFilter TEXT NOT NULL,
     initialDatetime TIMESTAMP NOT NULL,
     expirationDatetime TIMESTAMP NOT NULL,
-    imagePath TEXT NOT NULL,
+    imageFileName TEXT NOT NULL,
     linkUrl TEXT NOT NULL,
 
     PRIMARY KEY(id),

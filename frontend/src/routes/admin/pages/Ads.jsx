@@ -10,6 +10,7 @@ import Card from '../components/Card';
 
 import {formatDate, formatLocationFilter, getData, imgUrl} from '../utils';
 import {getAds} from '../queries/get';
+import {deleteAd} from '../queries/del';
 
 const Page = ({setCurrentPage, setSelectedAd, credentials}) => {
 
@@ -30,13 +31,14 @@ const Page = ({setCurrentPage, setSelectedAd, credentials}) => {
         });
     },[credentials]);
 
-    const removeAd = (ad) => {
-        const index = ads.indexOf(ad);
-        const removed = (ads.slice(0,index)).concat(ads.slice(index+1,ads.length));
+    const removeAd = async (ad) => {
+        const success = await deleteAd({...credentials, id: ad.id});
+        if(success) {
+            const index = ads.indexOf(ad);
+            const removed = (ads.slice(0,index)).concat(ads.slice(index+1,ads.length));
 
-        setAds(removed);
-        console.log(ads);
-        alert("removido!");
+            return setAds(removed);
+        }
     }
 
     const cards = {

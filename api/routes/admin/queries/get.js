@@ -16,7 +16,7 @@ export const getAvailablePrizes = async () => {
     const query = await db.any('SELECT * FROM availablePrizes');
     return query.map((item, index) => {
         return {
-            position: index,
+            position: index+1,
             resultType: item.resulttype,
             amount: Number(item.amount),
             maxDraws: Number(item.maxdraws),

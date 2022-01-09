@@ -24,7 +24,7 @@ export const updateAvailablePrize = async ({position, resultType, amount, maxDra
 export const updateAd = async({id, companyName, initialDateTime, expirationDateTime, linkURL, locationFilter, imagePath}) => {
     const cs = new pgp.helpers.ColumnSet(
         ['companyname', 'initialdatetime', 'expirationdatetime',
-        'linkurl', 'locationfilter', 'imagepath'],
+        'linkurl', 'locationfilter', 'imagefilename'],
         {table: 'ads'}
     );
     
@@ -35,7 +35,7 @@ export const updateAd = async({id, companyName, initialDateTime, expirationDateT
         expirationdatetime: expirationDateTime,
         linkurl: linkURL,
         locationfilter: locationFilter,
-        imagepath: imagePath
+        imagefilename: imageFileName
     },cs) + condition);
 
     await db.query(sql);

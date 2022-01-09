@@ -41,7 +41,7 @@ const Component = ({setCurrentPage}) => {
                         <img src={selectPopUp ? arrowDown : arrowUp} alt='Seta indicando caixa de seleção'/>
                     </button>
                     <ul id='selectPopUp' className={`${selectPopUp ? 'popup-shown' : 'popup-hidden'}`}>
-                        <li onClick={() => setCurrentPage('registeredPrizes')}>Cadastrados</li>
+                        <li onClick={() => setCurrentPage('availablePrizes')}>Cadastrados</li>
                         <li onClick={() => setCurrentPage('pendingPrizes')}>Pendentes</li>
                         <li onClick={() => setCurrentPage('givenPrizes')}>Entregues</li>
                     </ul>

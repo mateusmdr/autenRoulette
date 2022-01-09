@@ -41,8 +41,11 @@ export const formatDateHtml = (date) => {
     return date.toISOString().split('T')[0];
 }
 
-export const apiUrl = (method) =>
-    `http://${process.env.REACT_APP_API_ADDRESS}:${process.env.REACT_APP_API_PORT}/admin/${method}`;
+export const apiUrl = ({method, route}) =>
+    `${process.env.REACT_APP_API_ADDRESS}:${process.env.REACT_APP_API_PORT}${route}${method}`;
+
+export const imgUrl = (imageName) => 
+    `${apiUrl({route: '/', method: 'assets'})}/${imageName}`;
 
 export const requestHeaders = ({email, pwdHash}) => {
     const headers = new Headers();

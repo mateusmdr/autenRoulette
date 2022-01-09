@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
 import '../styles/Users.css';
 
@@ -11,18 +11,23 @@ import Header from '../components/Header';
 import Card from '../components/Card';
 import SearchBar from '../components/SearchBar';
 
-import {formatDouble, formatPhone, formatPixKey, formatDate, formatTime} from '../utils';
+import {formatDouble, formatPhone, formatPixKey, formatDate, formatTime, getData} from '../utils';
+import {getUsers} from '../queries/get';
 
 const Page = ({setCurrentPage, credentials}) => {
     const [filter, setFilter] = useState('');
+    const [users, setUsers] = useState([]);
+
+    useEffect(() => {
+        getData({
+            method: () => getUsers(credentials),
+            setter: setUsers
+        });
+    },[credentials]);
 
     const cards = {
-        registeredUsers: {amount: 1032, text: 'Usuários Cadastrados'},
+        registeredUsers: {amount: users.length, text: 'Usuários Cadastrados'},
     }
-
-    const items = new Array(100).fill(
-        {name : 'João Alves da Silva Gomes', phone: '(00) 00000-0000'}
-    );
 
     const filterRow = (item) => String(item.name + item.phone + `R$ ${formatDouble(item.amount)}` + formatPixKey(item.pixKey) + formatDate(item.dateTime) + formatTime(item.dateTime))
         .toLocaleLowerCase().includes(filter.toLocaleLowerCase());
@@ -75,7 +80,7 @@ const Page = ({setCurrentPage, credentials}) => {
                 <div className='verticalAlign'>
                     <Card imgSrc={coloredUser} imgAlt={'Ícone colorido de Usuário'} {...cards.registeredUsers}/>
                 </div>
-                <PaginatedItems itemsPerPage={14} TableComponent={Tables} items={items.filter(filterRow)}/>
+                <PaginatedItems itemsPerPage={14} TableComponent={Tables} items={users.filter(filterRow)}/>
             </main>
         </Background>
     );

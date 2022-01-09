@@ -29,7 +29,7 @@ const Page = ({setCurrentPage, credentials}) => {
             method: () => getUserCount(credentials),
             setter: setUserCount
         });
-    },[]);
+    },[credentials]);
 
 
     const cards = {

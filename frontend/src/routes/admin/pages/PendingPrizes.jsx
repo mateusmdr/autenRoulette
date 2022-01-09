@@ -22,8 +22,7 @@ const Page = ({setCurrentPage, credentials}) => {
             method: () => getPendingPrizes(credentials),
             setter: setPendingPrizes
         });
-        console.log(pendingPrizes);
-    },[]);
+    },[credentials]);
 
     const cards = {
         pendingPrizes: {amount: pendingPrizes.length, text: 'Prêmios Pendentes'},

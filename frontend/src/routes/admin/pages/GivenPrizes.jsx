@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
 import PaginatedItems from '../components/PaginatedItems';
 
@@ -9,20 +9,31 @@ import Header from '../components/Header';
 import Card from '../components/Card';
 import SearchBar from '../components/SearchBar';
 
-import {formatDouble, formatPhone, formatPixKey, formatDate, formatTime} from '../utils';
+import {formatDouble, formatPhone, formatPixKey, formatDate, formatTime, getData} from '../utils';
+import { getGivenPrizes } from '../queries/get';
 
 const Page = ({setCurrentPage, credentials}) => {
     const [filter, setFilter] = useState('');
+    const [givenPrizes, setGivenPrizes] = useState([]);
+
+    useEffect(() => {
+        getData({
+            method: () => getGivenPrizes(credentials),
+            setter: setGivenPrizes
+        });
+    },[credentials]);
 
     const cards = {
-        givenPrizes: {amount: 120, text: 'Prêmios Entregues'},
-        totalGivenAmount: {amount: 'R$ 00000,00', text: 'Total em Prêmios Entregues'},
+        givenPrizes: {amount: givenPrizes.length, text: 'Prêmios Entregues'},
+        totalGivenAmount: {
+            amount: `R$ ${formatDouble(
+                givenPrizes
+                .map(item => item.amount)
+                .reduce((acc, cur) => acc + Number(cur),0)
+            )}`,
+            text: 'Total em Prêmios Entregues'
+        }
     }
-
-    const items = new Array(50).fill(
-        {name : 'João Alves da Silva Gomes', phone: '(00) 00000-0000', amount: 1231230.3, pixKey: '000.000.000-00', dateTime: '2007-03-01T13:00:00Z',
-    paymentDateTime: '2009-04-25T18:30:00Z'}
-    );
 
     const filterRow = (item) => String(item.name + item.phone + `R$ ${formatDouble(item.amount)}` + formatPixKey(item.pixKey) + formatDate(item.dateTime) + formatTime(item.dateTime))
         .toLocaleLowerCase().includes(filter.toLocaleLowerCase());
@@ -77,7 +88,7 @@ const Page = ({setCurrentPage, credentials}) => {
                     <Card imgSrc={trophy} imgAlt={'Ícone colorido de Troféu'} {...cards.givenPrizes}/>
                     <Card imgSrc={money} imgAlt={'Ícone colorido de dinheiro'} {...cards.totalGivenAmount}/>
                 </div>
-                <PaginatedItems itemsPerPage={7} TableComponent={Table} items={items.filter(filterRow)}/>
+                <PaginatedItems itemsPerPage={7} TableComponent={Table} items={givenPrizes.filter(filterRow)}/>
             </main>
         </Background>
     );

@@ -53,9 +53,9 @@ const Admin = () => {
                     credentials={credentials}
                 />
             );
-        case 'registeredPrizes':
+        case 'availablePrizes':
             return (
-                <Pages.RegisteredPrizes 
+                <Pages.AvailablePrizes 
                     setCurrentPage={setCurrentPage}
                     credentials={credentials}
                 />

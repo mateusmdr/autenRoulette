@@ -53,7 +53,7 @@ const Page = ({setCurrentPage, setSelectedAd, credentials}) => {
                         <img src={removeIcon} alt='Ícone de lixeira indicando remoção'
                             onClick={() => {
                                 const answer = window.confirm(`Tem certeza que quer remover o anúncio da empresa ${ad.companyName}?`);
-                                if(answer) removeAd(ad);
+                                if(answer) removeAd(ad);    
                             }}/>
                     </button>
                     <button

@@ -1,12 +1,25 @@
 import {apiUrl, requestHeaders} from '../utils';
 
-// export const deleteAd = async ({email, pwdHash, id}) => {
-//     const res = await fetch(apiUrl({route: '/admin/', method: 'deleteAd'}), {
-//         mode: 'cors',
-//         method: 'DELETE',
-//         headers: requestHeaders({email, pwdHash}),
-//         body: JSON.stringify({id})
-//     });
+export const updateAd = async ({email, pwdHash, newAd}) => {
+    const res = await fetch(apiUrl({route: '/admin/', method: 'updateAd'}), {
+        mode: 'cors',
+        method: 'PUT',
+        headers: requestHeaders({email, pwdHash}),
+        body: JSON.stringify(newAd)
+    });
 
-//     return res.ok;
-// }
+    return res.ok;
+}
+
+export const updateAvailablePrize = async ({email, pwdHash, newPrize}) => {
+    const res = await fetch(apiUrl({route: '/admin/', method: 'updateAvailablePrize'}), {
+        mode: 'cors',
+        method: 'PUT',
+        headers: requestHeaders({email, pwdHash}),
+        body: JSON.stringify(newPrize)
+    });
+
+    console.log(newPrize);
+
+    return res.ok;
+}

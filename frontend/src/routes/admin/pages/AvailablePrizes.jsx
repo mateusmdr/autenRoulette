@@ -12,6 +12,7 @@ import Modal from '../components/Modal';
 
 import {formatDouble, formatResultType, formatPeriodType, getData} from '../utils';
 import {getAvailablePrizes} from '../queries/get';
+import {updateAvailablePrize} from '../queries/put';
 
 const Page = ({setCurrentPage, credentials}) => {
 
@@ -28,13 +29,6 @@ const Page = ({setCurrentPage, credentials}) => {
             setter: setAvailablePrizes
         });
     },[credentials]);
-
-    const consultaAPI = (inputs) => {
-        let errors = [];
-
-        if(inputs.amount <= 0) errors.push("O campo valor de prêmio deve ser positivo");
-        return errors;
-    }
 
     const openModal = (prize) => () => {
         setModalPopup(true);
@@ -53,13 +47,16 @@ const Page = ({setCurrentPage, credentials}) => {
         setSelectedPrize(null);
     }
 
-    const editPrize = (newPrize) => {
-        const response = consultaAPI(newPrize);
-        console.log(response);
-        if(response.length !== 0){
-            const errStr = response.reduce((acc, curr) => acc + curr);
-            alert(errStr);    
-        }else{
+    const editPrize = async (newPrize) => {
+        const res = await updateAvailablePrize({...credentials, newPrize: {
+            id: selectedPrize.position,
+            resultType: newPrize.resultType,
+            amount: newPrize.amount,
+            maxDraws: newPrize.maxDraws,
+            resetPeriod: newPrize.resetPeriod
+        }});
+
+        if(res){
             let newItems = availablePrizes;
             newItems[availablePrizes.indexOf(selectedPrize)] = {...newItems[availablePrizes.indexOf(selectedPrize)],...newPrize} ;
             console.log(newItems);
@@ -70,7 +67,7 @@ const Page = ({setCurrentPage, credentials}) => {
 
     const sumPrizeAmounts = availablePrizes
         .filter(item => item.resultType==='success')
-        .map(item => item.amount)
+        .map(item => item.amount*item.maxDraws)
         .reduce((acc,curr) => acc + Number(curr),0);
 
     const cards = {
@@ -125,7 +122,7 @@ const Page = ({setCurrentPage, credentials}) => {
                 <div className='verticalAlign'>
                     <Card imgSrc={money} imgAlt={'Ícone colorido de dinheiro'} {...cards.totalAvailablePrizes}/>
                 </div>
-                <Table items={availablePrizes}/>
+                <Table items={availablePrizes.sort((a,b) => a.position - b.position)}/>
             </main>
         </Background>
         {selectedPrize && 

@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS availablePrizes (
     maxDraws INTEGER,
     amount NUMERIC,
     resultType result_t NOT NULL,
-    resetPeriod period_t NOT NULL,
+    resetPeriod period_t,
     drawNumber INTEGER NOT NULL,
 
     PRIMARY KEY(id),
@@ -72,6 +72,10 @@ CREATE TABLE IF NOT EXISTS availablePrizes (
     CHECK (
         (resultType!='success' AND amount IS NULL) OR 
         (resultType='success' AND amount IS NOT NULL AND amount>0)
+    ),
+    CHECK (
+        (resultType!='success' AND resetPeriod IS NULL) OR 
+        (resultType='success' AND resetPeriod IS NOT NULL)
     ),
     /*Require field to be positive*/    
     CHECK (maxDraws > 0),

@@ -37,7 +37,7 @@ const Page = ({setCurrentPage, credentials}) => {
             resultType: prize.resultType,
             amount: prize.resultType === 'success' ? prize.amount : '',
             maxDraws: prize.resultType === 'success' ? prize.maxDraws : '',
-            resetPeriod: prize.resultType === 'success' ? prize.resetPeriod : '',
+            resetPeriod: prize.resultType === 'success' ? prize.resetPeriod : 'daily',
             drawNumber: prize.drawNumber
         });
     }
@@ -49,7 +49,7 @@ const Page = ({setCurrentPage, credentials}) => {
 
     const editPrize = async (newPrize) => {
         const res = await updateAvailablePrize({...credentials, newPrize: {
-            id: selectedPrize.position,
+            id: selectedPrize.id,
             resultType: newPrize.resultType,
             amount: newPrize.amount,
             maxDraws: newPrize.maxDraws,

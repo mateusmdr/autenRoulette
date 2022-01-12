@@ -9,7 +9,6 @@ export const updateAvailablePrize = async ({id, resultType, amount, maxDraws, re
         ['maxdraws', 'amount', 'resulttype','resetperiod'],
         {table: 'availableprizes'}
     );
-    console.log(amount, id);
     const condition = pgp.as.format(' WHERE id = $1', id);
     const isSuccess = resultType === 'success';
     const sql = (pgp.helpers.update({

@@ -14,9 +14,10 @@ export const isLoggedIn = async ({email, pwdHash}) => {
 
 export const getAvailablePrizes = async () => {
     const query = await db.any('SELECT * FROM availablePrizes');
-    return query.map((item) => {
+    return query.map((item, index) => {
         return {
-            position: item.id,
+            id: item.id,
+            position: index + 1,
             resultType: item.resulttype,
             amount: Number(item.amount),
             maxDraws: Number(item.maxdraws),

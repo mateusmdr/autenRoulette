@@ -1,0 +1,32 @@
+/* Background Component */
+#background {
+    background: linear-gradient(180deg, #06030E 0%, #200B36 100%);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+#background * {
+    /* max-width: 480px; */
+}
+
+#background main {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+#background main > img {
+    position: absolute;
+}
+
+#background img.bottomLeftCoins {
+    left: 20px;
+    bottom: 14px;
+}
+
+#background img.bottomRightLights {
+    right: 0;
+    bottom: 0;
+}
+/**/

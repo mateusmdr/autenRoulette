@@ -33,7 +33,8 @@ export const upload = multer({
 const defaultSize = {width: 312, height: 60};
 
 export const resize = async (req, res, next) => {
-    const filePath = req.file.path;
+    const filePath = req.file?.path;
+    if(!filePath) next();
     let buffer = await sharp(filePath).resize(defaultSize).toBuffer(); //Resize and save on memory
 
     sharp(buffer).toFile(filePath); //Overwrite previously uploaded file

@@ -1,9 +1,13 @@
 import express from "express";
+import { validationResult } from 'express-validator';
 
 import * as get from './queries/get.js';
 import * as put from './queries/put.js';
 import * as post from './queries/post.js';
 import * as del from './queries/delete.js';
+
+import * as putValidator from './middlewares/validators/put.js';
+import * as postValidator from './middlewares/validators/post.js';
 
 const route = express.Router();
 
@@ -50,7 +54,22 @@ route.get('/:action', async (req,res) => {
     return res.json(await method());
 });
 
-route.put('/:action', async (req,res) => {
+route.put('/:action', async (req, res, next) => {
+    const validator = putValidator[req.params.action];
+    if(!validator)
+        return next();
+
+    await Promise.all(
+        validator.map(validation => validation.run(req))
+    );
+
+    const errors = validationResult(req);
+    if (errors.isEmpty()) {
+      return next();
+    }
+
+    return res.status(422).json({ errors: errors.array() });
+}, async (req,res) => {
     const method = put[req.params.action];
     if(!method) return res.status(404).json({ error: 'Not Found' });
 
@@ -58,12 +77,42 @@ route.put('/:action', async (req,res) => {
     return res.json();
 });
 
-route.post('/createAd', upload, resize, async (req, res) => {
-    await post.createAd({...req.body, imgFileName: req.file.filename});
+route.post('/createAd', async (req, res, next) => {
+    const validator = postValidator.createAd;
+    if(!validator)
+        return next();
+
+    await Promise.all(
+        validator.map(validation => validation.run(req))
+    );
+
+    const errors = validationResult(req);
+    if (errors.isEmpty()) {
+      return next();
+    }
+
+    return res.status(422).json({ errors: errors.array() });
+}, upload, resize, async (req, res) => {
+    await post.createAd({...req.body, imgFileName: req.file?.filename});
     res.json();
 });
 
-route.post('/:action', async (req,res) => {
+route.post('/:action', async (req, res, next) => {
+    const validator = postValidator[req.params.action];
+    if(!validator)
+        return next();
+
+    await Promise.all(
+        validator.map(validation => validation.run(req))
+    );
+
+    const errors = validationResult(req);
+    if (errors.isEmpty()) {
+      return next();
+    }
+
+    return res.status(422).json({ errors: errors.array() });
+}, async (req,res) => {
     const method = post[req.params.action];
     if(!method) return res.status(404).json({ error: 'Not Found' });
 

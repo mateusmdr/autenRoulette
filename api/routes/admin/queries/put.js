@@ -21,10 +21,10 @@ export const updateAvailablePrize = async ({id, resultType, amount, maxDraws, re
     await db.query(sql);
 }
 
-export const updateAd = async({id, companyName, initialDateTime, expirationDateTime, linkURL, locationFilter, imagePath}) => {
+export const updateAd = async({id, companyName, initialDateTime, expirationDateTime, linkURL, locationFilter, imageFileName}) => {
     const cs = new pgp.helpers.ColumnSet(
         ['companyname', 'initialdatetime', 'expirationdatetime',
-        'linkurl', 'locationfilter', 'imagefilename'],
+        'linkurl', 'locationfilter', 'imgfilename'],
         {table: 'ads'}
     );
     
@@ -35,8 +35,7 @@ export const updateAd = async({id, companyName, initialDateTime, expirationDateT
         expirationdatetime: expirationDateTime,
         linkurl: linkURL,
         locationfilter: locationFilter,
-        imagefilename: imageFileName
+        imgfilename: imageFileName || undefined
     },cs) + condition);
-
     await db.query(sql);
 };

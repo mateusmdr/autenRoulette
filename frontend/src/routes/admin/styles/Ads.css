@@ -8,6 +8,15 @@
 
     border-spacing: calc(40/1440 * 100vw);
     width: calc(1311/1440 * 100vw);
+    table-layout: fixed;
+}
+#ads tbody {
+    table-layout: fixed;
+}
+
+#ads tr {
+    display: flex;
+    gap: calc(40/1440 * 100vw);
 }
 
 #ads td {
@@ -15,6 +24,8 @@
     background: linear-gradient(180deg, #10061D 0%, #200B36 100%, #120721 100%);
     padding: calc(12/1440*100vw);
     border-radius: 8px;
+    width: calc(389/1440 * 100vw);
+    display: inline-block;
 }
 
 #ads .adCard {

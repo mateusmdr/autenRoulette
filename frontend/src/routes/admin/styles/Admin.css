@@ -188,3 +188,75 @@ input::-webkit-inner-spin-button {
 option {
     color: black;
 }
+
+.modal-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(636/1440 * 100vw);
+    background-color: #221B2E;
+    border-radius: 8px;
+    box-shadow: 24px;
+    padding: 68px 120px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 44px;
+}
+
+#modal-title{
+    font-weight: 700;
+    margin-left: 30px;
+    color: #BFC9DB;
+}
+
+#modal-description {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.modal-box label {
+    font-size: 12px;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    color: rgba(0, 0, 0, 0);
+    opacity: 1;
+    display: block;
+    background: url('../assets/calendar.svg') no-repeat;
+    width: 20px;
+    height: 20px;
+    border-width: thin;
+}
+
+input[type='date'] {
+    width: 45%;
+    padding: calc(14/1024 * 100vh) 20px calc(14/1024 * 100vh) calc(16/1440 * 100vw);
+    background-color: transparent;
+    border: 1px solid #BFC9DB;
+    border-radius: 8px;
+
+    color: #BFC9DB;
+    font-size: calc(16/1440 * 100vw);
+}
+
+.formActions {
+    align-self: flex-end;
+    display: flex;
+    gap: 24px;
+}
+
+.formActions .cancel {
+    background: #BFC9DB;
+    color:#28007B;
+}
+
+.payment {
+    color: #7EB1FF !important;
+}
+
+.alignLeft {
+    text-align: left;
+    padding-left: 12px;
+}

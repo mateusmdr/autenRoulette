@@ -35,7 +35,12 @@ export const formatPeriodType = (type) => {
     }
 }
 
-export const formatLocationFilter = (locationFilter) => locationFilter[0].locationName;
+export const formatLocationFilter = (locationFilter) => {
+    const filter = JSON.parse(locationFilter);
+    const estados = filter.states.map(state => state.nome).join(', ');
+    const cidades = filter.cities.map(city => city.nome).join(', '); 
+    return([estados, cidades]);
+};
 
 export const formatDateHtml = (date) => {
     return date.toISOString().split('T')[0];
@@ -47,12 +52,12 @@ export const apiUrl = ({method, route}) =>
 export const imgUrl = (imageName) => 
     `${apiUrl({route: '/', method: 'assets'})}/${imageName}`;
 
-export const requestHeaders = ({email, pwdHash}) => {
+export const requestHeaders = ({email, pwdHash}, json=true) => {
     const headers = new Headers();
     // Base64 encrypt authentication data
     const encoded = base64.encode(`${email}:${pwdHash}`);
     headers.append('Authorization', 'Basic ' + encoded); 
-    headers.append('Content-Type', 'application/json');
+    json && headers.append('Content-Type', 'application/json');
     
     return headers;
 }

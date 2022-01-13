@@ -7,8 +7,9 @@ import {Chip, Button, LinearProgress} from '@mui/material';
 import Background from '../components/Background';
 import Header from '../components/Header';
 
-import {formatDateHtml} from '../utils';
+import {formatDateHtml, getData} from '../utils';
 import {getStates, getCitiesByState} from '../queries/ibge';
+import {createAd} from '../queries/post';
 
 import '../styles/CreateAd.css';
 
@@ -22,12 +23,12 @@ const StageImg = ({stageNumber, formStage}) => {
     ));
 }
 
-const Form = ({selectedAd, setCurrentPage}) => {
+const Form = ({selectedAd, setCurrentPage, credentials}) => {
     const today = new Date();
 
     const [input, setInput] = useState({
         companyName: '', initialDate: today, expirationDate: new Date(Date.now().valueOf() + 86400000), linkUrl : '',
-        banner: null
+        image: null
     });
     const [selectedStates, setSelectedStates] = useState([]);
     const [selectedCities, setSelectedCities] = useState([]);
@@ -38,30 +39,22 @@ const Form = ({selectedAd, setCurrentPage}) => {
     const [cities, setCities] = useState([]);
 
     useEffect(() => {
-        (async() => {
-            const availableStates = await getStates();
-            console.log(availableStates);
-            setStates(availableStates);
-        })();
+        getData({
+            method: getStates,
+            setter: setStates
+        });
     },[]);
 
     useEffect(() => {
-        (async() => {
-            const availableCities = await getCitiesByState(selectedStates);
-            console.log(availableCities);
-            setCities(availableCities);
-        })();
+        getData({
+            method: () => getCitiesByState(selectedStates),
+            setter: setCities
+        })
     },[selectedStates]);
 
-    const createAd = () => {
-        console.log(input);
-    }
-
     const handleCapture = ({ target }) => {
-        setInput({...input, banner: target.files[0]});
-        const fileReader = new FileReader();
-        // const name = 'image';
-        console.log(target.files)
+        setInput({...input, image: target.files[0]});
+        const fileReader = new FileReader();    
         fileReader.readAsDataURL(target.files[0]);
         fileReader.onload = (e) => {
             // console.log(e.target.result, name);
@@ -192,7 +185,7 @@ const Form = ({selectedAd, setCurrentPage}) => {
                 </div>
             </div>
         ) : (<div>
-                {!input.banner ? (<><input
+                {!input.image ? (<><input
                     accept="image/jpeg,image/png"
                     hidden
                     id="raised-button-file"
@@ -207,11 +200,11 @@ const Form = ({selectedAd, setCurrentPage}) => {
                     <div className='imageProgress'>
                         <img src={imgIcon} alt='Ícone de arquivo de imagem'/>
                         <div className='progressBar'>
-                            <h3 className='filename'>{input.banner.name}</h3>
+                            <h3 className='filename'>{input.image.name}</h3>
                             <LinearProgress variant="determinate" value={50}/>
                         </div>
                         <button onClick={() => {
-                            setInput({...input, banner: null});
+                            setInput({...input, image: null});
                         }} className='modalCloseButton'>
                             <img src={closeIcon} alt='Ícone de fechar a janela'/>
                         </button>
@@ -229,10 +222,21 @@ const Form = ({selectedAd, setCurrentPage}) => {
                 }}
             />
             <input type='submit' value={stage===2 ? 'Concluir' : 'Continuar'}
-                onClick={() => {
+                onClick={async() => {
                     if(stage===2){
-                        createAd();
-                        setCurrentPage('ads');
+                        const res = await createAd({...credentials, ad: {
+                            companyName: input.companyName,
+                            expirationDateTime: input.expirationDate.toISOString(),
+                            initialDateTime: input.initialDate.toISOString(),
+                            linkURL: input.linkUrl,
+                            image: input.image,
+                            locationFilter: JSON.stringify({
+                                states: selectedStates,
+                                cities: selectedCities
+                            })
+                        }});
+                        if(res) 
+                            setCurrentPage('ads');
                     }
                     else{
                         setStage(stage+1);
@@ -253,7 +257,11 @@ const Page = ({setCurrentPage, credentials, selectedAd}) => {
                         <img src={flag} alt='Ícone colorido de bandeira'/>
                         <h1>{selectedAd ? 'Editar Anúncio' : 'Novo Anúncio'}</h1>
                     </div>
-                    <Form selectedAd={selectedAd} setCurrentPage={setCurrentPage}/>
+                    <Form 
+                        selectedAd={selectedAd}
+                        setCurrentPage={setCurrentPage}
+                        credentials={credentials}
+                    />
                 </div>
             </main>
         </Background>

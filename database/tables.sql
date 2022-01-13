@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS ads (
     locationFilter TEXT NOT NULL,
     initialDatetime TIMESTAMP NOT NULL,
     expirationDatetime TIMESTAMP NOT NULL,
-    imageFileName TEXT NOT NULL,
+    imgFileName TEXT NOT NULL,
     linkUrl TEXT NOT NULL,
 
     PRIMARY KEY(id),

@@ -45,10 +45,10 @@ const Page = ({setCurrentPage, credentials}) => {
                 <td>{formatPhone(item.phone)}</td>
                 <td>{`R$ ${formatDouble(item.amount)}`}</td>
                 <td>{formatPixKey(item.pixKey)}</td>
-                <td>{formatDate(item.dateTime)}</td>
-                <td>{formatTime(item.dateTime)}</td>
-                <td>{formatDate(item.paymentDateTime)}</td>
-                <td>{formatTime(item.paymentDateTime)}</td>
+                <td>{formatDate(item.winDateTime)}</td>
+                <td>{formatTime(item.winDateTime)}</td>
+                <td className='payment'>{formatDate(item.paymentDateTime)}</td>
+                <td className='payment'>{formatTime(item.paymentDateTime)}</td>
             </tr>
         );
     }

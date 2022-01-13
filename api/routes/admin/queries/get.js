@@ -28,7 +28,8 @@ export const getAvailablePrizes = async () => {
 }
 
 export const getPendingPrizes = async () => {
-    const query = await db.any('SELECT * FROM (drawnPrizes as d JOIN users as u ON d.user_id = u.id) WHERE d.ispending');
+    const query = await db.any('SELECT d.id as id, d.amount as amount, d.pixkey as pixkey, d.windatetime as windatetime, u.name as name, u.phone as phone FROM (drawnPrizes as d JOIN users as u ON d.user_id = u.id) WHERE d.ispending');
+    console.log(query);
     return query.map(item => {
         return {
             id: item.id,
@@ -41,13 +42,14 @@ export const getPendingPrizes = async () => {
     });
 }
 export const getGivenPrizes = async () => {
-    const query = await db.any('SELECT * FROM (drawnPrizes as d JOIN users as u ON d.user_id = u.id) WHERE NOT d.ispending');
+    const query = await db.any('SELECT d.id as id, d.amount as amount, d.pixkey as pixkey, d.windatetime as windatetime, d.paymentdatetime as paymentdatetime, u.name as name, u.phone as phone FROM (drawnPrizes as d JOIN users as u ON d.user_id = u.id) WHERE NOT d.ispending');
     return query.map(item => {
         return {
             id: item.id,
             amount: Number(item.amount),
             pixKey: item.pixkey,
             winDateTime: item.windatetime,
+            paymentDateTime: item.paymentdatetime,
             name: item.name,
             phone: item.phone
         };

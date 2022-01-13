@@ -23,3 +23,14 @@ export const updateAvailablePrize = async ({email, pwdHash, newPrize}) => {
 
     return res.ok;
 }
+
+export const confirmPayment = async ({email, pwdHash, id, paymentDateTime}) => {
+    const res = await fetch(apiUrl({route: '/admin/', method: 'confirmPayment'}), {
+        mode: 'cors',
+        method: 'PUT',
+        headers: requestHeaders({email, pwdHash}),
+        body: JSON.stringify({id, paymentDateTime})
+    });
+
+    return res.ok;
+}

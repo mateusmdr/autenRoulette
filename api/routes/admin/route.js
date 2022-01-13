@@ -77,25 +77,29 @@ route.put('/:action', async (req, res, next) => {
     return res.json();
 });
 
-route.post('/createAd', async (req, res, next) => {
-    const validator = postValidator.createAd;
-    if(!validator)
+route.post('/createAd', upload, resize,
+    async (req, res, next) => {
+        console.log(req.body);
+        const validator = postValidator.createAd;
+        if(!validator)
+            return next();
+
+        await Promise.all(
+            validator.map(validation => validation.run(req))
+        );
+
+        const errors = validationResult(req);
+        if (errors.isEmpty()) {
         return next();
+        }
 
-    await Promise.all(
-        validator.map(validation => validation.run(req))
-    );
-
-    const errors = validationResult(req);
-    if (errors.isEmpty()) {
-      return next();
+        return res.status(422).json({ errors: errors.array() });
+    },
+    async (req, res) => {
+        await post.createAd({...req.body, imgFileName: req.file.filename});
+        res.json();
     }
-
-    return res.status(422).json({ errors: errors.array() });
-}, upload, resize, async (req, res) => {
-    await post.createAd({...req.body, imgFileName: req.file?.filename});
-    res.json();
-});
+);
 
 route.post('/:action', async (req, res, next) => {
     const validator = postValidator[req.params.action];

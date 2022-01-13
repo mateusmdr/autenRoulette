@@ -46,8 +46,8 @@ const Page = ({setCurrentPage, credentials}) => {
                 <td>{formatPhone(item.phone)}</td>
                 <td>{`R$ ${formatDouble(item.amount)}`}</td>
                 <td>{formatPixKey(item.pixKey)}</td>
-                <td>{formatDate(item.windatetime)}</td>
-                <td>{formatTime(item.windatetime)}</td>
+                <td>{formatDate(item.winDateTime)}</td>
+                <td>{formatTime(item.winDateTime)}</td>
                 <td>
                     <button onClick={() => console.log('Confirmar pagamento de id ' + index)}><img src={checkImg} alt='Ícone verde de confirmação'/>Confirmar Pagamento</button>
                 </td>

@@ -35,17 +35,6 @@
     color: #F550CA;
 }
 
-#createAd .formActions {
-    align-self: flex-end;
-    display: flex;
-    gap: 24px;
-}
-
-#createAd .formActions .cancel {
-    background: #BFC9DB;
-    color:#28007B;
-}
-
 #createAd .formContainer label {
     color:#7F8896;
 }
@@ -65,27 +54,6 @@
     width: 10%;
     text-align: center;
     font-size: 16px;
-}
-
-#createAd input[type='date'] {
-    width: 45%;
-    padding: calc(14/1024 * 100vh) 20px calc(14/1024 * 100vh) calc(16/1440 * 100vw);
-    background-color: transparent;
-    border: 1px solid #BFC9DB;
-    border-radius: 8px;
-
-    color: #BFC9DB;
-    font-size: calc(16/1440 * 100vw);
-}
-
-input[type="date"]::-webkit-calendar-picker-indicator {
-    color: rgba(0, 0, 0, 0);
-    opacity: 1;
-    display: block;
-    background: url('../assets/calendar.svg') no-repeat;
-    width: 20px;
-    height: 20px;
-    border-width: thin;
 }
 
 #createAd .field span {

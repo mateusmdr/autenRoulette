@@ -13,15 +13,6 @@ import {getAds} from '../queries/get';
 import {deleteAd} from '../queries/del';
 
 const Page = ({setCurrentPage, setSelectedAd, credentials}) => {
-
-    // const [selectedAd, setSelectedAd] = useState(null);
-
-    // const consultaAPI = (inputs) => {
-    //     let errors = [];
-
-    //     if(inputs.amount <= 0) errors.push("O campo valor de prêmio deve ser positivo");
-    //     return errors;
-    // }
     const [ads, setAds] = useState([]);
 
     useEffect(() => {
@@ -46,6 +37,7 @@ const Page = ({setCurrentPage, setSelectedAd, credentials}) => {
     }
 
     const AdCard = ({ad}) => {
+        const location = formatLocationFilter(ad.locationFilter);
         return (
             <div className='adCard horizontalAlign'>
                 <div className='verticalAlign'>                    
@@ -66,9 +58,15 @@ const Page = ({setCurrentPage, setSelectedAd, credentials}) => {
                     </button>
                 </div>
                 <div className='verticalAlign'><h3 className='bold'>Empresa:</h3><h3>{ad.companyName}</h3></div>
-                {/* <div className='verticalAlign'><h3 className='bold'>Localização:</h3><h3>{formatLocationFilter(ad.locationFilter)}</h3></div> */}
-                <div className='verticalAlign'><h3 className='bold'>Link:</h3><h3>{ad.linkURL}</h3></div>
-                <div className='verticalAlign'><h3 className='bold'>Tempo de exibição:</h3><h3>{`de ${formatDate(ad.initialDate)} até ${formatDate(ad.expirationDate)}`}</h3></div>
+                <div>
+                    <h3 className='bold'>Localização:</h3>
+                    <div>
+                        <h3 className='alignLeft'>Estados: {location[0]}</h3>
+                        <h3 className='alignLeft'>Cidades: {location[1]}</h3>
+                    </div>
+                </div>
+                <div className='verticalAlign'><h3 className='bold'>Link:</h3><a href={ad.linkURL}>{ad.linkURL}</a></div>
+                <div className='verticalAlign'><h3 className='bold'>Tempo de exibição:</h3><h3>{`de ${formatDate(ad.initialDateTime)} até ${formatDate(ad.expirationDateTime)}`}</h3></div>
                 <div className='horizontalAlign' style={{width: '100%'}}>
                     <img 
                         className='adBanner' 
@@ -105,7 +103,7 @@ const Page = ({setCurrentPage, setSelectedAd, credentials}) => {
             <Header setCurrentPage={setCurrentPage}/>
             <main>
                 <div className='verticalAlign pageTitle relative'>
-                    <h1>Prêmios Cadastrados </h1>
+                    <h1>Anúncios</h1>
                     <div>
                         <input type='submit' value='Publicar novo anúncio'
                             onClick={() => {

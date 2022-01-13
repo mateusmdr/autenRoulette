@@ -1,7 +1,8 @@
 import {db, pgp} from '../../../utils/db.js';
 
 export const confirmPayment = async ({id, paymentDateTime}) => {
-    await db.query('UPDATE drawnprizes SET (ispending, paymentdatetime) = (FALSE, $1) WHERE id=$2',[id, paymentDateTime]);
+    console.log(id, paymentDateTime);
+    await db.query('UPDATE drawnprizes SET (ispending, paymentdatetime) = (FALSE, $2) WHERE id=$1',[id, paymentDateTime]);
 }
 
 export const updateAvailablePrize = async ({id, resultType, amount, maxDraws, resetPeriod}) => {

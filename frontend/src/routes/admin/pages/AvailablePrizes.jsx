@@ -88,8 +88,9 @@ const Page = ({setCurrentPage, credentials}) => {
                 {prize.resultType === 'success' && (<>
                     <div className='verticalAlign'><h3 className='bold'>Valor:</h3><h3>{`R$ ${formatDouble(prize.amount)}`}</h3></div>
                     <div className='verticalAlign'><h3 className='bold'>Periodicidade:</h3><h3>{formatPeriodType(prize.resetPeriod)}</h3></div>
-                    <div className='verticalAlign'><h3 className='bold'>Máximo de sorteios:</h3><h3>{prize.maxDraws}</h3></div></>)}
-                <div className='verticalAlign'><h3 className='bold'>Entregues:</h3><h3>{prize.drawNumber}</h3></div>
+                    <div className='verticalAlign'><h3 className='bold'>Máximo de sorteios:</h3><h3>{prize.maxDraws}</h3></div>
+                    <div className='verticalAlign'><h3 className='bold'>Entregues:</h3><h3>{prize.drawNumber}</h3></div>
+                </>)}
             </div>
         )
     }

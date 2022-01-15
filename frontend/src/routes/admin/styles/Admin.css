@@ -8,7 +8,7 @@ Ref height: 1024px
     width: 100%;
     position: relative;
     margin-top: 4px;
-    margin-bottom: 16px;
+    margin-bottom: 32px;
 }
 
 .field h4 {
@@ -259,4 +259,34 @@ input[type='date'] {
 .alignLeft {
     text-align: left;
     padding-left: 12px;
+}
+
+.formContainer {
+    display: flex;
+    flex-direction: column;
+
+    width: calc(636/1440 * 100vw);
+    background-color: #221B2E;
+    border-radius: 8px;
+    margin: calc(30/1024 * 100vh) auto;
+    padding: calc(64/1024 * 100vh) calc(114/1440 * 100vw);
+
+    gap: calc(24/1024 * 100vh);
+}
+
+.formTitle h1{
+    font-weight: 700;
+    margin-left: 30px;
+    color: #BFC9DB;
+}
+
+.formContainer > h2 {
+    text-align: left;
+    margin-bottom: calc(20/1440*100vw);
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.formActions input {
+    margin: 0;
 }

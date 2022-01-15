@@ -1,14 +1,20 @@
-import {apiUrl, requestHeaders} from '../utils';
+import {apiUrl, requestHeaders, showErrors} from '../utils';
 
-export const updateAd = async ({email, pwdHash, newAd}) => {
+export const updateAd = async ({email, pwdHash, ad}) => {
+    const formData  = new FormData();
+    for(const param in ad) {
+        formData.append(param, ad[param]);
+        console.log(param, ad[param]);
+    }
+
     const res = await fetch(apiUrl({route: '/admin/', method: 'updateAd'}), {
         mode: 'cors',
         method: 'PUT',
-        headers: requestHeaders({email, pwdHash}),
-        body: JSON.stringify(newAd)
+        headers: requestHeaders({email, pwdHash}, false),
+        body: formData
     });
 
-    return res.ok;
+    return await showErrors(res);
 }
 
 export const updateAvailablePrize = async ({email, pwdHash, newPrize}) => {
@@ -19,9 +25,7 @@ export const updateAvailablePrize = async ({email, pwdHash, newPrize}) => {
         body: JSON.stringify(newPrize)
     });
 
-    console.log(newPrize);
-
-    return res.ok;
+    return await showErrors(res);
 }
 
 export const confirmPayment = async ({email, pwdHash, id, paymentDateTime}) => {
@@ -32,5 +36,5 @@ export const confirmPayment = async ({email, pwdHash, id, paymentDateTime}) => {
         body: JSON.stringify({id, paymentDateTime})
     });
 
-    return res.ok;
+    return await showErrors(res);
 }

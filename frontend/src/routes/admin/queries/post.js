@@ -1,4 +1,4 @@
-import {apiUrl, requestHeaders} from '../utils';
+import {apiUrl, requestHeaders, showErrors} from '../utils';
 
 export const createAd = async ({email, pwdHash, ad}) => {
     const formData  = new FormData();
@@ -14,5 +14,5 @@ export const createAd = async ({email, pwdHash, ad}) => {
         body: formData
     });
 
-    return res.ok;
+    return await showErrors(res);
 }

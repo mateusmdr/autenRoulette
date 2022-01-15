@@ -2,30 +2,36 @@
     overflow-y: scroll;
 }
 
-#ads table {
+#ads .table {
     padding: calc(32/1440*100vw);
     background-color: #221B2E;
-
-    border-spacing: calc(40/1440 * 100vw);
     width: calc(1311/1440 * 100vw);
-    table-layout: fixed;
-}
-#ads tbody {
-    table-layout: fixed;
+
+    display: flex;
+    flex-direction: column;
+    gap: calc(40/1440 * 100vw);
+    align-items: center;
 }
 
-#ads tr {
+#ads .row {
     display: flex;
     gap: calc(40/1440 * 100vw);
+    justify-content: flex-start;
 }
 
-#ads td {
+#ads .item {
     vertical-align: super;
     background: linear-gradient(180deg, #10061D 0%, #200B36 100%, #120721 100%);
     padding: calc(12/1440*100vw);
     border-radius: 8px;
-    width: calc(389/1440 * 100vw);
     display: inline-block;
+    width: calc(389/1440*100vw);
+}
+
+.item a {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
 }
 
 #ads .adCard {
@@ -65,4 +71,9 @@
 
 #ads input[type='submit'] {
     padding: calc(12/1024 * 100vh) calc(24/1440*100vw);
+}
+
+#ads .adCard .adDuration h3:first-of-type{
+    text-align: left;
+    display: inline;
 }

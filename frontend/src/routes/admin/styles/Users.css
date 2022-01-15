@@ -1,5 +1,6 @@
 #users .tableContainer {
     justify-content: space-between;
+    align-items: flex-start;
 }
 
 #users .table {

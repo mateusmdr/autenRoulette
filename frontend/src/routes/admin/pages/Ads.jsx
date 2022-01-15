@@ -20,6 +20,7 @@ const Page = ({setCurrentPage, setSelectedAd, credentials}) => {
             method: () => getAds(credentials),
             setter: setAds
         });
+        setSelectedAd(null);
     },[credentials]);
 
     const removeAd = async (ad) => {
@@ -65,8 +66,8 @@ const Page = ({setCurrentPage, setSelectedAd, credentials}) => {
                         <h3 className='alignLeft'>Cidades: {location[1]}</h3>
                     </div>
                 </div>
-                <div className='verticalAlign'><h3 className='bold'>Link:</h3><a href={ad.linkURL}>{ad.linkURL}</a></div>
-                <div className='verticalAlign'><h3 className='bold'>Tempo de exibição:</h3><h3>{`de ${formatDate(ad.initialDateTime)} até ${formatDate(ad.expirationDateTime)}`}</h3></div>
+                <div className='verticalAlign'><h3 className='bold'>Link:</h3><a href={ad.linkURL} target='_blank' rel='external'>{ad.linkURL}</a></div>
+                <div className='verticalAlign adDuration'><h3 className='bold'>Tempo de exibição:</h3><h3>{`de ${formatDate(ad.initialDateTime)} até ${formatDate(ad.expirationDateTime)}`}</h3></div>
                 <div className='horizontalAlign' style={{width: '100%'}}>
                     <img 
                         className='adBanner' 
@@ -85,17 +86,15 @@ const Page = ({setCurrentPage, setSelectedAd, credentials}) => {
         }
 
         return(
-            <table>
-                <tbody>
-                    {rows.map((row, index) => {
-                        return(
-                            <tr key={index}>
-                                {row.map((ad, index) =><td key={index}><AdCard ad={ad}/></td>)}
-                            </tr>
-                        );
-                    })}
-                </tbody>
-            </table>
+            <div className='table'>
+                {rows.map((row, index) => {
+                    return(
+                        <div key={index} className='row'>
+                            {row.map((ad, index) =><div key={index} className='item'><AdCard ad={ad}/></div>)}
+                        </div>
+                    );
+                })}
+            </div>
         );
     }
     return (
@@ -116,7 +115,7 @@ const Page = ({setCurrentPage, setSelectedAd, credentials}) => {
                 <div className='verticalAlign'>
                     <Card imgSrc={flag} imgAlt={'Ícone colorido de bandeira'} {...cards.publishedAds}/>
                 </div>
-                <Table items={ads}/>
+                {ads.length>0 && <Table items={ads}/>}
             </main>
         </Background>
     );

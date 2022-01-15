@@ -10,6 +10,7 @@ import Header from '../components/Header';
 import {formatDateHtml, getData} from '../utils';
 import {getStates, getCitiesByState} from '../queries/ibge';
 import {createAd} from '../queries/post';
+import {updateAd} from '../queries/put';
 
 import '../styles/CreateAd.css';
 
@@ -25,9 +26,11 @@ const StageImg = ({stageNumber, formStage}) => {
 
 const Form = ({selectedAd, setCurrentPage, credentials}) => {
     const today = new Date();
-
     const [input, setInput] = useState({
-        companyName: '', initialDate: today, expirationDate: new Date(Date.now().valueOf() + 86400000), linkUrl : '',
+        companyName: selectedAd ? selectedAd.companyName : '',
+        initialDate: selectedAd ? new Date(selectedAd.initialDateTime) : today,
+        expirationDate: selectedAd ? new Date(selectedAd.expirationDateTime) : new Date(Date.now().valueOf() + 86400000),
+        linkUrl : selectedAd ? selectedAd.linkURL : '',
         image: null
     });
     const [selectedStates, setSelectedStates] = useState([]);
@@ -37,6 +40,9 @@ const Form = ({selectedAd, setCurrentPage, credentials}) => {
 
     const [states, setStates] = useState([]);
     const [cities, setCities] = useState([]);
+
+    const [fileLoaded, setFileLoaded] = useState(false);
+    const [progress, setProgress] = useState(0);
 
     useEffect(() => {
         getData({
@@ -53,11 +59,18 @@ const Form = ({selectedAd, setCurrentPage, credentials}) => {
     },[selectedStates]);
 
     const handleCapture = ({ target }) => {
+        setFileLoaded(false);
+        setProgress(0);
         setInput({...input, image: target.files[0]});
-        const fileReader = new FileReader();    
+        const fileReader = new FileReader();
         fileReader.readAsDataURL(target.files[0]);
+        fileReader.onprogress = (data) => {
+            if (data.lengthComputable) {                                            
+                setProgress(parseInt( ((data.loaded / data.total) * 100), 10 ));
+            }
+        }
         fileReader.onload = (e) => {
-            // console.log(e.target.result, name);
+            setFileLoaded(true);
         };
     };
 
@@ -77,7 +90,7 @@ const Form = ({selectedAd, setCurrentPage, credentials}) => {
             </li>
         </ul>
         {(stage === 0 ? (
-            <>
+            <div>
                 <div>
                     <label htmlFor='companyName'>Empresa *</label>
                     <div className='field'>
@@ -123,7 +136,7 @@ const Form = ({selectedAd, setCurrentPage, credentials}) => {
                         <img className='inputIcon' src={linkIcon} alt='Ícone de clipe representando link'/>
                     </div>
                 </div>
-            </>
+            </div>
         ) : stage === 1 ? (
             <div>
                 <div className='field'>
@@ -197,17 +210,19 @@ const Form = ({selectedAd, setCurrentPage, credentials}) => {
                         <img src={imageInput} alt='Upload de banner para o anúncio' className='imageInput'/>
                     </Button>
                 </label></>) :
-                    <div className='imageProgress'>
+                    <div className={`imageProgress${fileLoaded ? ' loaded' : ''}`}>
                         <img src={imgIcon} alt='Ícone de arquivo de imagem'/>
                         <div className='progressBar'>
                             <h3 className='filename'>{input.image.name}</h3>
-                            <LinearProgress variant="determinate" value={50}/>
+                            <LinearProgress variant="determinate" value={progress}/>
+                            <button onClick={() => {
+                                setProgress(0);
+                                setFileLoaded(false);
+                                setInput({...input, image: null});
+                            }} className='closeButton'>
+                                <img src={closeIcon} alt='Ícone de fechar a janela'/>
+                            </button>
                         </div>
-                        <button onClick={() => {
-                            setInput({...input, image: null});
-                        }} className='modalCloseButton'>
-                            <img src={closeIcon} alt='Ícone de fechar a janela'/>
-                        </button>
                     </div>
                 }
             </div>
@@ -221,28 +236,53 @@ const Form = ({selectedAd, setCurrentPage, credentials}) => {
                         setStage(stage-1);
                 }}
             />
-            <input type='submit' value={stage===2 ? 'Concluir' : 'Continuar'}
+            {(stage!==2 || fileLoaded) && <input type='submit' value={stage===2 ? 'Concluir' : 'Continuar'}
                 onClick={async() => {
                     if(stage===2){
-                        const res = await createAd({...credentials, ad: {
-                            companyName: input.companyName,
-                            expirationDateTime: input.expirationDate.toISOString(),
-                            initialDateTime: input.initialDate.toISOString(),
-                            linkURL: input.linkUrl,
-                            image: input.image,
-                            locationFilter: JSON.stringify({
-                                states: selectedStates,
-                                cities: selectedCities
-                            })
-                        }});
-                        if(res) 
-                            setCurrentPage('ads');
+                        if(!selectedAd){
+                            const res = await createAd({...credentials, ad: {
+                                companyName: input.companyName,
+                                expirationDateTime: input.expirationDate.toISOString(),
+                                initialDateTime: input.initialDate.toISOString(),
+                                linkURL: input.linkUrl,
+                                image: input.image,
+                                locationFilter: JSON.stringify({
+                                    states: selectedStates,
+                                    cities: selectedCities
+                                })
+                            }});
+                            if(res){
+                                setCurrentPage('ads');
+                            }
+                            else {
+                                setStage(0);
+                            }
+                        }else {
+                            const res = await updateAd({...credentials, ad: {
+                                id: selectedAd.id,
+                                companyName: input.companyName,
+                                expirationDateTime: input.expirationDate.toISOString(),
+                                initialDateTime: input.initialDate.toISOString(),
+                                linkURL: input.linkUrl,
+                                image: input.image,
+                                locationFilter: JSON.stringify({
+                                    states: selectedStates,
+                                    cities: selectedCities
+                                })
+                            }});
+                            if(res) {
+                                setCurrentPage('ads');
+                            }
+                            else{
+                                setStage(0);
+                            }
+                        }
                     }
                     else{
                         setStage(stage+1);
                     }
                 }}
-            />
+            />}
         </div>
     </>);
 }
@@ -251,7 +291,7 @@ const Page = ({setCurrentPage, credentials, selectedAd}) => {
     return (
         <Background id='createAd'>
             <Header setCurrentPage={setCurrentPage}/>
-            <main>
+            <div>
                 <div className='formContainer'>
                     <div className='formTitle verticalAlign'>
                         <img src={flag} alt='Ícone colorido de bandeira'/>
@@ -263,7 +303,7 @@ const Page = ({setCurrentPage, credentials, selectedAd}) => {
                         credentials={credentials}
                     />
                 </div>
-            </main>
+            </div>
         </Background>
     );
 }

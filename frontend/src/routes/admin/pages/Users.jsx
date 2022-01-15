@@ -50,18 +50,20 @@ const Page = ({setCurrentPage, credentials}) => {
                             <th>Nome</th>
                             <th>Telefone</th>
                         </tr>
-                        {currentItems.filter((el, index) => index % 2 === 0).map(Row)}
+                        {currentItems.filter((el, index) => index < 7).map(Row)}
                     </tbody>
                 </table>
-                <table className='table'>
-                    <tbody>
-                        <tr>
-                            <th>Nome</th>
-                            <th>Telefone</th>
-                        </tr>
-                        {currentItems.filter((el, index) => index % 2 !== 0).map(Row)}
-                    </tbody>
-                </table>
+                {currentItems.length > 7 && 
+                    <table className='table'>
+                        <tbody>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Telefone</th>
+                            </tr>
+                            {currentItems.filter((el, index) => index >= 7).map(Row)}
+                        </tbody>
+                    </table>
+                }
             </div>
         );
     }

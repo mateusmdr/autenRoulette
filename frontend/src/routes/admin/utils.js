@@ -23,13 +23,13 @@ export const formatResultType = (type) => {
 export const formatPeriodType = (type) => {
     switch (type){
         case 'daily':
-            return ('Diariamente')
+            return ('Diária')
         case 'weekly':
-            return ('Semanalmente')
+            return ('Semanal')
         case 'monthly':
-            return ('Mensalmente')
+            return ('Mensal')
         case 'yearly':
-            return ('Anualmente')
+            return ('Anual')
         default:
             return('Período inválido');
     }
@@ -64,6 +64,15 @@ export const requestHeaders = ({email, pwdHash}, json=true) => {
   
 export const getData = async({method, setter}) => {
     const res = await method();
-    console.log(res);
     setter(res);
+}
+
+export const showErrors = async (res) => {
+    if(!res.ok) {
+        const json = await res.json();
+        const errorMsg = json.errors.reduce((acc, cur) => acc + '\n' + cur.msg,'');
+        alert(errorMsg);
+    }
+
+    return res.ok;
 }

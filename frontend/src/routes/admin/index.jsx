@@ -74,6 +74,7 @@ const Admin = () => {
                     setCurrentPage={setCurrentPage}
                     credentials={credentials}
                     selectedAd={selectedAd}
+                    setSelectedAd={setSelectedAd}
                 />
             );
         case 'users':

@@ -13,13 +13,12 @@ import {formatDouble, formatPhone, formatPixKey, formatDate, formatTime, getData
 import { getAdCount, getPendingPrizes, getUserCount } from '../queries/get';
 import {confirmPayment} from '../queries/put';
 
-const Page = ({setCurrentPage, credentials}) => {
-    const today = new Date();
-    
+const Page = ({setCurrentPage, credentials}) => {    
     const [pendingPrizes, setPendingPrizes] = useState([]);
     const [adCount, setAdCount] = useState(null);
     const [userCount, setUserCount] = useState(null);
 
+    const today = new Date();
     const [modalPopup, setModalPopup] = useState(false);
     const [selectedPrize, setSelectedPrize] = useState(null);
     const [input, setInput] = useState({paymentDate: today});
@@ -108,7 +107,9 @@ const Page = ({setCurrentPage, credentials}) => {
                     className="modal-box"
                 >
                     <h2 id="modal-title">Confirmar Pagamento</h2>
-                    <p id="modal-description"><h2 className='bold'>Chave Pix:</h2> {selectedPrize?.pixKey}</p>
+                    <div id="modal-description">
+                        <h2 className='bold'>Chave Pix: </h2><span> {selectedPrize?.pixKey}</span>
+                    </div>
                     <div>
                         <label htmlFor="paymentDate">Data de Pagamento:</label>
                         <div className='field'>

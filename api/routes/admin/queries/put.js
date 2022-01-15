@@ -1,7 +1,9 @@
+import fs from 'fs';
+import path from 'path';
+
 import {db, pgp} from '../../../utils/db.js';
 
 export const confirmPayment = async ({id, paymentDateTime}) => {
-    console.log(id, paymentDateTime);
     await db.query('UPDATE drawnprizes SET (ispending, paymentdatetime) = (FALSE, $2) WHERE id=$1',[id, paymentDateTime]);
 }
 
@@ -22,7 +24,10 @@ export const updateAvailablePrize = async ({id, resultType, amount, maxDraws, re
     await db.query(sql);
 }
 
-export const updateAd = async({id, companyName, initialDateTime, expirationDateTime, linkURL, locationFilter, imageFileName}) => {
+export const updateAd = async({id, companyName, initialDateTime, expirationDateTime, linkURL, locationFilter, imgFileName}) => {
+    //Get old imageFile
+    const {imgfilename} = await db.one('SELECT imgfilename FROM ads WHERE id=$1',id);
+
     const cs = new pgp.helpers.ColumnSet(
         ['companyname', 'initialdatetime', 'expirationdatetime',
         'linkurl', 'locationfilter', 'imgfilename'],
@@ -36,7 +41,9 @@ export const updateAd = async({id, companyName, initialDateTime, expirationDateT
         expirationdatetime: expirationDateTime,
         linkurl: linkURL,
         locationfilter: locationFilter,
-        imgfilename: imageFileName || undefined
+        imgfilename: imgFileName
     },cs) + condition);
     await db.query(sql);
+    
+    fs.unlinkSync(path.join(path.resolve(),'./assets/',imgfilename)); // Remove old imageFile from assets
 };

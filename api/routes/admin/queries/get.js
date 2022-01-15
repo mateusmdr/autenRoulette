@@ -29,7 +29,6 @@ export const getAvailablePrizes = async () => {
 
 export const getPendingPrizes = async () => {
     const query = await db.any('SELECT d.id as id, d.amount as amount, d.pixkey as pixkey, d.windatetime as windatetime, u.name as name, u.phone as phone FROM (drawnPrizes as d JOIN users as u ON d.user_id = u.id) WHERE d.ispending');
-    console.log(query);
     return query.map(item => {
         return {
             id: item.id,

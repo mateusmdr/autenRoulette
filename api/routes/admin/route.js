@@ -54,33 +54,30 @@ route.get('/:action', async (req,res) => {
     return res.json(await method());
 });
 
-route.put('/:action', async (req, res, next) => {
-    const validator = putValidator[req.params.action];
-    if(!validator)
-        return next();
-
-    await Promise.all(
-        validator.map(validation => validation.run(req))
-    );
-
-    const errors = validationResult(req);
-    if (errors.isEmpty()) {
-      return next();
-    }
-
-    return res.status(422).json({ errors: errors.array() });
-}, async (req,res) => {
-    const method = put[req.params.action];
-    if(!method) return res.status(404).json({ error: 'Not Found' });
-
-    await method(req.body);
-    return res.json();
-});
-
-route.post('/createAd', upload, resize,
+route.put('/updateAd', upload, resize,
     async (req, res, next) => {
-        console.log(req.body);
-        const validator = postValidator.createAd;
+        const validator = putValidator.updateAd;
+
+        await Promise.all(
+            validator.map(validation => validation.run(req))
+        );
+
+        const errors = validationResult(req);
+        if (errors.isEmpty()) {
+            return next();
+        }
+
+        return res.status(422).json({ errors: errors.array() });
+    },
+    async (req, res) => {
+        await put.updateAd({...req.body, imgFileName: req.file.filename});
+        res.json();
+    }
+);
+
+route.put('/:action',
+    async (req, res, next) => {
+        const validator = putValidator[req.params.action];
         if(!validator)
             return next();
 
@@ -90,7 +87,30 @@ route.post('/createAd', upload, resize,
 
         const errors = validationResult(req);
         if (errors.isEmpty()) {
-        return next();
+            return next();
+        }
+
+        return res.status(422).json({ errors: errors.array() });
+    }, async (req,res) => {
+        const method = put[req.params.action];
+        if(!method) return res.status(404).json({ error: 'Not Found' });
+
+        await method(req.body);
+        return res.json();
+    }
+);
+
+route.post('/createAd', upload, resize,
+    async (req, res, next) => {
+        const validator = postValidator.createAd;
+
+        await Promise.all(
+            validator.map(validation => validation.run(req))
+        );
+
+        const errors = validationResult(req);
+        if (errors.isEmpty()) {
+            return next();
         }
 
         return res.status(422).json({ errors: errors.array() });

@@ -24,7 +24,7 @@ export const upload = multer({
     },
     fileFilter: (req, file, cb) => {
         if(!['image/jpeg','image/png'].includes(file.mimetype))
-            return cb(new multer.MulterError({code: 'INVALID_FILE_TYPE', message: "Must be a jpg/png image"}), false);
+            return cb(new multer.MulterError({code: 'INVALID_FILE_TYPE', msg: "A imagem deve estar no formato jpg/png."}), false);
 
         cb(null,true);
     }

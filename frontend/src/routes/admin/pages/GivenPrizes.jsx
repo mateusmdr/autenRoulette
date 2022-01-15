@@ -48,7 +48,6 @@ const Page = ({setCurrentPage, credentials}) => {
                 <td>{formatDate(item.winDateTime)}</td>
                 <td>{formatTime(item.winDateTime)}</td>
                 <td className='payment'>{formatDate(item.paymentDateTime)}</td>
-                <td className='payment'>{formatTime(item.paymentDateTime)}</td>
             </tr>
         );
     }
@@ -65,7 +64,6 @@ const Page = ({setCurrentPage, credentials}) => {
                         <th>Data</th>
                         <th>Hora</th>
                         <th>Pagamento</th>
-                        <th></th>
                     </tr>
                     {currentItems.map(Row)}
                 </tbody>

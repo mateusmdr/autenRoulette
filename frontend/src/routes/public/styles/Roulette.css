@@ -1,11 +1,11 @@
 /* Roulette */
-#roulette {
+.roulette {
     position: relative;
     width: calc(296/360 * 100vw);
     height: calc(296/360 * 100vw);
 }
 
-#roulette > img.outer {
+.roulette > img.outer {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -14,7 +14,7 @@
     transform: translate(-50%,-50%);
 }
 
-#roulette > .inner {        
+.roulette > .inner {        
     position: absolute;
     z-index: 3;
     left: 50%;
@@ -22,27 +22,27 @@
     transform: translate(-50%,-50%);
 }
 
-#roulette > .inner img {
+.roulette > .inner img {
     width: calc(92/360 * 100vw);
     height: calc(92/360 * 100vw);
     background-color: #1F0B35;
     border-radius: 50%;
 }
 
-#roulette > .inner * {
+.roulette > .inner * {
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%,-50%);
 }
 
-#roulette > .inner button {
+.roulette > .inner button {
     width: calc(92/360 * 100vw);
     height: calc(92/360 * 100vw);
     z-index: 4;
 }
 
-#roulette #segments {
+.roulette #segments {
     left: 50%;
     top: 50%;
     position: absolute;
@@ -60,7 +60,7 @@
     border-radius: 50%;
 }
 
-#roulette #segments img {
+.roulette #segments img {
     position: absolute;
     width: 83%;
     height: 83%;
@@ -69,7 +69,7 @@
     transform: translate(-50%, -50%) rotateZ(15deg);
 }
 
-#roulette .segment {
+.roulette .segment {
     position: absolute;
     width: 80%;
     z-index: 2;
@@ -77,7 +77,7 @@
     left: 50%;
 }
 
-#roulette .segment h2 {
+.roulette .segment h2 {
     text-align: right;
     font-weight: 700;
     font-size: calc(12/360 * 100vw);

@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import AdBackground from './components/AdBackground';
 
 import { outerRoulette, innerRoulette, rouletteBackground, rouletteBackgroundCoins} from './assets/export';
+import '../styles/Roulette.css';
 
-const Roulette = ({login, setCurrentPage}) => {
-    useEffect(() => import('../styles/Roulette.css'));
-    
+const Roulette = ({login, setCurrentPage}) => {    
     const values = [
         {displayText: 'R$ 5.000'},
         {displayText: 'R$ 5.000'},
@@ -25,10 +24,10 @@ const Roulette = ({login, setCurrentPage}) => {
     const [isSpinning, setSpinning] = useState(false);
     return (
         <AdBackground login={login}>
-            <div className='background'>
-                <img src={rouletteBackgroundCoins} alt='Moedas de plano de fundo'/>
+            <div>
+                <img className='backgroundCoins' src={rouletteBackgroundCoins} alt='Moedas de plano de fundo'/>
             </div>
-            <div id='roulette'>
+            <div className='roulette'>
                 <img className='outer' src={outerRoulette} alt='Círculo de luzes brancas ao redor da roleta'/>
                 <div className='inner'>
                     <img src={innerRoulette} alt='Círculo central da roleta'/>

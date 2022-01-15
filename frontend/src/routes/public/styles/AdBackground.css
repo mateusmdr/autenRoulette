@@ -3,6 +3,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    gap: 20px;
 }
 
 #adbackground .background {
@@ -19,7 +20,7 @@
     padding: 0 calc(16/360 * 100vw);
 }
 
-#adbackground header {
+#adbackground .header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -47,4 +48,8 @@
 
 #adbackground h2 {
     font-weight: 700;
+}
+
+#adbackground .backgroundCoins {
+    position: absolute;
 }

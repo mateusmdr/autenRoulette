@@ -1,12 +1,11 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 
 import Background from './components/Background';
 
 import {personIcon, phoneIcon, bottomLeftCoins, bottomRightLights} from './assets/export';
+import '../styles/Home.css';
 
 const Home = ({setCurrentPage, setLogin}) => {
-    useEffect(() => import('../styles/Home.css'));
-
     const [input, setInput] = useState({name: '', phone: '', remember: false});
     return (
         <Background id='home'>

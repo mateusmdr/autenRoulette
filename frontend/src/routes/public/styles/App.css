@@ -93,7 +93,7 @@ button {
     }
 /**/
 
-@media screen and (min-width: 481px) {
+/* @media screen and (min-width: 481px) {
     body * {
         display: none !important;
     }
@@ -102,4 +102,4 @@ button {
         content: 'Nosso sistema apenas suporta dispositivos móveis';
         color: black;
     }
-}
+} */

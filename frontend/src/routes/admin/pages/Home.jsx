@@ -88,7 +88,7 @@ const Page = ({setCurrentPage, credentials}) => {
     }
 
     return (
-        <Background id='home'>
+        <Background>
             <Header setCurrentPage={setCurrentPage}/>
             <main>
                 <div className='verticalAlign'>

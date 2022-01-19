@@ -10,17 +10,17 @@ INSERT INTO ads (id,companyName,locationFilter,initialDatetime,expirationDatetim
 INSERT INTO availablePrizes (maxDraws, amount, resultType,resetPeriod,drawNumber)
 VALUES
     (15, 5000, 'success', 'weekly', 5),
-    (NULL, NULL, 'retry', 'yearly', 20),
-    (NULL, NULL, 'fail', 'daily', 2),
+    (NULL, NULL, 'retry', NULL, 20),
+    (NULL, NULL, 'fail', NULL, 2),
     (15, 5000, 'success', 'weekly', 5),
-    (NULL, NULL, 'retry', 'yearly', 20),
-    (NULL, NULL, 'fail', 'daily', 2),
+    (NULL, NULL, 'retry', NULL, 20),
+    (NULL, NULL, 'fail', NULL, 2),
     (15, 5000, 'success', 'weekly', 5),
-    (NULL, NULL, 'retry', 'yearly', 20),
-    (NULL, NULL, 'fail', 'daily', 2),
+    (NULL, NULL, 'retry', NULL, 20),
+    (NULL, NULL, 'fail', NULL, 2),
     (15, 5000, 'success', 'weekly', 5),
-    (NULL, NULL, 'retry', 'yearly', 20),
-    (NULL, NULL, 'fail', 'daily', 2)
+    (NULL, NULL, 'retry', NULL, 20),
+    (NULL, NULL, 'fail', NULL, 2)
 ;
 
 INSERT INTO drawnPrizes (amount, pixkey, windatetime, ispending, paymentdatetime, user_id)

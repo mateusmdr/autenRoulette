@@ -3,7 +3,6 @@ CREATE TABLE IF NOT EXISTS users (
     id SERIAL NOT NULL,
     name TEXT NOT NULL,
     phone TEXT NOT NULL,
-    userAgent TEXT,
 
     PRIMARY KEY(id)
 );
@@ -11,7 +10,7 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TABLE IF NOT EXISTS drawnPrizes (
     id SERIAL NOT NULL,
     amount NUMERIC NOT NULL,
-    pixKey TEXT NOT NULL,
+    pixKey TEXT,
     winDateTime TIMESTAMP NOT NULL,
     isPending BOOLEAN NOT NULL,
     paymentDatetime TIMESTAMP,
@@ -29,7 +28,6 @@ CREATE TABLE IF NOT EXISTS drawnPrizes (
 
 CREATE TABLE IF NOT EXISTS sessions (
     id SERIAL NOT NULL,
-    location TEXT,
     spinDatetime TIMESTAMP NOT NULL,
     spinResultType result_t NOT NULL,
     spinResultAmount NUMERIC,
@@ -43,6 +41,12 @@ CREATE TABLE IF NOT EXISTS sessions (
         (spinResultType!='success' AND spinResultAmount IS NULL) OR 
         (spinResultType='success' AND spinResultAmount IS NOT NULL AND spinResultAmount>0)
     )
+);
+
+CREATE TABLE IF NOT EXISTS attempts (
+    id SERIAL NOT NULL,
+    ipAddress TEXT NOT NULL,
+    attemptDateTime TIMESTAMP NOT NULL
 );
 
 /*Tables related to admin*/

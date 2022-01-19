@@ -2,6 +2,8 @@ import express from 'express';
 import 'express-async-errors';
 import cors from 'cors';
 
+import cookieSession from 'cookie-session';
+
 import admin from './routes/admin/route.js';
 import home from './routes/home/route.js'
 
@@ -21,6 +23,17 @@ api.use((err, req, res, next) => {
 
     next();
 })
+
+/**Auth cookies */
+api.use(cookieSession({
+    name: 'session',
+    keys: [process.env.KEY1, process.env.KEY2 ],
+
+    // Cookie Options
+    maxAge: 24 * 60 * 60 * 1000 * 30, // 30 days
+    httpOnly: true
+}))
+/***/
 
 /**API routes */
 api.use('/admin', admin);

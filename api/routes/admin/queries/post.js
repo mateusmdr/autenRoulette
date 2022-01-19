@@ -1,5 +1,4 @@
 import {db, pgp} from '../../../utils/db.js';
-import 'dotenv/config';
 
 export const createAd = async({companyName, initialDateTime, expirationDateTime, linkURL, locationFilter, imgFileName}) => {
     const cs = new pgp.helpers.ColumnSet(

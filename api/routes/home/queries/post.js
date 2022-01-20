@@ -55,7 +55,7 @@ export const generateDrawnOption = async({userId, ipAddress}) => {
 
     const baseChance = Math.floor(Math.random * 100);
     let drawnOption;
-    if(baseChance < 80) {
+    if(baseChance < 90) {
         const failureOptions = options.filter(option => option.resultType !== 'success');
         if(failureOptions.length === 0){
             drawnOption = (options.sort(() => Math.random() > .5 ? 1 : -1)[0]);
@@ -64,8 +64,7 @@ export const generateDrawnOption = async({userId, ipAddress}) => {
         }
     }else {
         drawnOption = options[Math.floor(Math.random()*options.length)];
-    }    
-    console.log({drawnOption});
+    }
 
     //increment option drawNumber
     await db.none('UPDATE availablePrizes SET drawnumber=$1 WHERE id=$2',[drawnOption.drawNumber + 1, drawnOption.id]);
@@ -76,7 +75,7 @@ export const generateDrawnOption = async({userId, ipAddress}) => {
         [drawnOption.resultType, null, userId];
     
     await db.none('INSERT INTO sessions (spindatetime, spinresulttype, spinresultamount, user_id) VALUES (NOW(),$1,$2,$3)', values);
-
+    let drawnPrizeId;
     //include prize in drawnPrizes
     if(values[0] === 'success'){
         const cs = new pgp.helpers.ColumnSet(
@@ -84,13 +83,12 @@ export const generateDrawnOption = async({userId, ipAddress}) => {
             {table: 'drawnPrizes'}
         );
 
-        const {drawnPrizeId} = await db.query(pgp.helpers.insert({
+        drawnPrizeId = await (db.one(pgp.helpers.insert({
             amount: drawnOption.amount,
             windatetime: new Date().toISOString(),
             ispending: true,
             user_id: userId
-        },cs) + 'RETURNING id');
-        
+        },cs) + 'RETURNING id')).id;
     }
 
     //notify user of the result
@@ -98,6 +96,6 @@ export const generateDrawnOption = async({userId, ipAddress}) => {
         position: drawnOption.position,
         resultType: drawnOption.resultType,
         amount: drawnOption.resultType === 'success' ? drawnOption.amount : undefined,
-        drawnPrizeId: !drawnPrizeId ? undefined : drawnPrizeId
+        drawnPrizeId: drawnPrizeId
     });
 }

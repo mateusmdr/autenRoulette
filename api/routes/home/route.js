@@ -61,7 +61,8 @@ route.post('/generateDrawnOption',
 route.put('/setPixKey',
     validationMiddleware(putValidators.setPixKey),
     async (req,res) => {
-        await put.setPixKey(req.body);
+        await put.setPixKey({...req.body, drawnPrizeId: req.session.drawnPrizeId});
+        req.session.drawnPrizeId = undefined;
         return res.json();
     }
 );

@@ -9,6 +9,9 @@ import home from './routes/home/route.js'
 
 import 'dotenv/config';
 
+// Schedule jobs
+import './jobs.js';
+
 /**API setup */
 const api = express();
 api.disable('x-powered-by'); //Remove X-Powered-By Header

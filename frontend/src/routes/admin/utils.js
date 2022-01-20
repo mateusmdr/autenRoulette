@@ -22,14 +22,10 @@ export const formatResultType = (type) => {
 
 export const formatPeriodType = (type) => {
     switch (type){
-        case 'daily':
-            return ('Diária')
         case 'weekly':
             return ('Semanal')
         case 'monthly':
             return ('Mensal')
-        case 'yearly':
-            return ('Anual')
         default:
             return('Período inválido');
     }

@@ -11,6 +11,7 @@ import validationMiddleware from '../../utils/validator.js';
 
 import * as getValidators from './middlewares/validators/get.js';
 import * as postValidators from './middlewares/validators/post.js';
+import * as putValidators from './middlewares/validators/put.js';
 
 const route = express.Router();
 
@@ -31,7 +32,15 @@ route.get('/assets/:filename', (req, res) => {
 });
 /***/
 
-route.get('/generateDrawnOption',
+route.get('/getAds',
+    validationMiddleware(getValidators.getAds),
+    async (req,res) => {
+        const ads = await get.getAds(req.body);
+        return res.json(ads);
+    }
+);
+
+route.post('/generateDrawnOption',
     validationMiddleware(postValidators.registerUser),
     async (req,res) => {
         let userId;
@@ -41,17 +50,19 @@ route.get('/generateDrawnOption',
         }else {
             userId = req.session.userId;
         }
-
         const drawnOption = await post.generateDrawnOption({userId, ipAddress: req.headers['x-forwarded-for'] || req.socket.remoteAddress });
+
+        //set drawnPrizeId cookie
+        req.session.drawnPrizeId = drawnOption.drawnPrizeId;
         return res.json(drawnOption);
     }
 );
 
-route.get('/getAds',
-    validationMiddleware(getValidators.getAds),
+route.put('/setPixKey',
+    validationMiddleware(putValidators.setPixKey),
     async (req,res) => {
-        const ads = await get.getAds(req.body);
-        return res.json(ads);
+        await put.setPixKey(req.body);
+        return res.json();
     }
 );
 

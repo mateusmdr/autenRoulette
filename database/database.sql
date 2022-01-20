@@ -10,4 +10,4 @@ ALTER DATABASE roulette SET timezone TO UTC;
 
 /*Custom data types*/
 CREATE TYPE result_t AS ENUM('success', 'fail', 'retry');
-CREATE TYPE period_t AS ENUM('daily', 'weekly', 'monthly', 'yearly');
+CREATE TYPE period_t AS ENUM('weekly', 'monthly');

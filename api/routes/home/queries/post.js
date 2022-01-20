@@ -2,20 +2,19 @@ import {db, pgp} from '../../../utils/db.js';
 
 export const registerUser = async({name, phone}) => {
     const query = await db.oneOrNone('SELECT id FROM users WHERE (NAME=$1 AND PHONE=$2)',[name, phone]);
-    
     if(!!query) return query.id;
 
     const cs = new pgp.helpers.ColumnSet(
         ['name', 'phone'],
         {table: 'users'}
     );
-    
-    const id = await db.query(pgp.helpers.insert({
+
+    const {id} = await db.query(pgp.helpers.insert({
         name,
         phone
-    },cs + 'RETURNING id'));
+    },cs) + 'RETURNING id');
 
-    return id
+    return id;
 };
 
 export const generateDrawnOption = async({userId, ipAddress}) => {
@@ -32,7 +31,7 @@ export const generateDrawnOption = async({userId, ipAddress}) => {
     }
 
     //verify that the same IP hasn't requested too many times in the last hour
-    query = await db.one("SELECT (COUNT(*)>5) AS requestlimitreached FROM attempts WHERE ((ipaddress=$1) AND (DATE_PART('day',NOW() - attemptdatetime)*24 + DATE_PART('hour',NOW() - attemptdatetime)) <= 1)", ipAddress)
+    query = await db.one("SELECT (COUNT(*)>=3) AS requestlimitreached FROM attempts WHERE ((ipaddress=$1) AND (DATE_PART('day',NOW() - attemptdatetime)*24 + DATE_PART('hour',NOW() - attemptdatetime)) <= 1)", ipAddress)
     const requestLimitReached = query.requestlimitreached;
     if(requestLimitReached) {
         return({error: 'requestLimitReached', msg: 'Muitas tentativas registradas, tente novamente mais tarde.'});
@@ -40,7 +39,7 @@ export const generateDrawnOption = async({userId, ipAddress}) => {
     await db.query('INSERT INTO attempts (ipaddress, attemptdatetime) VALUES ($1,NOW())',ipAddress);
 
     //draw an option from availablePrizes
-    query = await db.any('SELECT * FROM availablePrizes WHERE drawNumber<maxDraws');
+    query = await db.any("SELECT * FROM availablePrizes WHERE (resulttype!='success' OR drawNumber<maxDraws)");
     const options = await Promise.all(query.map((item, index) => {
         return {
             id: item.id,
@@ -53,7 +52,19 @@ export const generateDrawnOption = async({userId, ipAddress}) => {
         };
     }));
     console.log({options});
-    const drawnOption = options[Math.floor(Math.random()*options.length)];
+
+    const baseChance = Math.floor(Math.random * 100);
+    let drawnOption;
+    if(baseChance < 80) {
+        const failureOptions = options.filter(option => option.resultType !== 'success');
+        if(failureOptions.length === 0){
+            drawnOption = (options.sort(() => Math.random() > .5 ? 1 : -1)[0]);
+        }else {
+            drawnOption = failureOptions.sort(() => Math.random() > .5 ? 1 : -1)[0]
+        }
+    }else {
+        drawnOption = options[Math.floor(Math.random()*options.length)];
+    }    
     console.log({drawnOption});
 
     //increment option drawNumber
@@ -68,8 +79,18 @@ export const generateDrawnOption = async({userId, ipAddress}) => {
 
     //include prize in drawnPrizes
     if(values[0] === 'success'){
-        values = [drawnOption.amount, userId];
-        await db.none('INSERT INTO drawnPrizes (amount, windatetime, ispending, user_id) VALUES ($1,NOW(),TRUE,$2)', values);
+        const cs = new pgp.helpers.ColumnSet(
+            ['amount', 'windatetime', 'ispending', 'user_id'],
+            {table: 'drawnPrizes'}
+        );
+
+        const {drawnPrizeId} = await db.query(pgp.helpers.insert({
+            amount: drawnOption.amount,
+            windatetime: new Date().toISOString(),
+            ispending: true,
+            user_id: userId
+        },cs) + 'RETURNING id');
+        
     }
 
     //notify user of the result
@@ -77,5 +98,6 @@ export const generateDrawnOption = async({userId, ipAddress}) => {
         position: drawnOption.position,
         resultType: drawnOption.resultType,
         amount: drawnOption.resultType === 'success' ? drawnOption.amount : undefined,
+        drawnPrizeId: !drawnPrizeId ? undefined : drawnPrizeId
     });
 }

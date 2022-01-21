@@ -1,4 +1,4 @@
-import {db, pgp} from '../../../utils/db.js';
+import {db} from '../../../utils/db.js';
 
 export const getAvailablePrizes = async() => {
     const prizes = await db.many('SELECT id, resulttype, amount FROM availableprizes');

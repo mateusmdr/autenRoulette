@@ -1,6 +1,5 @@
 import express from "express";
 import path from 'path';
-
 import 'dotenv/config';
 
 import * as get from './queries/get.js';
@@ -14,7 +13,6 @@ import * as postValidators from './middlewares/validators/post.js';
 import * as putValidators from './middlewares/validators/put.js';
 
 const route = express.Router();
-
 /**Home route */
 route.get('/',(req, res) => {
     res.json();
@@ -40,17 +38,23 @@ route.get('/getAds',
     }
 );
 
-route.post('/generateDrawnOption',
+route.get('/getAvailablePrizes', async (req, res) => {
+    res.json(await get.getAvailablePrizes());
+});
+route.post('/registerUser',
     validationMiddleware(postValidators.registerUser),
     async (req,res) => {
-        let userId;
         if(!req.session.userId) {
-            userId = await post.registerUser(req.body);
-            req.session.userId = userId;
-        }else {
-            userId = req.session.userId;
+            req.session.userId = await post.registerUser(req.body);
         }
-        const drawnOption = await post.generateDrawnOption({userId, ipAddress: req.headers['x-forwarded-for'] || req.socket.remoteAddress });
+        res.json();
+    }
+);
+
+route.post('/generateDrawnOption',
+    postValidators.generateDrawnOption,
+    async (req,res) => {
+        const drawnOption = await post.generateDrawnOption({userId: req.session.userId, ipAddress: req.headers['x-forwarded-for'] || req.socket.remoteAddress });
 
         //set drawnPrizeId cookie
         req.session.drawnPrizeId = drawnOption.drawnPrizeId;

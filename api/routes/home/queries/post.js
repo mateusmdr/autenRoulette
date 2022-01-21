@@ -9,7 +9,7 @@ export const registerUser = async({name, phone}) => {
         {table: 'users'}
     );
 
-    const {id} = await db.query(pgp.helpers.insert({
+    const {id} = await db.one(pgp.helpers.insert({
         name,
         phone
     },cs) + 'RETURNING id');
@@ -51,7 +51,6 @@ export const generateDrawnOption = async({userId, ipAddress}) => {
             drawNumber: Number(item.drawnumber)
         };
     }));
-    console.log({options});
 
     const baseChance = Math.floor(Math.random * 100);
     let drawnOption;

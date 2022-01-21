@@ -17,8 +17,23 @@ const api = express();
 api.disable('x-powered-by'); //Remove X-Powered-By Header
 
 /**General Middlewares */
-api.use(cors());
-api.use(express.json());
+api.use('*',cors({
+    origin: process.env.ORIGIN,
+    credentials: true
+}));
+
+api.use('*',express.json());
+
+/**Auth cookies */
+api.use('*',cookieSession({
+    name: 'session',
+    keys: [process.env.KEY1, process.env.KEY2 ],
+
+    // Cookie Options
+    maxAge: 24 * 60 * 60 * 1000 * 30, // 30 days
+    httpOnly: true
+}));
+/***/
 
 /**Validation Middleware */
 api.use((err, req, res, next) => {
@@ -26,17 +41,6 @@ api.use((err, req, res, next) => {
 
     next();
 })
-
-/**Auth cookies */
-api.use(cookieSession({
-    name: 'session',
-    keys: [process.env.KEY1, process.env.KEY2 ],
-
-    // Cookie Options
-    maxAge: 24 * 60 * 60 * 1000 * 30, // 30 days
-    httpOnly: true
-}))
-/***/
 
 /**API routes */
 api.use('/admin', admin);

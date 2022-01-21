@@ -69,4 +69,10 @@ button {
     font-weight: bold;
     background-color: transparent;
     border: none;
+    outline: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+button:focus {
+    outline: 0;
 }

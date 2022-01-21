@@ -1,17 +1,16 @@
 import React, {useState, useEffect} from 'react';
-import Cookies from 'universal-cookie';
 
 import './styles/Admin.css';
 
 import * as Pages from './pages';
 
-const cookies = new Cookies();
+const cookies = window.localStorage;
 
 const Admin = () => {
     useEffect(() => {
         const authCookies = {
-            email: cookies.get('email',{path:'/admin'}),
-            pwdHash: cookies.get('pwdHash',{path:'/admin'})
+            email: cookies.getItem('email'),
+            pwdHash: cookies.getItem('pwdHash')
         };
         if(authCookies.email && authCookies.pwdHash) {
             setCredentials(authCookies);

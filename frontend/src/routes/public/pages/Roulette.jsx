@@ -1,29 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import AdBackground from './components/AdBackground';
 
 import { outerRoulette, innerRoulette, rouletteBackground, rouletteBackgroundCoins} from './assets/export';
 import '../styles/Roulette.css';
 
-const Roulette = ({login, setCurrentPage}) => {    
-    const values = [
-        {displayText: 'R$ 5.000'},
-        {displayText: 'R$ 5.000'},
-        {displayText: 'R$ 5.000'},
-        {displayText: 'R$ 5.000'},
-        {displayText: 'R$ 5.000'},
-        {displayText: 'R$ 5.000'},
-        {displayText: 'R$ 5.000'},
-        {displayText: 'R$ 5.000'},
-        {displayText: 'R$ 5.000'},
-        {displayText: 'R$ 5.000'},
-        {displayText: 'R$ 5.000'},
-        {displayText: 'R$ 5.000'},
-    ];
+import {getAvailablePrizes} from '../queries/get';
+import { generateDrawnOption } from '../queries/post';
+
+import { getData, formatOption } from '../utils';
+
+const Roulette = ({user, setCurrentPage}) => {
+
+    const [options, setOptions] = useState([]);
 
     const [isSpinning, setSpinning] = useState(false);
+
+    useEffect(() => {
+        getData({
+            method: () => getAvailablePrizes(),
+            setter: setOptions,
+        });
+    },[])
+
     return (
-        <AdBackground login={login}>
+        <AdBackground user={user}>
             <div>
                 <img className='backgroundCoins' src={rouletteBackgroundCoins} alt='Moedas de plano de fundo'/>
             </div>
@@ -31,21 +32,24 @@ const Roulette = ({login, setCurrentPage}) => {
                 <img className='outer' src={outerRoulette} alt='Círculo de luzes brancas ao redor da roleta'/>
                 <div className='inner'>
                     <img src={innerRoulette} alt='Círculo central da roleta'/>
-                    <button onClick={()=> {
-                        setSpinning(true);
-                        setTimeout(() => setCurrentPage('failure'), 2000);
+                    <button onClick={async ()=> {
+                        const {json, ok} = await generateDrawnOption();
+                        if(ok){
+                            setSpinning(true);
+                            console.log({drawnOption: json})
+                        }
                     }}>{isSpinning ? null : 'GIRAR'}</button>
                 </div>
                 <div id='segments' style={isSpinning ? {'animationPlayState': 'running'}:{'animationPlayState': 'paused'}}>
                     <img src={rouletteBackground} alt='Plano de fundo da roleta'/>
-                    {values.map((value, index) => {
+                    {options.map((option, index) => {
                         const deg = (index * 360/12 - 90) % 360;
                         const segmentStyle = {
                             transform: 'translate(-50%,-50%) rotateZ('+ deg + 'deg)'
                         };
                         return (
                             <div style={segmentStyle} className='segment' key={index}>
-                                <h2>{value.displayText}</h2>
+                                <h2>{formatOption(option)}</h2>
                             </div>
                         );
                     })} 

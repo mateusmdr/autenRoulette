@@ -1,12 +1,29 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 
 import Background from './components/Background';
 
 import {personIcon, phoneIcon, bottomLeftCoins, bottomRightLights} from './assets/export';
 import '../styles/Home.css';
 
-const Home = ({setCurrentPage, setLogin}) => {
+import {registerUser} from '../queries/post';
+
+const cookies = window.localStorage;
+
+const Home = ({setCurrentPage, setUser}) => {
     const [input, setInput] = useState({name: '', phone: '', remember: false});
+
+    useEffect(() => {
+        console.log("OI");
+        const userCookies = {
+            name: cookies.getItem('name'),
+            phone: cookies.getItem('phone'),
+        };
+        if(userCookies.name && userCookies.phone) {
+            setInput({...userCookies, remember: true});
+            setUser(userCookies);
+        }
+    },[])
+
     return (
         <Background id='home'>
             <h1 id='title'>TENTA A SORTE</h1>
@@ -40,16 +57,31 @@ const Home = ({setCurrentPage, setLogin}) => {
                 <div className='field'>
                     <input 
                         type='checkbox' id='remember' name='remember' 
-                        value={input.remember}
-                        onClick={() => setInput({...input, remember: !input.remember})}
+                        checked={input.remember}
+                        onChange={() => setInput({...input, remember: !input.remember})}
                     />
                     <label htmlFor='remember'>Lembrar de mim</label>
                 </div>
                 <div className='row'>
                     <input 
                         type='submit' value='Girar Roleta'
-                        onClick={() => {
-                            setLogin(input);
+                        onClick={async (e) => {
+                            e.preventDefault();
+                            const ok = await registerUser({
+                                name: input.name,
+                                phone: input.phone
+                            });
+                            
+                            if (!ok) return;
+
+                            if(input.remember){
+                                cookies.setItem('name',input.name);
+                                cookies.setItem('phone',input.phone);
+                            }else {
+                                cookies.clear();
+                            }
+
+                            setUser({name: input.name, phone: input.phone});
                             setCurrentPage('roulette');
                         }}
                     />

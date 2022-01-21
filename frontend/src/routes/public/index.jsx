@@ -5,50 +5,49 @@ import * as Pages from './pages'
 const Public = () => {
     useEffect(() => import('./styles/App.css'));
     const [currentPage, setCurrentPage] = useState('home');
-
-    const [login, setLogin] = useState({name: '', phone: ''});
+    const [user, setUser] = useState(null);
 
     switch(currentPage) {
         case 'home':
             return (
                 <Pages.Home 
                     setCurrentPage={setCurrentPage}
-                    setLogin={setLogin}
+                    setUser={setUser}
                 />
             );
         case 'roulette':
             return (
                 <Pages.Roulette
                     setCurrentPage={setCurrentPage}
-                    login={login}
+                    user={user}
                 />
             );
         case 'won':
             return (
                 <Pages.Won
                     setCurrentPage={setCurrentPage}
-                    login={login}
+                    user={user}
                 />
             );
         case 'key':
             return (
                 <Pages.Key
                     setCurrentPage={setCurrentPage}
-                    login={login}
+                    user={user}
                 />
             );
         case 'success':
             return (
                 <Pages.Success
                     setCurrentPage={setCurrentPage}
-                    login={login}
+                    user={user}
                 />
             );
         case 'failure':
             return (
                 <Pages.Failure
                     setCurrentPage={setCurrentPage}
-                    login={login}
+                    user={user}
                 />
             );
         default: return null;

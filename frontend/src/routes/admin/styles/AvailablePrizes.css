@@ -10,7 +10,7 @@
 }
 
 #availablePrizes td {
-    min-height: calc(220/1024 * 100vh);
+    height: calc(250/1024 * 100vh);
     vertical-align: super;
     background: linear-gradient(180deg, #10061D 0%, #200B36 100%, #120721 100%);
     padding: calc(12/1440*100vw);

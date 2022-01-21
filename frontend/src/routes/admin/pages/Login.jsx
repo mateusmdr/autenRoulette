@@ -1,19 +1,18 @@
 import React, {useState} from 'react';
 import {sha512} from 'js-sha512';
-import Cookies from 'universal-cookie';
 
 import {isLoggedIn} from '../queries/get';
 import '../styles/Login.css';
-
 
 import Background from '../components/Background';
 
 import {loginBottomCoins, loginLights, loginTopCoins, personIcon, passwordIcon} from '../assets';
 
+const cookies = window.localStorage;
+
 const Page = ({setCurrentPage, setCredentials}) => {
 
     const [input, setInput] = useState({email: '', password: ''});
-    const cookies = new Cookies();
 
     return (
         <Background id='login'>
@@ -70,8 +69,8 @@ const Page = ({setCurrentPage, setCredentials}) => {
 
                                 if(res) {
                                     if(input.remember){
-                                        cookies.set('email',input.email,{path:'/admin'});
-                                        cookies.set('pwdHash',pwdHash,{path:'/admin'});
+                                        cookies.setItem('email',input.email);
+                                        cookies.setItem('pwdHash',pwdHash);
                                     }
                                     setCredentials({email: input.email, pwdHash});
                                     setCurrentPage('home');

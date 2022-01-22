@@ -22,5 +22,5 @@ export const generateDrawnOption = async () => {
     });
 
     await showErrors(res);
-    return {json: await res.json(), ok: res.ok};
+    return {json: res.ok ? await res.json() : null, ok: res.ok};
 }

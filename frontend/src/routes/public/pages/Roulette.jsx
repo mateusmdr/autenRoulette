@@ -10,7 +10,7 @@ import { generateDrawnOption } from '../queries/post';
 
 import { getData, formatOption } from '../utils';
 
-const Roulette = ({user, setCurrentPage}) => {
+const Roulette = ({user, setCurrentPage, setAmount}) => {
 
     const [options, setOptions] = useState([]);
 
@@ -37,8 +37,20 @@ const Roulette = ({user, setCurrentPage}) => {
                         if(ok){
                             setSpinning(true);
                             console.log({drawnOption: json})
+                            if(json.resultType === 'fail'){
+                                setCurrentPage('failure');
+                            }else if(json.resultType === 'success') {
+                                setAmount(json.amount);
+                                setCurrentPage('won');
+                            }else {
+                                setSpinning(false);
+                            }
+                        }else {
+                            setCurrentPage('home');
                         }
-                    }}>{isSpinning ? null : 'GIRAR'}</button>
+                    }}
+                        disabled={isSpinning}
+                    >{isSpinning ? null : 'GIRAR'}</button>
                 </div>
                 <div id='segments' style={isSpinning ? {'animationPlayState': 'running'}:{'animationPlayState': 'paused'}}>
                     <img src={rouletteBackground} alt='Plano de fundo da roleta'/>

@@ -12,8 +12,12 @@ export const getData = async({method, setter}) => {
 export const showErrors = async (res) => {
     if(!res.ok) {
         const json = await res.json();
-        const errorMsg = json.errors.reduce((acc, cur) => acc + '\n' + cur.msg,'');
-        alert(errorMsg);
+        if(json.errors){
+            const errorMsg = json.errors.reduce((acc, cur) => acc + '\n' + cur.msg,'');
+            alert(errorMsg);
+        }else {
+            alert(json.msg);
+        }
     }
 
     return res.ok;

@@ -5,7 +5,9 @@ import * as Pages from './pages'
 const Public = () => {
     useEffect(() => import('./styles/App.css'));
     const [currentPage, setCurrentPage] = useState('home');
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState({name: '', phone: ''});
+
+    const [amount, setAmount] = useState('');
 
     switch(currentPage) {
         case 'home':
@@ -20,6 +22,7 @@ const Public = () => {
                 <Pages.Roulette
                     setCurrentPage={setCurrentPage}
                     user={user}
+                    setAmount={setAmount}
                 />
             );
         case 'won':
@@ -27,6 +30,7 @@ const Public = () => {
                 <Pages.Won
                     setCurrentPage={setCurrentPage}
                     user={user}
+                    amount={amount}
                 />
             );
         case 'key':

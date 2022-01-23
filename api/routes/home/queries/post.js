@@ -26,16 +26,16 @@ export const generateDrawnOption = async({userId, ipAddress}) => {
     //verify that user hasn't tried to win a prize in the past 24h
     query = await db.one("SELECT (COUNT(*)>0) AS hassessiontoday from sessions WHERE (user_id=$1 AND spinresulttype!='retry' AND (DATE_PART('day',NOW() - spindatetime)<1))",userId);
     const hasSessionToday = query.hassessiontoday;
-    if(hasSessionToday){
-        return({error: 'hasSessionToday', msg: 'Já registramos uma tentativa nas últimas 24h.'});
-    }
+    // if(hasSessionToday){
+    //     return({error: 'hasSessionToday', msg: 'Já registramos uma tentativa nas últimas 24h.'});
+    // }
 
     //verify that the same IP hasn't requested too many times in the last hour
     query = await db.one("SELECT (COUNT(*)>=3) AS requestlimitreached FROM attempts WHERE ((ipaddress=$1) AND (DATE_PART('day',NOW() - attemptdatetime)*24 + DATE_PART('hour',NOW() - attemptdatetime)) <= 1)", ipAddress)
     const requestLimitReached = query.requestlimitreached;
-    if(requestLimitReached) {
-        return({error: 'requestLimitReached', msg: 'Muitas tentativas registradas, tente novamente mais tarde.'});
-    }
+    // if(requestLimitReached) {
+    //     return({error: 'requestLimitReached', msg: 'Muitas tentativas registradas, tente novamente mais tarde.'});
+    // }
     await db.query('INSERT INTO attempts (ipaddress, attemptdatetime) VALUES ($1,NOW())',ipAddress);
 
     //draw an option from availablePrizes
@@ -97,4 +97,41 @@ export const generateDrawnOption = async({userId, ipAddress}) => {
         amount: drawnOption.resultType === 'success' ? drawnOption.amount : undefined,
         drawnPrizeId: drawnPrizeId
     });
+}
+
+export const generateAds = async({location}) => {
+    let query = await db.any('SELECT companyname, imgfilename, linkurl, locationfilter from ads WHERE ((initialdatetime < NOW()) AND (NOW() < expirationdatetime))');
+
+    const ads = (query.map(ad => {
+        return({
+            companyName: ad.companyname,
+            imgFileName: ad.imgfilename,
+            linkURL: ad.linkurl,
+            locationFilter: ad.locationfilter
+        })
+    }));
+
+    const validAds = ads.filter(ad => true); // TO-DO logic for locationFilter
+    console.log(validAds);
+    
+    if(validAds.length > 0)
+        return drawTwo(validAds);
+
+    if(ads.length > 0)
+        return drawTwo(ads);
+    
+    query = await db.any('SELECT companyname, imgfilename, linkurl, locationfilter from ads');
+    const expiredAds = (query.map(ad => {
+        return({
+            companyName: ad.companyname,
+            imgFileName: ad.imgfilename,
+            linkURL: ad.linkurl,
+            locationFilter: ad.locationfilter
+        })
+    }));
+
+    if(expiredAds.length > 0)
+        return drawTwo(expiredAds);
+    
+    return({error: 'NO_ADS_REGISTERED', msg: 'Nenhum anúncio registrado.'});
 }

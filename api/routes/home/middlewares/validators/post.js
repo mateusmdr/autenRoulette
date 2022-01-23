@@ -18,3 +18,7 @@ export const generateDrawnOption = checkSchema(
         }
     }
 );
+
+export const generateAds = [
+    body('location', 'Não foi possível localizar o dispositivo').exists().bail().isJSON()
+];

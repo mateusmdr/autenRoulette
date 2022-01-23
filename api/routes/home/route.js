@@ -8,7 +8,6 @@ import * as post from './queries/post.js';
 
 import validationMiddleware from '../../utils/validator.js';
 
-import * as getValidators from './middlewares/validators/get.js';
 import * as postValidators from './middlewares/validators/post.js';
 import * as putValidators from './middlewares/validators/put.js';
 
@@ -30,10 +29,10 @@ route.get('/assets/:filename', (req, res) => {
 });
 /***/
 
-route.get('/getAds',
-    validationMiddleware(getValidators.getAds),
+route.post('/generateAds',
+    validationMiddleware(postValidators.generateAds),
     async (req,res) => {
-        const ads = await get.getAds(req.body);
+        const ads = await post.generateAds(req.body);
         return res.json(ads);
     }
 );
@@ -56,8 +55,11 @@ route.post('/generateDrawnOption',
     async (req,res) => {
         const drawnOption = await post.generateDrawnOption({userId: req.session.userId, ipAddress: req.headers['x-forwarded-for'] || req.socket.remoteAddress });
 
+        if(!!drawnOption.error) return res.status(429).json(drawnOption);
+        
         //set drawnPrizeId cookie
         req.session.drawnPrizeId = drawnOption.drawnPrizeId;
+
         return res.json(drawnOption);
     }
 );

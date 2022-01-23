@@ -9,13 +9,13 @@ const resetMonthlyPrizes = async () => {
     await db.none("UPDATE availablePrizes SET drawNumber=0 WHERE resetPeriod='monthly'");
 }
 
-schedule.scheduleJob('* * * * 0', (time) => {
+schedule.scheduleJob('0 0 * * 0', (time) => {
     resetWeeklyPrizes();
 
     console.log(`${time.toLocaleDateString('pt-br')} às ${time.toLocaleTimeString('pt-br')}> Reset dos prêmios semanais`);
 }); //Reset weekly prizes
 
-schedule.scheduleJob('* * 1 * *', (time) => {
+schedule.scheduleJob('0 0 1 * *', (time) => {
     resetMonthlyPrizes();
 
     console.log(`${time.toLocaleDateString('pt-br')} às ${time.toLocaleTimeString('pt-br')}> Reset dos prêmios mensais`);

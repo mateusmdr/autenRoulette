@@ -5,10 +5,10 @@ import '../styles/Roulette.css';
 
 import AdBackground from './components/AdBackground';
 
-const Key = ({login, setCurrentPage, user}) => {
+const Key = ({login, setCurrentPage, user, ads}) => {
     const [keyInput, setKeyInput] = useState('');
     return (
-        <AdBackground login={login} user={user}>
+        <AdBackground login={login} user={user} ads={ads}>
             <div id='key' className='column'>
                 <h2>Receba a transferência do prêmio por meio do PIX</h2>
                 <div className='row'>

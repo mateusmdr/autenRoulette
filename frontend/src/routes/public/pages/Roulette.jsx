@@ -10,7 +10,7 @@ import { generateDrawnOption } from '../queries/post';
 
 import { getData, formatOption } from '../utils';
 
-const Roulette = ({user, setCurrentPage, setAmount}) => {
+const Roulette = ({user, setCurrentPage, setAmount, ads}) => {
 
     const [options, setOptions] = useState([]);
 
@@ -22,13 +22,12 @@ const Roulette = ({user, setCurrentPage, setAmount}) => {
             setter: setOptions,
         });
     },[])
+    
 
     return (
-        <AdBackground user={user}>
-            <div>
-                <img className='backgroundCoins' src={rouletteBackgroundCoins} alt='Moedas de plano de fundo'/>
-            </div>
+        <AdBackground user={user} ads={ads}>
             <div className='roulette'>
+                <img className='backgroundCoins' src={rouletteBackgroundCoins} alt='Moedas de plano de fundo'/>
                 <img className='outer' src={outerRoulette} alt='Círculo de luzes brancas ao redor da roleta'/>
                 <div className='inner'>
                     <img src={innerRoulette} alt='Círculo central da roleta'/>
@@ -38,12 +37,12 @@ const Roulette = ({user, setCurrentPage, setAmount}) => {
                             setSpinning(true);
                             console.log({drawnOption: json})
                             if(json.resultType === 'fail'){
-                                setCurrentPage('failure');
+                                setTimeout(() => setCurrentPage('failure'), 1500);
                             }else if(json.resultType === 'success') {
                                 setAmount(json.amount);
-                                setCurrentPage('won');
+                                setTimeout(() => setCurrentPage('won'), 1500);
                             }else {
-                                setSpinning(false);
+                                setTimeout(() => setSpinning(false), 1500);
                             }
                         }else {
                             setCurrentPage('home');
@@ -68,7 +67,7 @@ const Roulette = ({user, setCurrentPage, setAmount}) => {
                 </div>
             </div>
             <p>
-                Concorra a prêmio em dinheiro ao girar a roleta
+                Concorra a prêmios em dinheiro ao girar a roleta.
                 Você pode girar a roleta <span className='bold'>uma vez ao dia</span>
             </p>
         </AdBackground>

@@ -2,12 +2,24 @@ import React, {useState, useEffect} from 'react';
 
 import * as Pages from './pages'
 
+import {getData} from './utils';
+import {generateAds} from './queries/post';
+
 const Public = () => {
     useEffect(() => import('./styles/App.css'));
     const [currentPage, setCurrentPage] = useState('home');
     const [user, setUser] = useState({name: '', phone: ''});
 
     const [amount, setAmount] = useState('');
+
+    const [ads, setAds] = useState([]);
+
+    useEffect(() => {
+        getData({
+            method: () => generateAds({location: {}}),
+            setter: setAds,
+        });
+    },[]);
 
     switch(currentPage) {
         case 'home':
@@ -23,6 +35,7 @@ const Public = () => {
                     setCurrentPage={setCurrentPage}
                     user={user}
                     setAmount={setAmount}
+                    ads={ads}
                 />
             );
         case 'won':
@@ -31,6 +44,7 @@ const Public = () => {
                     setCurrentPage={setCurrentPage}
                     user={user}
                     amount={amount}
+                    ads={ads}
                 />
             );
         case 'key':
@@ -38,6 +52,7 @@ const Public = () => {
                 <Pages.Key
                     setCurrentPage={setCurrentPage}
                     user={user}
+                    ads={ads}
                 />
             );
         case 'success':
@@ -45,6 +60,7 @@ const Public = () => {
                 <Pages.Success
                     setCurrentPage={setCurrentPage}
                     user={user}
+                    ads={ads}
                 />
             );
         case 'failure':
@@ -52,6 +68,7 @@ const Public = () => {
                 <Pages.Failure
                     setCurrentPage={setCurrentPage}
                     user={user}
+                    ads={ads}
                 />
             );
         default: return null;

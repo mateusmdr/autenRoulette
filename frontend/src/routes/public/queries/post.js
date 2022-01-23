@@ -24,3 +24,15 @@ export const generateDrawnOption = async () => {
     await showErrors(res);
     return {json: res.ok ? await res.json() : null, ok: res.ok};
 }
+
+export const generateAds = async ({location}) => {
+    const res = await fetch(apiUrl({route: '/', method: 'generateAds'}), {
+        mode: 'cors',
+        method: 'POST',
+        headers: requestHeaders,
+        body: JSON.stringify({location: JSON.stringify(location)})
+    });
+
+    await showErrors(res);
+    return await res.json();
+}

@@ -5,9 +5,9 @@ import '../styles/Roulette.css';
 
 import AdBackground from './components/AdBackground';
 
-const Success = ({login, setCurrentPage, user}) => {
+const Success = ({login, setCurrentPage, user, ads}) => {
     return (
-        <AdBackground login={login} user={user}>
+        <AdBackground login={login} user={user} ads={ads}>
             <div id='success' className='column'>
                 <h2>Fique de olho!</h2>
                 <div className='row'>

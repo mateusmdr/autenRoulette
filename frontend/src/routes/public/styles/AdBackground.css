@@ -4,6 +4,8 @@
     flex-direction: column;
     justify-content: space-between;
     gap: 20px;
+    height: 100vh;
+    align-items: center;
 }
 
 #adbackground .background {
@@ -25,6 +27,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
 }
 
 #adbackground .username {
@@ -52,4 +55,23 @@
 
 #adbackground .backgroundCoins {
     position: absolute;
+}
+
+#adbackground figure a{
+    display: block;
+    position: relative;
+}
+
+#adbackground figcaption {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 11px;
+    position: absolute;
+    display: block;
+    width: 100%;
+    color: #ddd;
+}
+
+#adbackground figure img {
+    width: calc(312/360 * 100vw);
+    height: calc(60/360 * 100vw);
 }

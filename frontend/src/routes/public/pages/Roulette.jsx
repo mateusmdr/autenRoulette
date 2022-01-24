@@ -63,7 +63,7 @@ const Roulette = ({user, setCurrentPage, setAmount, ads}) => {
                                 <h2>{formatOption(option)}</h2>
                             </div>
                         );
-                    })} 
+                    })}
                 </div>
             </div>
             <p>

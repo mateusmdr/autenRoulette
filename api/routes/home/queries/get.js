@@ -3,29 +3,11 @@ import {db} from '../../../utils/db.js';
 export const getAvailablePrizes = async() => {
     const prizes = await db.many('SELECT id, resulttype, amount FROM availableprizes');
 
-    return prizes.map((prize, index) => {
+    return prizes.map((prize) => {
         return ({
-            position: index + 1,
+            id: prize.id,
             resultType: prize.resulttype,
             amount: prize.resulttype==='success' ? Number(prize.amount) : undefined,
         });
-    })
+    }).sort(() => Math.random() > 0.5 ? 1 : -1);
 };
-
-const drawTwo = (arr) => {
-    const drawnSet = new Set();
-
-    if(arr.length > 2) {
-        while(drawnSet.size !== 2) {
-            const randIndex = Math.floor(Math.random() * arr.length);
-            drawnSet.add(arr[randIndex]);
-        }
-        return([...drawnSet]);
-    }
-    
-    if(arr.length < 2) {
-        return(new Array(2).fill(arr[0]));
-    }
-    
-    return (arr);
-}

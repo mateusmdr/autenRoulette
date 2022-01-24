@@ -78,16 +78,17 @@ export const generateDrawnOption = async({userId, ipAddress}) => {
     //include prize in drawnPrizes
     if(values[0] === 'success'){
         const cs = new pgp.helpers.ColumnSet(
-            ['amount', 'windatetime', 'ispending', 'user_id'],
-            {table: 'drawnPrizes'}
+            ['amount', 'windatetime', 'ispending', 'user_id']
         );
 
-        drawnPrizeId = await (db.one(pgp.helpers.insert({
+        const sql = pgp.helpers.insert({
             amount: drawnOption.amount,
             windatetime: new Date().toISOString(),
             ispending: true,
             user_id: userId
-        },cs) + 'RETURNING id')).id;
+        },cs, 'drawnprizes') + ' RETURNING id';
+
+        drawnPrizeId = (await db.one(sql)).id;
     }
 
     //notify user of the result
@@ -99,20 +100,35 @@ export const generateDrawnOption = async({userId, ipAddress}) => {
     });
 }
 
+const drawTwo = (arr) => {
+    const drawnSet = new Set();
+
+    if(arr.length > 2) {
+        while(drawnSet.size !== 2) {
+            const randIndex = Math.floor(Math.random() * arr.length);
+            drawnSet.add(arr[randIndex]);
+        }
+        return([...drawnSet]);
+    }
+    
+    if(arr.length < 2) {
+        return(new Array(2).fill(arr[0]));
+    }
+    
+    return (arr);
+}
+
 export const generateAds = async({location}) => {
     let query = await db.any('SELECT companyname, imgfilename, linkurl, locationfilter from ads WHERE ((initialdatetime < NOW()) AND (NOW() < expirationdatetime))');
 
     const ads = (query.map(ad => {
         return({
             companyName: ad.companyname,
-            imgFileName: ad.imgfilename,
-            linkURL: ad.linkurl,
-            locationFilter: ad.locationfilter
+            imgPath: `${process.env.ORIGIN}:${process.env.ORIGIN_PORT}/assets/${ad.imgfilename}`,
+            linkURL: ad.linkurl
         })
     }));
-
     const validAds = ads.filter(ad => true); // TO-DO logic for locationFilter
-    console.log(validAds);
     
     if(validAds.length > 0)
         return drawTwo(validAds);

@@ -23,7 +23,6 @@ route.get('/assets/:filename', (req, res) => {
     if(req.params.filename.match(/(\.\.)|(\\)|(\/)/g))
         return res.status(404).send({error: 'Not Found'});
 
-    console.log(req.params.filename);
     const assetPath = path.join(path.resolve(),'./assets/', req.params.filename);
     res.sendFile(assetPath);
 });
@@ -58,8 +57,9 @@ route.post('/generateDrawnOption',
         if(!!drawnOption.error) return res.status(429).json(drawnOption);
         
         //set drawnPrizeId cookie
-        req.session.drawnPrizeId = drawnOption.drawnPrizeId;
-
+        if(drawnOption.resultType === 'success'){
+            req.session.drawnPrizeId = drawnOption.drawnPrizeId;
+        }
         return res.json(drawnOption);
     }
 );

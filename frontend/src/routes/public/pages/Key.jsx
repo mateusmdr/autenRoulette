@@ -5,6 +5,8 @@ import '../styles/Roulette.css';
 
 import AdBackground from './components/AdBackground';
 
+import {setPixKey} from '../queries/put';
+
 const Key = ({login, setCurrentPage, user, ads}) => {
     const [keyInput, setKeyInput] = useState('');
     return (
@@ -28,8 +30,10 @@ const Key = ({login, setCurrentPage, user, ads}) => {
                     <div className='row'>
                         <input 
                             type='submit' value='Informar Chave PIX'
-                            onClick={() => {
-                                setCurrentPage('success');
+                            onClick={async () => {
+                                const res = setPixKey({pixKey: keyInput});
+                                if(res)
+                                    setCurrentPage('success');
                             }}
                         />
                     </div>

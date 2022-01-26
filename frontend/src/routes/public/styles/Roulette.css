@@ -22,14 +22,14 @@
     transform: translate(-50%,-50%);
 }
 
-.roulette > .inner img {
+.roulette > .inner img:not(#tip) {
     width: calc(92/360 * 100vw);
     height: calc(92/360 * 100vw);
     background-color: #1F0B35;
     border-radius: 50%;
 }
 
-.roulette > .inner * {
+.roulette > .inner *:not(#tip) {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -50,10 +50,11 @@
     width: 100%;
     height: 100%;
 
-    animation-timing-function: cubic-bezier();
-    animation-name: adbackground;
+    animation-timing-function: ease;
     animation-duration: 3s;
-    animation-iteration-count: 2;
+    animation-iteration-count: 1;
+    animation-play-state: paused;
+    animation-fill-mode: forwards;
 
     transform: translate(-50%, -50%);
 
@@ -75,23 +76,113 @@
     z-index: 2;
     top: 50%;
     left: 50%;
-}
-
-.roulette .segment h2 {
-    text-align: center;
     font-weight: 700;
     font-size: 12px;
-    padding-left: 60px;
-    width: 50%;
-    margin-left: 50%;
+    font-family: 'Open Sans',sans-serif;
 }
 
-@keyframes adbackground{
+.roulette #tip {
+    width: calc(17.73/360 * 100vw);
+    height: calc(16.86/360 * 100vw);
+    position: relative;
+    bottom: calc(92/360 * 100vw / 2);
+    transform: translateY(-18%);
+}
+
+@keyframes option0{
     from {
         transform: translate(-50%, -50%) rotateZ(0deg);
     }
     to {
-        transform: translate(-50%, -50%) rotateZ(360deg);
+        transform: translate(-50%, -50%) rotateZ(calc(0*30deg + 210deg + 360deg));
+    }
+}
+@keyframes option1{
+    from {
+        transform: translate(-50%, -50%) rotateZ(0deg);
+    }
+    to {
+        transform: translate(-50%, -50%) rotateZ(calc(1*30deg + 210deg + 360deg));
+    }
+}
+@keyframes option2{
+    from {
+        transform: translate(-50%, -50%) rotateZ(0deg);
+    }
+    to {
+        transform: translate(-50%, -50%) rotateZ(calc(2*30deg + 210deg + 360deg));
+    }
+}
+@keyframes option3{
+    from {
+        transform: translate(-50%, -50%) rotateZ(0deg);
+    }
+    to {
+        transform: translate(-50%, -50%) rotateZ(calc(3*30deg + 210deg + 360deg));
+    }
+}
+@keyframes option4{
+    from {
+        transform: translate(-50%, -50%) rotateZ(0deg);
+    }
+    to {
+        transform: translate(-50%, -50%) rotateZ(calc(4*30deg + 210deg + 360deg));
+    }
+}
+@keyframes option5{
+    from {
+        transform: translate(-50%, -50%) rotateZ(0deg);
+    }
+    to {
+        transform: translate(-50%, -50%) rotateZ(calc(5*30deg + 210deg + 360deg));
+    }
+}
+@keyframes option6{
+    from {
+        transform: translate(-50%, -50%) rotateZ(0deg);
+    }
+    to {
+        transform: translate(-50%, -50%) rotateZ(calc(6*30deg + 210deg + 360deg));
+    }
+}
+@keyframes option7{
+    from {
+        transform: translate(-50%, -50%) rotateZ(0deg);
+    }
+    to {
+        transform: translate(-50%, -50%) rotateZ(calc(7*30deg + 210deg + 360deg));
+    }
+}
+@keyframes option8{
+    from {
+        transform: translate(-50%, -50%) rotateZ(0deg);
+    }
+    to {
+        transform: translate(-50%, -50%) rotateZ(calc(8*30deg + 210deg + 360deg));
+    }
+}
+@keyframes option9{
+    from {
+        transform: translate(-50%, -50%) rotateZ(0deg);
+    }
+    to {
+        transform: translate(-50%, -50%) rotateZ(calc(9*30deg + 210deg + 360deg));
+    }
+}
+@keyframes option10{
+    from {
+        transform: translate(-50%, -50%) rotateZ(0deg);
+    }
+    to {
+        transform: translate(-50%, -50%) rotateZ(calc(10*30deg + 210deg + 360deg));
+    }
+}
+@keyframes option11{
+    from {
+        transform: translate(-50%, -50%) rotateZ(0deg);
+    }
+    to {
+        transform: translate(-50%, -50%) rotateZ(calc(11*30deg + 210deg + 360deg));
     }
 }
 /**/

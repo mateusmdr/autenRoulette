@@ -12,5 +12,6 @@ import outerRoulette from './outerRoulette.svg';
 import innerRoulette from './innerRoulette.svg';
 import rouletteBackground from './rouletteBackground.svg';
 import rouletteBackgroundCoins from './rouletteBackgroundCoins.svg';
+import rouletteTip from './rouletteTip.svg'
 
-export {bottomLeftCoins, bottomRightLights, closeSign, failure, gift, key, personIcon, phoneIcon, success, tryAgain, outerRoulette, innerRoulette, rouletteBackground, rouletteBackgroundCoins};
+export {bottomLeftCoins, bottomRightLights, closeSign, failure, gift, key, personIcon, phoneIcon, success, tryAgain, outerRoulette, innerRoulette, rouletteBackground, rouletteBackgroundCoins, rouletteTip};

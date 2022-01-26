@@ -9,7 +9,7 @@ h1#title {
 }
 
 .column {
-    gap: calc(20/640 * 100vh);
+    gap: calc(10/640 * 100vh);
 }
 
 .spacer {

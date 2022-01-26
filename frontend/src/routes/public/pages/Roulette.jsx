@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import AdBackground from './components/AdBackground';
 
-import { outerRoulette, innerRoulette, rouletteBackground, rouletteBackgroundCoins} from './assets/export';
+import { outerRoulette, innerRoulette, rouletteBackground, rouletteBackgroundCoins, rouletteTip} from './assets/export';
 import '../styles/Roulette.css';
 
 import {getAvailablePrizes} from '../queries/get';
@@ -13,7 +13,7 @@ import { getData, formatOption } from '../utils';
 const Roulette = ({user, setCurrentPage, setAmount, ads}) => {
 
     const [options, setOptions] = useState([]);
-
+    const [drawnOption, setDrawnOption] = useState({});
     const [isSpinning, setSpinning] = useState(false);
 
     useEffect(() => {
@@ -21,8 +21,15 @@ const Roulette = ({user, setCurrentPage, setAmount, ads}) => {
             method: () => getAvailablePrizes(),
             setter: setOptions,
         });
-    },[])
+    },[]);
+
+    const optionIndex = options.findIndex(el => el.id === drawnOption.id);
+    console.log({options,optionIndex});
     
+    const animation = {
+        'animationPlayState': isSpinning ? 'running' : 'paused',
+        'animationName': 'option' + (11-optionIndex),
+    }
 
     return (
         <AdBackground user={user} ads={ads}>
@@ -31,18 +38,20 @@ const Roulette = ({user, setCurrentPage, setAmount, ads}) => {
                 <img className='outer' src={outerRoulette} alt='Círculo de luzes brancas ao redor da roleta'/>
                 <div className='inner'>
                     <img src={innerRoulette} alt='Círculo central da roleta'/>
+                    <img id='tip' src={rouletteTip} alt='Ponteiro da roleta'/>
                     <button onClick={async ()=> {
                         const {json, ok} = await generateDrawnOption();
                         if(ok){
+                            setDrawnOption(json);
+                            console.log(json);
                             setSpinning(true);
-                            console.log({drawnOption: json})
                             if(json.resultType === 'fail'){
-                                setTimeout(() => setCurrentPage('failure'), 1500);
+                                setTimeout(() => setCurrentPage('failure'), 3200);
                             }else if(json.resultType === 'success') {
                                 setAmount(json.amount);
-                                setTimeout(() => setCurrentPage('won'), 1500);
+                                setTimeout(() => setCurrentPage('won'), 3200);
                             }else {
-                                setTimeout(() => setSpinning(false), 1500);
+                                setTimeout(() => setSpinning(false), 3200);
                             }
                         }else {
                             setCurrentPage('home');
@@ -51,7 +60,7 @@ const Roulette = ({user, setCurrentPage, setAmount, ads}) => {
                         disabled={isSpinning}
                     >{isSpinning ? null : 'GIRAR'}</button>
                 </div>
-                <div id='segments' style={isSpinning ? {'animationPlayState': 'running'}:{'animationPlayState': 'paused'}}>
+                <div id='segments' style={isSpinning ? animation : null}>
                     <img src={rouletteBackground} alt='Plano de fundo da roleta'/>
                     {options.map((option, index) => {
                         const deg = (index * 360/12 - 90) % 360;
@@ -60,7 +69,7 @@ const Roulette = ({user, setCurrentPage, setAmount, ads}) => {
                         };
                         return (
                             <div style={segmentStyle} className='segment' key={index}>
-                                <h2>{formatOption(option)}</h2>
+                                {formatOption(option)}
                             </div>
                         );
                     })}

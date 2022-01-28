@@ -1,0 +1,1 @@
+A roulette application with both a public and an admin interfaces.

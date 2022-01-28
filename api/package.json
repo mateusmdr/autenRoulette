@@ -9,7 +9,7 @@
     "start": "node index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Mateus Mendonça Dias Rezende",
   "license": "ISC",
   "devDependencies": {
     "nodemon": "^2.0.15"

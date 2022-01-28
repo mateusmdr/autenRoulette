@@ -19,7 +19,7 @@ import lost from './lost.mp3';
 
 export {
     bottomLeftCoins, bottomRightLights, closeSign, failure, gift, key, personIcon,
-    phoneIcon, success, tryAgain, outerRoulette,innerRoulette, rouletteBackground,
+    phoneIcon, success, outerRoulette,innerRoulette, rouletteBackground,
     rouletteBackgroundCoins, rouletteTip,
     spinningRoulette, won, lost
 };

@@ -5,8 +5,11 @@ import * as Pages from './pages'
 import {getData} from './utils';
 import {generateAds} from './queries/post';
 
+const Geolocation = navigator.geolocation;
+
 const Public = () => {
     useEffect(() => import('./styles/App.css'));
+
     const [currentPage, setCurrentPage] = useState('home');
     const [user, setUser] = useState({name: '', phone: ''});
 
@@ -15,9 +18,17 @@ const Public = () => {
     const [ads, setAds] = useState([]);
 
     useEffect(() => {
-        getData({
-            method: () => generateAds({location: {}}),
-            setter: setAds,
+        Geolocation.getCurrentPosition((position) => {
+            console.log({position});
+            getData({
+                method: () => generateAds({position}),
+                setter: setAds,
+            });
+        }, () => {
+            getData({
+                method: () => generateAds({position: null}),
+                setter: setAds,
+            });
         });
     },[]);
 

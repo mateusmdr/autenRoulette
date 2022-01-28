@@ -94,7 +94,7 @@
         transform: translate(-50%, -50%) rotateZ(0deg);
     }
     to {
-        transform: translate(-50%, -50%) rotateZ(calc(0*30deg + 210deg + 360deg));
+        transform: translate(-50%, -50%) rotateZ(calc(0*30deg + 210deg + 720deg));
     }
 }
 @keyframes option1{
@@ -102,7 +102,7 @@
         transform: translate(-50%, -50%) rotateZ(0deg);
     }
     to {
-        transform: translate(-50%, -50%) rotateZ(calc(1*30deg + 210deg + 360deg));
+        transform: translate(-50%, -50%) rotateZ(calc(1*30deg + 210deg + 720deg));
     }
 }
 @keyframes option2{
@@ -110,7 +110,7 @@
         transform: translate(-50%, -50%) rotateZ(0deg);
     }
     to {
-        transform: translate(-50%, -50%) rotateZ(calc(2*30deg + 210deg + 360deg));
+        transform: translate(-50%, -50%) rotateZ(calc(2*30deg + 210deg + 720deg));
     }
 }
 @keyframes option3{
@@ -118,7 +118,7 @@
         transform: translate(-50%, -50%) rotateZ(0deg);
     }
     to {
-        transform: translate(-50%, -50%) rotateZ(calc(3*30deg + 210deg + 360deg));
+        transform: translate(-50%, -50%) rotateZ(calc(3*30deg + 210deg + 720deg));
     }
 }
 @keyframes option4{
@@ -126,7 +126,7 @@
         transform: translate(-50%, -50%) rotateZ(0deg);
     }
     to {
-        transform: translate(-50%, -50%) rotateZ(calc(4*30deg + 210deg + 360deg));
+        transform: translate(-50%, -50%) rotateZ(calc(4*30deg + 210deg + 720deg));
     }
 }
 @keyframes option5{
@@ -134,7 +134,7 @@
         transform: translate(-50%, -50%) rotateZ(0deg);
     }
     to {
-        transform: translate(-50%, -50%) rotateZ(calc(5*30deg + 210deg + 360deg));
+        transform: translate(-50%, -50%) rotateZ(calc(5*30deg + 210deg + 720deg));
     }
 }
 @keyframes option6{
@@ -142,7 +142,7 @@
         transform: translate(-50%, -50%) rotateZ(0deg);
     }
     to {
-        transform: translate(-50%, -50%) rotateZ(calc(6*30deg + 210deg + 360deg));
+        transform: translate(-50%, -50%) rotateZ(calc(6*30deg + 210deg + 720deg));
     }
 }
 @keyframes option7{
@@ -150,7 +150,7 @@
         transform: translate(-50%, -50%) rotateZ(0deg);
     }
     to {
-        transform: translate(-50%, -50%) rotateZ(calc(7*30deg + 210deg + 360deg));
+        transform: translate(-50%, -50%) rotateZ(calc(7*30deg + 210deg + 720deg));
     }
 }
 @keyframes option8{
@@ -158,7 +158,7 @@
         transform: translate(-50%, -50%) rotateZ(0deg);
     }
     to {
-        transform: translate(-50%, -50%) rotateZ(calc(8*30deg + 210deg + 360deg));
+        transform: translate(-50%, -50%) rotateZ(calc(8*30deg + 210deg + 720deg));
     }
 }
 @keyframes option9{
@@ -166,7 +166,7 @@
         transform: translate(-50%, -50%) rotateZ(0deg);
     }
     to {
-        transform: translate(-50%, -50%) rotateZ(calc(9*30deg + 210deg + 360deg));
+        transform: translate(-50%, -50%) rotateZ(calc(9*30deg + 210deg + 720deg));
     }
 }
 @keyframes option10{
@@ -174,7 +174,7 @@
         transform: translate(-50%, -50%) rotateZ(0deg);
     }
     to {
-        transform: translate(-50%, -50%) rotateZ(calc(10*30deg + 210deg + 360deg));
+        transform: translate(-50%, -50%) rotateZ(calc(10*30deg + 210deg + 720deg));
     }
 }
 @keyframes option11{
@@ -182,7 +182,7 @@
         transform: translate(-50%, -50%) rotateZ(0deg);
     }
     to {
-        transform: translate(-50%, -50%) rotateZ(calc(11*30deg + 210deg + 360deg));
+        transform: translate(-50%, -50%) rotateZ(calc(11*30deg + 210deg + 720deg));
     }
 }
 /**/

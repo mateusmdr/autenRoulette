@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import useSound from 'use-sound';
 
 import AdBackground from './components/AdBackground';
 
-import { outerRoulette, innerRoulette, rouletteBackground, rouletteBackgroundCoins, rouletteTip} from './assets/export';
+import {
+    outerRoulette, innerRoulette, rouletteBackground,
+    rouletteBackgroundCoins, rouletteTip,
+    spinningRoulette, won, lost
+}from './assets/export';
+
 import '../styles/Roulette.css';
 
 import {getAvailablePrizes} from '../queries/get';
@@ -15,6 +21,11 @@ const Roulette = ({user, setCurrentPage, setAmount, ads}) => {
     const [options, setOptions] = useState([]);
     const [drawnOption, setDrawnOption] = useState({});
     const [isSpinning, setSpinning] = useState(false);
+
+    const [playSpinning, {stop}] = useSound(spinningRoulette);
+
+    const [playWon] = useSound(won);
+    const [playLost] = useSound(lost);
 
     useEffect(() => {
         getData({
@@ -40,17 +51,23 @@ const Roulette = ({user, setCurrentPage, setAmount, ads}) => {
                     <button onClick={async ()=> {
                         const {json, ok} = await generateDrawnOption();
                         if(ok){
+                            playSpinning();
                             setDrawnOption(json);
                             console.log(json);
                             setSpinning(true);
-                            if(json.resultType === 'fail'){
-                                setTimeout(() => setCurrentPage('failure'), 3200);
-                            }else if(json.resultType === 'success') {
-                                setAmount(json.amount);
-                                setTimeout(() => setCurrentPage('won'), 3200);
-                            }else {
-                                setTimeout(() => setSpinning(false), 3200);
-                            }
+                            setTimeout(() => {
+                                if(json.resultType === 'fail'){
+                                    playLost();
+                                    setCurrentPage('failure');
+                                }else if(json.resultType === 'success') {
+                                    setAmount(json.amount);
+                                    playWon();
+                                    setCurrentPage('won');
+                                }else {
+                                    setSpinning(false);
+                                }
+                                stop();
+                            },3200);
                         }else {
                             setCurrentPage('home');
                         }

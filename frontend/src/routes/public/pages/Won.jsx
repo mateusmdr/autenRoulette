@@ -6,7 +6,7 @@ import '../styles/Roulette.css';
 import AdBackground from './components/AdBackground';
 import { formatDouble } from '../utils';
 
-const Won = ({login, setCurrentPage, amount, user, ads}) => {    
+const Won = ({login, setCurrentPage, amount, user, ads}) => {
     return (
         <AdBackground login={login} user={user} ads={ads}>
             <div id='won' className='column'>

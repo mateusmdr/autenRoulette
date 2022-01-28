@@ -5,7 +5,7 @@ import '../styles/Roulette.css';
 
 import AdBackground from './components/AdBackground';
 
-const Failure = ({login, setCurrentPage, user, ads}) => {    
+const Failure = ({login, setCurrentPage, user, ads}) => {
     return (
         <AdBackground login={login} user={user} ads={ads}>
             <div id='failure' className='column'>

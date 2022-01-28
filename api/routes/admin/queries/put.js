@@ -9,7 +9,7 @@ export const confirmPayment = async ({id, paymentDateTime}) => {
 
 export const updateAvailablePrize = async ({id, resultType, amount, maxDraws, resetPeriod}) => {
     const cs = new pgp.helpers.ColumnSet(
-        ['maxdraws', 'amount', 'resulttype','resetperiod'],
+        ['maxdraws', 'amount', 'resulttype','resetperiod', 'drawnumber'],
         {table: 'availableprizes'}
     );
     const condition = pgp.as.format(' WHERE id = $1', id);
@@ -19,6 +19,7 @@ export const updateAvailablePrize = async ({id, resultType, amount, maxDraws, re
         amount: isSuccess ? amount: null,
         resulttype: resultType,
         resetperiod: isSuccess ? resetPeriod: null,
+        drawnumber: isSuccess ? 0 : null
     },cs) + condition);
 
     await db.query(sql);

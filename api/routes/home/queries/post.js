@@ -54,7 +54,7 @@ export const generateDrawnOption = async({userId, ipAddress}) => {
 
     const baseChance = Math.floor(Math.random * 100);
     let drawnOption;
-    if(baseChance < 90) {
+    if(baseChance < 0) {
         const failureOptions = options.filter(option => option.resultType !== 'success');
         if(failureOptions.length === 0){
             drawnOption = (options.sort(() => Math.random() > .5 ? 1 : -1)[0]);
@@ -93,7 +93,7 @@ export const generateDrawnOption = async({userId, ipAddress}) => {
 
     //notify user of the result
     return({
-        position: drawnOption.position,
+        id: drawnOption.id,
         resultType: drawnOption.resultType,
         amount: drawnOption.resultType === 'success' ? drawnOption.amount : undefined,
         drawnPrizeId: drawnPrizeId

@@ -14,7 +14,7 @@ export const isLoggedIn = async ({email, pwdHash}) => {
 
 export const getAvailablePrizes = async () => {
     const query = await db.any('SELECT * FROM availablePrizes');
-    return query.map((item, index) => {
+    return query.sort((a,b) => a.id-b.id).map((item, index) => {
         return {
             id: item.id,
             position: index + 1,

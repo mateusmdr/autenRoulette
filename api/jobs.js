@@ -12,11 +12,11 @@ const resetMonthlyPrizes = async () => {
 schedule.scheduleJob('0 0 * * 0', (time) => {
     resetWeeklyPrizes();
 
-    console.log(`${time.toLocaleDateString('pt-br')} às ${time.toLocaleTimeString('pt-br')}> Reset dos prêmios semanais`);
+    console.log(`${time.toLocaleDateString('pt-br')} às ${time.toLocaleTimeString('pt-br')} | Reset dos prêmios semanais`);
 }); //Reset weekly prizes
 
 schedule.scheduleJob('0 0 1 * *', (time) => {
     resetMonthlyPrizes();
 
-    console.log(`${time.toLocaleDateString('pt-br')} às ${time.toLocaleTimeString('pt-br')}> Reset dos prêmios mensais`);
+    console.log(`${time.toLocaleDateString('pt-br')} às ${time.toLocaleTimeString('pt-br')} | Reset dos prêmios mensais`);
 }); //Reset monthly prizes

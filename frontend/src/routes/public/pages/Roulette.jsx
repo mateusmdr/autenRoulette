@@ -24,10 +24,8 @@ const Roulette = ({user, setCurrentPage, setAmount, ads}) => {
     },[]);
 
     const optionIndex = options.findIndex(el => el.id === drawnOption.id);
-    console.log({options,optionIndex});
     
     const animation = {
-        'animationPlayState': isSpinning ? 'running' : 'paused',
         'animationName': 'option' + (11-optionIndex),
     }
 
@@ -60,7 +58,7 @@ const Roulette = ({user, setCurrentPage, setAmount, ads}) => {
                         disabled={isSpinning}
                     >{isSpinning ? null : 'GIRAR'}</button>
                 </div>
-                <div id='segments' style={isSpinning ? animation : null}>
+                <div id='segments' style={{...animation, 'animationPlayState': (isSpinning ? 'running' : 'paused')}}>
                     <img src={rouletteBackground} alt='Plano de fundo da roleta'/>
                     {options.map((option, index) => {
                         const deg = (index * 360/12 - 90) % 360;

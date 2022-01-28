@@ -2,21 +2,37 @@ import base64 from 'base-64';
 
 export const formatDouble = (number) => String(Number(number).toFixed(2)).replace('.',',');
 export const formatPhone = (number) => number;
-export const formatPixKey = (number) => number;
+export const formatPixKey = (key) => key ? key : 'Não informado';
 
-export const formatDate = (date) => new Date(date).toLocaleDateString('pt-br');
-export const formatTime = (date) => new Date(date).toLocaleTimeString('pt-br', {timeStyle: 'short'});
+export const formatDate = (date) => {
+    const offset = new Date().getTimezoneOffset() * 60000;
+    const dateMili = new Date(date).valueOf() - offset;
 
-export const formatResultType = (type) => {
-    switch (type){
-        case 'success':
-            return ('Prêmio')
-        case 'fail':
-            return ('Não foi dessa vez')
-        case 'retry':
-            return ('Tente Novamente')
-        default:
-            return('Tipo inválido');
+    return (new Date(dateMili).toLocaleDateString('pt-br'));
+}
+export const formatTime = (date) => {
+    const offset = new Date().getTimezoneOffset() * 60000;
+    const dateMili = new Date(date).valueOf() - offset;
+    
+    return (new Date(dateMili).toLocaleTimeString('pt-br', {timeStyle: 'short'}));
+}
+
+export const formatResultType = (resultType) => {
+    if(resultType === 'success') {
+        return 'Prêmio';
+    }else if(resultType === 'fail') {
+        return 'Não foi dessa vez';
+    }else {
+        return 'Tente novamente';
+    }
+}
+export const formatOption = (option) => {
+    if(option.resultType === 'success') {
+        return `R$ ${option.amount}`;
+    }else if(option.resultType === 'fail') {
+        return 'Nada 🙁';
+    }else {
+        return '+1 chance';
     }
 }
 
@@ -61,6 +77,7 @@ export const requestHeaders = ({email, pwdHash}, json=true) => {
 export const getData = async({method, setter}) => {
     const res = await method();
     setter(res);
+    console.log(res);
 }
 
 export const showErrors = async (res) => {

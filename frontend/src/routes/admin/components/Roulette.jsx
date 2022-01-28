@@ -2,7 +2,7 @@ import React from 'react';
 import '../styles/Roulette.css';
 
 import { innerRoulette, outerRoulette, rouletteBackground } from '../assets';
-import { formatResultType } from '../utils';
+import { formatOption } from '../utils';
 
 const Component = ({values}) => {
     return (
@@ -20,7 +20,7 @@ const Component = ({values}) => {
                     };
                     return (
                         <div style={segmentStyle} className='segment' key={index}>
-                            <h2>{item.resultType === 'success' ? `R$ ${item.amount}` : formatResultType(item.resultType)}</h2>
+                            <h2>{formatOption(item)}</h2>
                         </div>
                     );
                 })} 

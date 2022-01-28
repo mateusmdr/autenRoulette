@@ -37,13 +37,18 @@ const Page = ({setCurrentPage, credentials}) => {
         setSelectedPrize(null);
     }
 
-    const sumPrizeAmounts = availablePrizes
-        .filter(item => item.resultType==='success')
+    const sumWeeklyAmounts = availablePrizes
+        .filter(item => (item.resultType==='success' && item.resetPeriod === 'weekly'))
+        .map(item => item.amount*item.maxDraws)
+        .reduce((acc,curr) => acc + Number(curr),0);
+    const sumMonthlyAmounts = availablePrizes
+        .filter(item => (item.resultType==='success'  && item.resetPeriod === 'monthly'))
         .map(item => item.amount*item.maxDraws)
         .reduce((acc,curr) => acc + Number(curr),0);
 
     const cards = {
-        totalAvailablePrizes: {amount: `R$ ${formatDouble(sumPrizeAmounts)}`, text: 'Total em Prêmios'},
+        totalWeeklyPrizes: {amount: `R$ ${formatDouble(sumWeeklyAmounts)}`, text: 'Total de prêmios semanais'},
+        totalMonthlyPrizes: {amount: `R$ ${formatDouble(sumMonthlyAmounts)}`, text: 'Total de prêmios mensais'},
     }
 
     const PrizeCard = ({prize}) => {
@@ -120,9 +125,9 @@ const Page = ({setCurrentPage, credentials}) => {
                             value={input.resultType}
                             onChange={e => setInput({...input, resultType: e.target.value})}
                         >
-                            <option value='success'>Prêmio</option>
-                            <option value='fail'>Não foi dessa vez</option>
-                            <option value='retry'>Tente novamente</option>
+                            <option value='success'>{formatResultType('success')}</option>
+                            <option value='fail'>{formatResultType('fail')}</option>
+                            <option value='retry'>{formatResultType('retry')}</option>
                         </select>
                     </div>
                     {input.resultType === 'success' && <>
@@ -152,10 +157,8 @@ const Page = ({setCurrentPage, credentials}) => {
                             onChange={e => setInput({...input, resetPeriod: e.target.value})}
                         >
                             <option disabled value=''>Selecione</option>
-                            <option value='daily'>Diária</option>
                             <option value='weekly'>Semanal</option>
                             <option value='monthly'>Mensal</option>
-                            <option value='yearly'>Anual</option>
                         </select>
                     </div></>}
                 </div>
@@ -182,7 +185,8 @@ const Page = ({setCurrentPage, credentials}) => {
                         <Roulette values={availablePrizes}/>
                     </div>
                     <div className='verticalAlign'>
-                        <Card imgSrc={money} imgAlt={'Ícone colorido de dinheiro'} {...cards.totalAvailablePrizes}/>
+                    <Card imgSrc={money} imgAlt={'Ícone colorido de dinheiro'} {...cards.totalWeeklyPrizes}/>
+                    <Card imgSrc={money} imgAlt={'Ícone colorido de dinheiro'} {...cards.totalMonthlyPrizes}/>
                     </div>
                     <Table items={availablePrizes.sort((a,b) => a.position - b.position)}/>
                 </main>

@@ -30,8 +30,10 @@ const Key = ({login, setCurrentPage, user, ads}) => {
                     <div className='row'>
                         <input 
                             type='submit' value='Informar Chave PIX'
-                            onClick={async () => {
-                                const res = setPixKey({pixKey: keyInput});
+                            onClick={async (e) => {
+                                e.preventDefault();
+                                const res = await setPixKey({pixKey: keyInput});
+                                console.log({res});
                                 if(res)
                                     setCurrentPage('success');
                             }}

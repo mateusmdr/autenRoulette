@@ -53,7 +53,6 @@ const Roulette = ({user, setCurrentPage, setAmount, ads}) => {
                         if(ok){
                             playSpinning();
                             setDrawnOption(json);
-                            console.log(json);
                             setSpinning(true);
                             setTimeout(() => {
                                 if(json.resultType === 'fail'){

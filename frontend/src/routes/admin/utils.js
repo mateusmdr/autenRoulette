@@ -77,7 +77,6 @@ export const requestHeaders = ({email, pwdHash}, json=true) => {
 export const getData = async({method, setter}) => {
     const res = await method();
     setter(res);
-    console.log(res);
 }
 
 export const showErrors = async (res) => {

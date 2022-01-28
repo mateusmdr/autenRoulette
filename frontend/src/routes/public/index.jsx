@@ -19,7 +19,6 @@ const Public = () => {
 
     useEffect(() => {
         Geolocation.getCurrentPosition((position) => {
-            console.log({position});
             getData({
                 method: () => generateAds({position}),
                 setter: setAds,

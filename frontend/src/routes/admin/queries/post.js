@@ -4,7 +4,6 @@ export const createAd = async ({email, pwdHash, ad}) => {
     const formData  = new FormData();
     for(const param in ad) {
         formData.append(param, ad[param]);
-        console.log(param, ad[param]);
     }
 
     const res = await fetch(apiUrl({route: '/admin/', method: 'createAd'}), {

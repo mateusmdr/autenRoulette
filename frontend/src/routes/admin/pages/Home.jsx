@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {Modal, Box} from '@mui/material';
+import {Modal} from '@mui/material';
 
 import PaginatedItems from '../components/PaginatedItems';
 

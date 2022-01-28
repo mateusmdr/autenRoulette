@@ -13,7 +13,6 @@ const Home = ({setCurrentPage, setUser}) => {
     const [input, setInput] = useState({name: '', phone: '', remember: false});
 
     useEffect(() => {
-        console.log("OI");
         const userCookies = {
             name: cookies.getItem('name'),
             phone: cookies.getItem('phone'),
@@ -22,7 +21,7 @@ const Home = ({setCurrentPage, setUser}) => {
             setInput({...userCookies, remember: true});
             setUser(userCookies);
         }
-    },[])
+    },[setUser])
 
     return (
         <Background id='home'>

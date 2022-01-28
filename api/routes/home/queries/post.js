@@ -118,7 +118,7 @@ const drawTwo = (arr) => {
     return (arr);
 }
 
-export const generateAds = async({location}) => {
+export const generateAds = async({position}) => {
     let query = await db.any('SELECT companyname, imgfilename, linkurl, locationfilter from ads WHERE ((initialdatetime < NOW()) AND (NOW() < expirationdatetime))');
 
     const ads = (query.map(ad => {

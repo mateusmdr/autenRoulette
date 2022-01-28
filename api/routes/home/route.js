@@ -29,7 +29,6 @@ route.get('/assets/:filename', (req, res) => {
 /***/
 
 route.post('/generateAds',
-    validationMiddleware(postValidators.generateAds),
     async (req,res) => {
         const ads = await post.generateAds(req.body);
         return res.json(ads);

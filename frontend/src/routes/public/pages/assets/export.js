@@ -7,7 +7,6 @@ import key from './key.png';
 import success from './success.png';
 import personIcon from './personIcon.svg';
 import phoneIcon from './phoneIcon.svg';
-import tryAgain from './tryAgain.svg';
 import outerRoulette from './outerRoulette.svg';
 import innerRoulette from './innerRoulette.svg';
 import rouletteBackground from './rouletteBackground.svg';

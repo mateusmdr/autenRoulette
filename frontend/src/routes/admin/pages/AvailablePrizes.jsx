@@ -107,10 +107,10 @@ const Page = ({setCurrentPage, credentials}) => {
             }});
     
             if(res){
-                let newItems = availablePrizes;
-                newItems[availablePrizes.indexOf(selectedPrize)] = {...newItems[availablePrizes.indexOf(selectedPrize)],...newPrize} ;
-                console.log(newItems);
-                setAvailablePrizes(newItems);
+                getData({
+                    method: () => getAvailablePrizes(credentials),
+                    setter: setAvailablePrizes
+                });
                 closeModal();
             }
         }

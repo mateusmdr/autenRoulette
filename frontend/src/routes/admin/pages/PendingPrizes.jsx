@@ -135,8 +135,13 @@ const Page = ({setCurrentPage, credentials}) => {
                         <input type='submit' value='Confirmar'
                             onClick={async () => {
                                 const res = await confirmPayment({...credentials, id: selectedPrize?.id, paymentDateTime: input.paymentDate.toISOString()});
-                                if(res)
+                                if(res){
+                                    getData({
+                                        method: () => getPendingPrizes(credentials),
+                                        setter: setPendingPrizes
+                                    });
                                     setModalPopup(false);
+                                }
                             }}
                         />
                     </div>

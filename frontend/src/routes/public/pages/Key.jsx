@@ -33,7 +33,6 @@ const Key = ({login, setCurrentPage, user, ads}) => {
                             onClick={async (e) => {
                                 e.preventDefault();
                                 const res = await setPixKey({pixKey: keyInput});
-                                console.log({res});
                                 if(res)
                                     setCurrentPage('success');
                             }}

@@ -9,6 +9,10 @@ export const setPixKey = async ({pixKey}) => {
         body: JSON.stringify({pixKey})
     });
 
-    await showErrors(res);
-    return res.ok;
+    const json = await res.json();
+    if(!res.ok){
+        showErrors(json);
+    }
+
+    return json;
 }

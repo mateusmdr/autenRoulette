@@ -14,7 +14,7 @@ import * as putValidators from './middlewares/validators/put.js';
 const route = express.Router();
 /**Home route */
 route.get('/',(req, res) => {
-    res.json();
+    res.json(null);
 });
 /***/
 
@@ -44,7 +44,7 @@ route.post('/registerUser',
         if(!req.session.userId) {
             req.session.userId = await post.registerUser(req.body);
         }
-        res.json();
+        res.json(null);
     }
 );
 
@@ -68,7 +68,7 @@ route.put('/setPixKey',
     async (req,res) => {
         await put.setPixKey({...req.body, drawnPrizeId: req.session.drawnPrizeId});
         req.session.drawnPrizeId = undefined;
-        return res.json();
+        return res.json(null);
     }
 );
 

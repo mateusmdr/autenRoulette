@@ -6,7 +6,10 @@ export const getAvailablePrizes = async () => {
         method: 'GET',
         headers: requestHeaders
     });
+    const json = await res.json();
+    if(!res.ok){
+        showErrors(json);
+    }
 
-    await showErrors(res);
-    return await res.json();
+    return json;
 }

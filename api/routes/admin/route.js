@@ -59,7 +59,7 @@ route.put('/updateAd', upload, resize,
     validationMiddleware(putValidators.updateAd),
     async (req, res) => {
         await put.updateAd({...req.body, imgFileName: req.file.filename});
-        res.json();
+        res.json(null);
     }
 );
 
@@ -76,7 +76,7 @@ route.put('/:action',
         if(!method) return res.status(404).json({ error: 'Not Found' });
 
         await method(req.body);
-        return res.json();
+        return res.json(null);
     }
 );
 
@@ -84,7 +84,7 @@ route.post('/createAd', upload, resize,
     validationMiddleware(postValidators.createAd),
     async (req, res) => {
         await post.createAd({...req.body, imgFileName: req.file.filename});
-        res.json();
+        res.json(null);
     }
 );
 
@@ -107,7 +107,7 @@ route.delete('/:action', async (req,res) => {
     if(!method) return res.status(404).json({ error: 'Not Found' });
 
     await method(req.body);
-    return res.json();
+    return res.json(null);
 });
 
 export default route;

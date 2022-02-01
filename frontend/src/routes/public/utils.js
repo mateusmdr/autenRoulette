@@ -9,18 +9,13 @@ export const getData = async({method, setter}) => {
     setter(res);
 }
 
-export const showErrors = async (res) => {
-    if(!res.ok) {
-        const json = await res.json();
-        if(json.errors){
-            const errorMsg = json.errors.reduce((acc, cur) => acc + '\n' + cur.msg,'');
-            alert(errorMsg);
-        }else {
-            alert(json.msg);
-        }
+export const showErrors = (res) => {
+    if(res.errors){
+        const errorMsg = res.errors.reduce((acc, cur) => acc + '\n' + cur.msg,'');
+        alert(errorMsg);
+    }else {
+        alert(res.msg);
     }
-
-    return res.ok;
 }
 
 const requestHeaders = new Headers();

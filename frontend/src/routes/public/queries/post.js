@@ -8,8 +8,11 @@ export const registerUser = async ({name, phone}) => {
         headers: requestHeaders,
         body: JSON.stringify({name, phone})
     });
+    const json = await res.json();
+    if(!res.ok){
+        showErrors(json);
+    }
 
-    await showErrors(res);
     return res.ok;
 }
 
@@ -21,8 +24,12 @@ export const generateDrawnOption = async () => {
         headers: requestHeaders
     });
 
-    await showErrors(res);
-    return {json: res.ok ? await res.json() : null, ok: res.ok};
+    const json = await res.json();
+    if(!res.ok){
+        showErrors(json);
+    }
+
+    return {json: res.ok ? json : null, ok: res.ok};
 }
 
 export const generateAds = async ({position}) => {
@@ -33,6 +40,10 @@ export const generateAds = async ({position}) => {
         body: JSON.stringify({position})
     });
 
-    await showErrors(res);
-    return await res.json();
+    const json = await res.json();
+    if(!res.ok){
+        showErrors(json);
+    }
+
+    return json;
 }

@@ -81,7 +81,7 @@ export const getData = async({method, setter}) => {
 
 export const showErrors = async (res) => {
     if(!res.ok) {
-        const json = await res.json();
+        const json = await res.json(null);
         const errorMsg = json.errors.reduce((acc, cur) => acc + '\n' + cur.msg,'');
         alert(errorMsg);
     }

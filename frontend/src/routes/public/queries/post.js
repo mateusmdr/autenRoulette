@@ -33,20 +33,17 @@ export const generateDrawnOption = async () => {
 }
 
 export const generateAds = async ({position}) => {
-    const coords = position.coords;
     const res = await fetch(apiUrl({route: '/', method: 'generateAds'}), {
         mode: 'cors',
         method: 'POST',
         headers: requestHeaders,
         body: JSON.stringify({
-            coords: {
-                lat: coords.latitude,
-                lng: coords.longitude
-            }
+            coords: position ? {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            } : null
         })
     });
-
-    console.log({position});
 
     const json = await res.json();
     if(!res.ok){

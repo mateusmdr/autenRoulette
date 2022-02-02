@@ -174,31 +174,32 @@ export const generateAds = async({coords}) => {
     }));
 
     // Filter ads that correspond with client coords
-    const validAds = (await Promise.all(ads.map(async (ad) => {
-        if(ad.locationFilter.length===0) return true; // Don't check if there are no filters
-        const filter =  await geocode(coords).then(location => {
-            const stateFilter = ad.locationFilter.filter(state => state.sigla === location.state.sigla);
-            if(stateFilter.length === 0) return false; // State not listed in filters
+    if(!!coords){ // Check if coords are not null
+        const validAds = (await Promise.all(ads.map(async (ad) => {
+            if(ad.locationFilter.length===0) return true; // Don't check if there are no filters
+            const filter =  await geocode(coords).then(location => {
+                const stateFilter = ad.locationFilter.filter(state => state.sigla === location.state.sigla);
+                if(stateFilter.length === 0) return false; // State not listed in filters
 
-            if(stateFilter[0].cities.length === 0) return true; // Don't check if there are no cities listed
+                if(stateFilter[0].cities.length === 0) return true; // Don't check if there are no cities listed
 
-            const cityFilter = stateFilter[0].cities.includes(location.city.nome);
-            return(cityFilter); // Allow if city is listed
-        }).catch(e => {
-            console.error('Problem with gapi request: ' + e.message);
-            return true;
-        });
-        return {
-            filter,
-            ...ad
-        };
-    })))
-    .filter(ad => ad.filter) // Filter after data was mapped
-    .map(ad => {return{...ad, filter:undefined}});
-    console.log({validAds})
-    if(validAds.length > 0)
-        return drawTwo(validAds);
-
+                const cityFilter = stateFilter[0].cities.includes(location.city.nome);
+                return(cityFilter); // Allow if city is listed
+            }).catch(e => {
+                console.error('Problem with gapi request: ' + e.message);
+                return true;
+            });
+            return {
+                filter,
+                ...ad
+            };
+        })))
+        .filter(ad => ad.filter) // Filter after data was mapped
+        .map(ad => {return{...ad, filter:undefined}});
+        console.log({validAds})
+        if(validAds.length > 0)
+            return drawTwo(validAds);
+    }
     if(ads.length > 0)
         return drawTwo(ads);
     

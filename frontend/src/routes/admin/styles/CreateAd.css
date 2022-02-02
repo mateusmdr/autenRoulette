@@ -40,6 +40,14 @@
     font-size: 16px;
 }
 
+#createAd .field {
+    margin-bottom: 16px;
+}
+
+#createAd .chips {
+    margin-bottom: 8px;
+}
+
 #createAd .field span {
     color: #7F8896;
     font-weight: 400;

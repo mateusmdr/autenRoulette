@@ -33,8 +33,8 @@ const Form = ({selectedAd, setCurrentPage, credentials}) => {
         linkUrl : selectedAd ? selectedAd.linkURL : '',
         image: null
     });
-    const [selectedStates, setSelectedStates] = useState([]);
-    const [selectedCities, setSelectedCities] = useState([]);
+    const [selectedStates, setSelectedStates] = useState(selectedAd ? selectedAd.selectedStates : []);
+    const [selectedCities, setSelectedCities] = useState(selectedAd ? selectedAd.selectedCities : []);
     
     const [stage, setStage] = useState(0);
 
@@ -158,10 +158,10 @@ const Form = ({selectedAd, setCurrentPage, credentials}) => {
                 <div className='verticalAlign' style={{flexWrap: 'wrap', gap: '4px'}}>
                     {
                         selectedStates.sort((a,b) => a.nome.localeCompare(b.nome)) // order by name
-                        .map(state => 
+                        .map((state, index) => 
                             <Chip 
                                 label={state.nome}
-                                marginLeft={0}
+                                key={index}
                                 onDelete={() => setSelectedStates(selectedStates.filter(el => el.id!==state.id))}
                                 deleteIcon={<img src={deleteIcon} alt='Remover estado selecionado'/>}
                             />
@@ -178,18 +178,19 @@ const Form = ({selectedAd, setCurrentPage, credentials}) => {
                         <option disabled value={''}>Selecione</option>
                         {cities.length > 0 && 
                             cities.filter(city => (!selectedCities.find(el => el.id === city.id))) // don't show selectedCities as options
+                                .sort((a,b) => a.nome.localeCompare(b.nome))// order by name
                                 .map(city => <option value={city.id} key={city.id}>{city.nome}</option>)
                         }
                     </select>
                     <span>Você pode escolher mais de um</span>
                 </div>
-                <div className='verticalAlign' style={{flexWrap: 'wrap', gap: '4px'}}>
+                <div className='verticalAlign chips' style={{flexWrap: 'wrap', gap: '4px'}}>
                     {
                         selectedCities.sort((a,b) => a.nome.localeCompare(b.nome)) // order by name
-                        .map(city => 
+                        .map((city, index) => 
                             <Chip 
                                 label={city.nome}
-                                marginLeft={0}
+                                key={index}
                                 onDelete={() => setSelectedCities(selectedCities.filter(el => el.id!==city.id))}
                                 deleteIcon={<img src={deleteIcon} alt='Remover cidade selecionada'/>}
                             />

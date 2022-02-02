@@ -51,7 +51,15 @@ const Page = ({setCurrentPage, setSelectedAd, credentials}) => {
                     </button>
                     <button
                         onClick={() => {
-                            setSelectedAd(ad);
+                            const locationFilter = JSON.parse(ad.locationFilter);
+                            setSelectedAd({...ad,
+                                selectedStates: locationFilter.states,
+                                selectedCities: locationFilter.cities
+                            });
+                            console.log({...ad,
+                                selectedStates: locationFilter.states,
+                                selectedCities: locationFilter.cities
+                            });
                             setCurrentPage('createAd');
                         }}
                     >

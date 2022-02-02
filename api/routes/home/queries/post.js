@@ -1,4 +1,5 @@
 import {db, pgp} from '../../../utils/db.js';
+import fetch from 'node-fetch';
 
 export const registerUser = async({name, phone}) => {
     const query = await db.oneOrNone('SELECT id FROM users WHERE (NAME=$1 AND PHONE=$2)',[name, phone]);
@@ -118,18 +119,83 @@ const drawTwo = (arr) => {
     return (arr);
 }
 
-export const generateAds = async({position}) => {
+const geocode = async (coords) => {
+    const params = new URLSearchParams({
+        latlng: `${coords.lat},${coords.lng}`,
+        key: process.env.GEOCODING_API_KEY,
+        result_type: 'administrative_area_level_2',
+        language: 'pt-BR',
+    });
+    const url = `https://maps.googleapis.com/maps/api/geocode/json?${params.toString()}`;
+    const res = await fetch(url,{
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
+    });
+
+    const json = await res.json();
+    const result = json.results[0];
+    return({
+        state: result.address_components
+            .filter(comp => comp.types.includes("administrative_area_level_1"))
+            .map(comp => {return{
+                nome: comp.long_name,
+                sigla: comp.short_name
+            }})[0],
+        city: result.address_components
+            .filter(comp => comp.types.includes("administrative_area_level_2"))
+            .map(comp => {return{
+                nome: comp.long_name
+            }})[0],
+    });
+}
+
+export const generateAds = async({coords}) => {
     let query = await db.any('SELECT companyname, imgfilename, linkurl, locationfilter from ads WHERE ((initialdatetime < NOW()) AND (NOW() < expirationdatetime))');
 
     const ads = (query.map(ad => {
+        const locationFilter = JSON.parse(ad.locationfilter);
         return({
             companyName: ad.companyname,
             imgPath: `${process.env.ORIGIN}:${process.env.ORIGIN_PORT}/assets/${ad.imgfilename}`,
-            linkURL: ad.linkurl
+            linkURL: ad.linkurl,
+            locationFilter: (
+                locationFilter.states.map(state => {
+                    const cities = locationFilter.cities
+                        .filter(city => (city.UF.id === state.id))
+                        .map(city => city.nome);
+                    return{
+                        nome: state.nome,
+                        sigla: state.sigla,
+                        cities: cities
+                    }
+                })
+            )
         })
     }));
-    const validAds = ads.filter(ad => true); // TO-DO logic for locationFilter
-    
+
+    // Filter ads that correspond with client coords
+    const validAds = (await Promise.all(ads.map(async (ad) => {
+        if(ad.locationFilter.length===0) return true; // Don't check if there are no filters
+        const filter =  await geocode(coords).then(location => {
+            const stateFilter = ad.locationFilter.filter(state => state.sigla === location.state.sigla);
+            if(stateFilter.length === 0) return false; // State not listed in filters
+
+            if(stateFilter[0].cities.length === 0) return true; // Don't check if there are no cities listed
+
+            const cityFilter = stateFilter[0].cities.includes(location.city.nome);
+            return(cityFilter); // Allow if city is listed
+        }).catch(e => {
+            console.error('Problem with gapi request: ' + e.message);
+            return true;
+        });
+        return {
+            filter,
+            ...ad
+        };
+    })))
+    .filter(ad => ad.filter) // Filter after data was mapped
+    .map(ad => {return{...ad, filter:undefined}});
+    console.log({validAds})
     if(validAds.length > 0)
         return drawTwo(validAds);
 

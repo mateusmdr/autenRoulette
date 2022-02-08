@@ -196,7 +196,6 @@ export const generateAds = async({coords}) => {
         })))
         .filter(ad => ad.filter) // Filter after data was mapped
         .map(ad => {return{...ad, filter:undefined}});
-        console.log({validAds})
         if(validAds.length > 0)
             return drawTwo(validAds);
     }

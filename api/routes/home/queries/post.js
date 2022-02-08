@@ -156,7 +156,7 @@ export const generateAds = async({coords}) => {
         const locationFilter = JSON.parse(ad.locationfilter);
         return({
             companyName: ad.companyname,
-            imgPath: `${process.env.ORIGIN}:${process.env.ORIGIN_PORT}/assets/${ad.imgfilename}`,
+            imgPath: `${process.env.API_ADDRESS}/assets/${ad.imgfilename}`,
             linkURL: ad.linkurl,
             locationFilter: (
                 locationFilter.states.map(state => {

@@ -1,5 +1,5 @@
 export const apiUrl = ({method, route}) =>
-    `${process.env.REACT_APP_API_ADDRESS}:${process.env.REACT_APP_API_PORT}${route}${method}`;
+    `${process.env.REACT_APP_API_ADDRESS}${route}${method}`;
 
 export const imgUrl = (imageName) => 
     `${apiUrl({route: '/', method: 'assets'})}/${imageName}`;
@@ -20,6 +20,7 @@ export const showErrors = (res) => {
 
 const requestHeaders = new Headers();
 requestHeaders.append('Content-Type', 'application/json');
+requestHeaders.append('Access-Control-Allow-Origin', process.env.REACT_APP_API_PORT);
 export {requestHeaders};
 
 export const formatDouble = (number) => String(Number(number).toFixed(2)).replace('.',',');

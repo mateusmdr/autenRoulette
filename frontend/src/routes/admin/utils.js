@@ -59,7 +59,7 @@ export const formatDateHtml = (date) => {
 }
 
 export const apiUrl = ({method, route}) =>
-    `${process.env.REACT_APP_API_ADDRESS}:${process.env.REACT_APP_API_PORT}${route}${method}`;
+    `${process.env.REACT_APP_API_ADDRESS}${route}${method}`;
 
 export const imgUrl = (imageName) => 
     `${apiUrl({route: '/', method: 'assets'})}/${imageName}`;
@@ -68,7 +68,8 @@ export const requestHeaders = ({email, pwdHash}, json=true) => {
     const headers = new Headers();
     // Base64 encrypt authentication data
     const encoded = base64.encode(`${email}:${pwdHash}`);
-    headers.append('Authorization', 'Basic ' + encoded); 
+    headers.append('Authorization', 'Basic ' + encoded);
+    headers.append('Access-Control-Allow-Origin', process.env.REACT_APP_API_PORT);
     json && headers.append('Content-Type', 'application/json');
     
     return headers;

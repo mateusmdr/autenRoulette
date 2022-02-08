@@ -22,6 +22,11 @@ api.use('*',cors({
     credentials: true
 }));
 
+api.use('*', (req, res, next) => {
+    res.set('Vary','Origin');
+    next();
+})
+
 api.use('*',express.json());
 
 /**Auth cookies */

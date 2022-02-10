@@ -3,14 +3,10 @@ import base64 from 'base-64';
 export const formatDouble = (number) => String(Number(number).toFixed(2)).replace('.',',');
 export const formatPhone = (number) => number;
 export const formatPixKey = (key) => key ? key : 'Não informado';
-
 export const formatDate = (date) => {
     return (new Date(date).toLocaleDateString('pt-br'));
 }
 export const formatTime = (date) => {
-    const offset = new Date().getTimezoneOffset() * 60000;
-    const dateMili = new Date(date).valueOf() - offset;
-    
     return (new Date(dateMili).toLocaleTimeString('pt-br', {timeStyle: 'short'}));
 }
 

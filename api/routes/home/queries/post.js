@@ -55,12 +55,12 @@ export const generateDrawnOption = async({userId, ipAddress}) => {
 
     const baseChance = Math.floor(Math.random * 100);
     let drawnOption;
-    if(baseChance < 0) {
-        const failureOptions = options.filter(option => option.resultType !== 'success');
+    if(baseChance < 90) {
+        const failureOptions = options.filter(option => option.resultType === 'fail');
         if(failureOptions.length === 0){
             drawnOption = (options.sort(() => Math.random() > .5 ? 1 : -1)[0]);
         }else {
-            drawnOption = failureOptions.sort(() => Math.random() > .5 ? 1 : -1)[0]
+            drawnOption = failureOptions.sort(() => Math.random() > .5 ? 1 : -1)[0];
         }
     }else {
         drawnOption = options[Math.floor(Math.random()*options.length)];

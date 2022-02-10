@@ -7,7 +7,7 @@ export const formatDate = (date) => {
     return (new Date(date).toLocaleDateString('pt-br'));
 }
 export const formatTime = (date) => {
-    return (new Date(dateMili).toLocaleTimeString('pt-br', {timeStyle: 'short'}));
+    return (new Date(date).toLocaleTimeString('pt-br', {timeStyle: 'short'}));
 }
 
 export const formatResultType = (resultType) => {

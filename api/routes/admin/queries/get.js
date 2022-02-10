@@ -34,7 +34,7 @@ export const getPendingPrizes = async () => {
             id: item.id,
             amount: Number(item.amount),
             pixKey: item.pixkey,
-            winDateTime: item.windatetime,
+            winDateTime: new Date(item.windatetime).toUTCString(),
             name: item.name,
             phone: item.phone
         };
@@ -47,8 +47,8 @@ export const getGivenPrizes = async () => {
             id: item.id,
             amount: Number(item.amount),
             pixKey: item.pixkey,
-            winDateTime: item.windatetime,
-            paymentDateTime: item.paymentdatetime,
+            winDateTime: new Date(item.windatetime).toUTCString(),
+            paymentDateTime: new Date(item.paymentdatetime).toUTCString(),
             name: item.name,
             phone: item.phone
         };
@@ -62,8 +62,8 @@ export const getAds = async () => {
             id: item.id,
             companyName: item.companyname,
             locationFilter: item.locationfilter,
-            initialDateTime: item.initialdatetime,
-            expirationDateTime: item.expirationdatetime,
+            initialDateTime: new Date(item.initialdatetime).toUTCString(),
+            expirationDateTime: new Date(item.expirationdatetime).toUTCString(),
             imgFileName: item.imgfilename,
             linkURL: item.linkurl
         };

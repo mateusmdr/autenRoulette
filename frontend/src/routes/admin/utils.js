@@ -5,10 +5,7 @@ export const formatPhone = (number) => number;
 export const formatPixKey = (key) => key ? key : 'Não informado';
 
 export const formatDate = (date) => {
-    const offset = new Date().getTimezoneOffset() * 60000;
-    const dateMili = new Date(date).valueOf() - offset;
-
-    return (new Date(dateMili).toLocaleDateString('pt-br'));
+    return (new Date(date).toLocaleDateString('pt-br'));
 }
 export const formatTime = (date) => {
     const offset = new Date().getTimezoneOffset() * 60000;

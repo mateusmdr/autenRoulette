@@ -66,9 +66,11 @@ export const generateDrawnOption = async({userId, ipAddress}) => {
         drawnOption = options[Math.floor(Math.random()*options.length)];
     }
 
-    //increment option drawNumber
-    await db.none('UPDATE availablePrizes SET drawnumber=$1 WHERE id=$2',[drawnOption.drawNumber + 1, drawnOption.id]);
-
+    //increment option drawNumber if it was successful
+    if(drawnOption.resultType === 'success'){
+        await db.none('UPDATE availablePrizes SET drawnumber=$1 WHERE id=$2',[drawnOption.drawNumber + 1, drawnOption.id]);
+    }
+    
     //generate session
     let values = drawnOption.resultType === 'success' ? 
         [drawnOption.resultType, drawnOption.amount, userId] :

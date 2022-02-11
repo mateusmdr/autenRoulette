@@ -13,6 +13,7 @@ const cookies = window.localStorage;
 const Page = ({setCurrentPage, setCredentials}) => {
 
     const [input, setInput] = useState({email: '', password: ''});
+    const [showPwd, setShowPwd] = useState(false);
 
     return (
         <Background id='login'>
@@ -41,12 +42,14 @@ const Page = ({setCurrentPage, setCredentials}) => {
                     <label htmlFor='password'>Senha</label>
                     <div className='field'>
                         <input 
-                            type='password' id='password' name='password' placeholder='Senha'
+                            type={showPwd ? 'text' : 'password'} id='password' name='password' placeholder='Senha'
                             value={input.password}
                             onChange={e => setInput({...input, password: e.target.value})}
                             required
                         />
-                        <img className='inputIcon' src={passwordIcon} alt='Ícone de senha'/>
+                        <img className='inputIcon' src={passwordIcon} alt='Ícone de senha'
+                            onClick={() => setShowPwd(!showPwd)}
+                        />
                     </div>
                     <div className='field verticalAlign checkbox'>
                         <input 

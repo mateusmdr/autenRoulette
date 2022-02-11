@@ -1,7 +1,7 @@
 import {db} from '../../../utils/db.js';
 
 export const getAvailablePrizes = async() => {
-    const prizes = await db.many('SELECT id, resulttype, amount FROM availableprizes');
+    const prizes = await db.many('SELECT id, resulttype, amount FROM availableprizes ORDER BY id');
 
     return prizes.map((prize) => {
         return ({
@@ -9,5 +9,5 @@ export const getAvailablePrizes = async() => {
             resultType: prize.resulttype,
             amount: prize.resulttype==='success' ? Number(prize.amount) : undefined,
         });
-    }).sort(() => Math.random() > 0.5 ? 1 : -1);
+    });
 };

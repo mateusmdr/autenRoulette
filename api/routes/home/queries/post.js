@@ -31,14 +31,13 @@ export const generateDrawnOption = async({userId, ipAddress}) => {
         return({error: 'hasSessionToday', msg: 'Já registramos uma tentativa nas últimas 24h.'});
     }
 
-    //verify that the same IP hasn't requested too many times in the last hour
-    query = await db.one("SELECT (COUNT(*)>=3) AS requestlimitreached FROM attempts WHERE ((ipaddress=$1) AND (DATE_PART('day',NOW() - attemptdatetime)*24 + DATE_PART('hour',NOW() - attemptdatetime)) <= 1)", ipAddress)
+    //verify that the same IP hasn't requested more than once in the past 12h
+    query = await db.one("SELECT (COUNT(*)>=1) AS requestlimitreached FROM attempts WHERE ((ipaddress=$1) AND (DATE_PART('day',NOW() - attemptdatetime)*24 + DATE_PART('hour',NOW() - attemptdatetime)) <= 12)", ipAddress)
     const requestLimitReached = query.requestlimitreached;
     if(requestLimitReached) {
         return({error: 'requestLimitReached', msg: 'Muitas tentativas registradas, tente novamente mais tarde.'});
     }
-    await db.query('INSERT INTO attempts (ipaddress, attemptdatetime) VALUES ($1,NOW())',ipAddress);
-
+    
     //draw an option from availablePrizes
     query = await db.any("SELECT * FROM availablePrizes WHERE (resulttype!='success' OR drawNumber<maxDraws)");
     const options = await Promise.all(query.map((item, index) => {
@@ -64,6 +63,11 @@ export const generateDrawnOption = async({userId, ipAddress}) => {
         }
     }else {
         drawnOption = options[Math.floor(Math.random()*options.length)];
+    }
+
+    //register attempt if it wasn't retry
+    if(drawnOption.resultType !== 'retry'){
+        await db.query('INSERT INTO attempts (ipaddress, attemptdatetime) VALUES ($1,NOW())',ipAddress);
     }
 
     //increment option drawNumber if it was successful

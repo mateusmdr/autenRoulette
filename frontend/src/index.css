@@ -22,6 +22,11 @@ ul {
     color: white;
     font-weight: normal;
 }
+
+::-ms-reveal,::-ms-clear {
+    display: none;
+}
+
 .row {
     width: 100%;
     display: flex;

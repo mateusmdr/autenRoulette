@@ -47,9 +47,10 @@ const Page = ({setCurrentPage, setCredentials}) => {
                             onChange={e => setInput({...input, password: e.target.value})}
                             required
                         />
-                        <img className='inputIcon' src={passwordIcon} alt='Ícone de senha'
-                            onClick={() => setShowPwd(!showPwd)}
-                        />
+                        <button onClick={(e) => {e.preventDefault(); setShowPwd(!showPwd);}}>
+                            <img className='inputIcon' src={passwordIcon} alt='Ícone de senha'
+                            />
+                        </button>
                     </div>
                     <div className='field verticalAlign checkbox'>
                         <input 

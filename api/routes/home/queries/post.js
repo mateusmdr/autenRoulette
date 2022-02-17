@@ -52,9 +52,15 @@ export const generateDrawnOption = async({userId, ipAddress}) => {
         };
     }));
 
-    const baseChance = Math.floor(Math.random * 100);
+    //Calculate BaseChance
+    const retryAmount = await db.one("SELECT COUNT(*) FROM availablePrizes WHERE (resulttype='retry')");
+
+    const prizeAmount = await db.one("SELECT COUNT(*) FROM availablePrizes WHERE (resulttype='success' AND drawNumber<maxDraws)");
+
+    const baseChance = 1 - (12/(100*prizeAmount))/(1+retryAmount/(12*prizeAmount - prizeAmount*retryAmount));
+
     let drawnOption;
-    if(baseChance < 90) {
+    if(Math.random() < baseChance) {
         const failureOptions = options.filter(option => option.resultType === 'fail');
         if(failureOptions.length === 0){
             drawnOption = (options.sort(() => Math.random() > .5 ? 1 : -1)[0]);

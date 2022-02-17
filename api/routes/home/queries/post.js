@@ -59,7 +59,7 @@ export const generateDrawnOption = async({userId, ipAddress}) => {
 
     const baseChance = (12/prizeAmount)/(1+retryAmount/(12*prizeAmount - prizeAmount*retryAmount));
     let drawnOption;
-    if(Math.floor(Math.random() * 100) > Math.floor(baseChance)) {
+    if(Math.floor(Math.random() * 100) > Math.ceil(baseChance)) {
         const failureOptions = options.filter(option => option.resultType === 'fail');
         if(failureOptions.length === 0){
             drawnOption = (options.sort(() => Math.random() > .5 ? 1 : -1)[0]);

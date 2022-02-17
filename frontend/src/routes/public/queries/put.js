@@ -14,5 +14,5 @@ export const setPixKey = async ({pixKey}) => {
         showErrors(json);
     }
 
-    return json;
+    return res.ok;
 }

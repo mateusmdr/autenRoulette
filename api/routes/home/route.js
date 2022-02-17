@@ -53,6 +53,10 @@ route.post('/generateDrawnOption',
     async (req,res) => {
         const drawnOption = await post.generateDrawnOption({userId: req.session.userId, ipAddress: req.headers['x-forwarded-for'] || req.socket.remoteAddress });
 
+        if(drawnOption.error === 'userNotFound'){
+            req.session.userId = undefined;
+            return res.status(429).json(drawnOption)
+        }
         if(!!drawnOption.error) return res.status(429).json(drawnOption);
         
         //set drawnPrizeId cookie

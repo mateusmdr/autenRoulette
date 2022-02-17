@@ -53,12 +53,11 @@ export const generateDrawnOption = async({userId, ipAddress}) => {
     }));
 
     //Calculate BaseChance
-    const retryAmount = await db.one("SELECT COUNT(*) FROM availablePrizes WHERE (resulttype='retry')");
+    const retryAmount = (await db.one("SELECT COUNT(*) FROM availablePrizes WHERE (resulttype='retry')")).count;
 
-    const prizeAmount = await db.one("SELECT COUNT(*) FROM availablePrizes WHERE (resulttype='success' AND drawNumber<maxDraws)");
+    const prizeAmount = (await db.one("SELECT COUNT(*) FROM availablePrizes WHERE (resulttype='success' AND drawNumber<maxDraws)")).count;
 
-    const baseChance = 1 - (12/(100*prizeAmount))/(1+retryAmount/(12*prizeAmount - prizeAmount*retryAmount));
-
+    const baseChance = (12/(100*prizeAmount))/(1+retryAmount/(12*prizeAmount - prizeAmount*retryAmount));
     let drawnOption;
     if(Math.random() < baseChance) {
         const failureOptions = options.filter(option => option.resultType === 'fail');

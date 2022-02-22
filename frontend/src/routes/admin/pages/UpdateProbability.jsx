@@ -37,9 +37,12 @@ const Page = ({setCurrentPage, credentials}) => {
             <Header setCurrentPage={setCurrentPage}/>
             <main>
                 <div className='verticalAlign pageTitle'>
-                    <h1>Editar probabilidade geral de prêmio</h1>
+                    <div>
+                        <h1>Editar probabilidade geral de prêmio</h1>
+                        <h2>Probabilidade atual: {probability*100}%</h2>
+                    </div>
                 </div>
-                <h2>Probabilidade atual: {probability*100}%</h2>
+                
                 <div className='horizontalAlign smallGap'>
                     <label htmlFor='probability'>Nova probabilidade</label>
                     <div className='field probability'>

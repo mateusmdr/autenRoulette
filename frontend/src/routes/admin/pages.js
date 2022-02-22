@@ -6,5 +6,6 @@ import AvailablePrizes from './pages/AvailablePrizes';
 import Ads from './pages/Ads';
 import CreateAd from './pages/CreateAd';
 import Users from './pages/Users';
+import Probability from './pages/UpdateProbability';
 
-export {Login, Home, PendingPrizes, GivenPrizes, AvailablePrizes, Ads, CreateAd, Users};
+export {Login, Home, PendingPrizes, GivenPrizes, AvailablePrizes, Ads, CreateAd, Users, Probability};

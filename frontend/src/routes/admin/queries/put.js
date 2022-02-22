@@ -37,3 +37,18 @@ export const confirmPayment = async ({email, pwdHash, id, paymentDateTime}) => {
 
     return await showErrors(res);
 }
+
+export const updateProbability = async ({email, pwdHash, probability}) => {
+    const res = await fetch(apiUrl({route: '/admin/', method: 'updateProbability'}), {
+        mode: 'cors',
+        method: 'PUT',
+        headers: requestHeaders({email, pwdHash}),
+        body: JSON.stringify({
+            probability
+        })
+    });
+
+    await showErrors(res);
+
+    return res.ok;
+}

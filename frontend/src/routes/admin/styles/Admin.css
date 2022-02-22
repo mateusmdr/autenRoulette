@@ -290,3 +290,11 @@ input[type='date'] {
 .formActions input {
     margin: 0;
 }
+
+.field.probability{
+    width: 100px;
+}
+
+.horizontalAlign.smallGap {
+    gap: 10px !important;
+}

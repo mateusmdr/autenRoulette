@@ -44,6 +44,7 @@ const Component = ({setCurrentPage}) => {
                         <li onClick={() => setCurrentPage('availablePrizes')}>Cadastrados</li>
                         <li onClick={() => setCurrentPage('pendingPrizes')}>Pendentes</li>
                         <li onClick={() => setCurrentPage('givenPrizes')}>Entregues</li>
+                        <li onClick={() => setCurrentPage('updateProbability')}>Probabilidade</li>
                     </ul>
                 </div>
                 <button onClick={() => setCurrentPage('ads')}>Anúncios</button>

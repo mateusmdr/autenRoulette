@@ -83,6 +83,13 @@ const Admin = () => {
                     credentials={credentials}
                 />
             );
+        case 'updateProbability':
+            return (
+                <Pages.Probability
+                    setCurrentPage={setCurrentPage}
+                    credentials={credentials}
+                />
+            )
         default: return null;
     }    
 }

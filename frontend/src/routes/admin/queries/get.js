@@ -6,7 +6,7 @@ export const isLoggedIn = async ({email, pwdHash}) => {
         method: 'GET',
         headers: requestHeaders({email, pwdHash}),
     });
-
+    
     return res.ok;
 }
 
@@ -91,4 +91,14 @@ export const getUserCount = async ({email, pwdHash}) => {
     });
 
     return (await res.json()).count;
+}
+
+export const getProbability = async ({email, pwdHash}) => {
+    const res = await fetch(apiUrl({route: '/admin/', method: 'getProbability'}), {
+        mode: 'cors',
+        method: 'GET',
+        headers: requestHeaders({email, pwdHash}),
+    });
+
+    return (await res.json());
 }

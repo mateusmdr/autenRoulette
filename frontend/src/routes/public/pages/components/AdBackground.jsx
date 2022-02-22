@@ -4,6 +4,10 @@ import Background from './Background';
 
 import '../../styles/AdBackground.css';
 
+const Spacer = () => {
+    return <div className='adPlaceholder'></div>
+}
+
 const AdBackground = ({children, user, ads}) => {
     return (
         <Background id={'adbackground'}>
@@ -19,6 +23,7 @@ const AdBackground = ({children, user, ads}) => {
                     <figcaption>Anúncio</figcaption>
                 </a>
             </figure>}
+            {ads.length !== 2 && <Spacer/>}
             {children}
             {ads.length === 2 &&<figure>
                 <a href={ads[1].linkURL} target='_blank' rel="noopener noreferrer">
@@ -26,6 +31,7 @@ const AdBackground = ({children, user, ads}) => {
                     <figcaption>Anúncio</figcaption>
                 </a>
             </figure>}
+            {ads.length !== 2 && <Spacer/>}
         </Background>
     )
 }

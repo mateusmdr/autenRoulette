@@ -30,14 +30,14 @@ export const generateDrawnOption = async({userId, ipAddress}) => {
     query = await db.one("SELECT (COUNT(*)>0) AS hassessiontoday from sessions WHERE (user_id=$1 AND spinresulttype!='retry' AND (DATE_PART('day',NOW() - spindatetime)<1))",userId);
     const hasSessionToday = query.hassessiontoday;
     if(hasSessionToday){
-        //return({error: 'hasSessionToday', msg: 'Já registramos uma tentativa nas últimas 24h.'});
+        return({error: 'hasSessionToday', msg: 'Já registramos uma tentativa nas últimas 24h.'});
     }
 
     //verify that the same IP hasn't requested more than once in the past 12h
     query = await db.one("SELECT (COUNT(*)>=1) AS requestlimitreached FROM attempts WHERE ((ipaddress=$1) AND (DATE_PART('day',NOW() - attemptdatetime)*24 + DATE_PART('hour',NOW() - attemptdatetime)) <= 12)", ipAddress)
     const requestLimitReached = query.requestlimitreached;
     if(requestLimitReached) {
-        //return({error: 'requestLimitReached', msg: 'Muitas tentativas registradas, tente novamente mais tarde.'});
+        return({error: 'requestLimitReached', msg: 'Muitas tentativas registradas, tente novamente mais tarde.'});
     }
     
     //draw an option from availablePrizes

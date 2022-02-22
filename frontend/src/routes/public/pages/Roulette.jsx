@@ -90,8 +90,7 @@ const Roulette = ({user, setCurrentPage, setAmount, ads}) => {
                 </div>
             </div>
             <p>
-                Concorra a prêmios em dinheiro ao girar a roleta.
-                Você pode girar a roleta <span className='bold'>uma vez ao dia</span>
+                Concorra a <span className='bold'>prêmios em dinheiro</span> ao girar a roleta.
             </p>
         </AdBackground>
     );

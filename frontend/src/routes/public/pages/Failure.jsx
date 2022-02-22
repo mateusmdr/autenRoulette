@@ -13,8 +13,6 @@ const Failure = ({login, setCurrentPage, user, ads}) => {
                 <div className='row'>
                     <img src={failureImg} alt='Polegar para baixo'/>
                 </div>
-                <h3>Você pode tentar a sorte novamente amanhã.</h3>
-                <div className='spacer'></div>
                 <div className='row'>
                     <input 
                         type='submit' value='Concluir'

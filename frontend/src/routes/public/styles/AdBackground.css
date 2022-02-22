@@ -75,3 +75,8 @@
     width: calc(312/360 * 100vw);
     height: calc(60/360 * 100vw);
 }
+
+.adPlaceholder {
+    width: calc(312/360 * 100vw);
+    height: calc(60/360 * 100vw);
+}

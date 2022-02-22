@@ -18,7 +18,7 @@ export const registerUser = async({name, phone}) => {
     return id;
 };
 
-import {getProbability} from '../../admin/queries/get';
+import {getProbability} from '../../admin/queries/get.js';
 
 export const generateDrawnOption = async({userId, ipAddress}) => {
     let query;

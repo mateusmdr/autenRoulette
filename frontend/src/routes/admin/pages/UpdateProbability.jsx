@@ -39,7 +39,7 @@ const Page = ({setCurrentPage, credentials}) => {
                 <div className='verticalAlign pageTitle'>
                     <div>
                         <h1>Editar probabilidade geral de prêmio</h1>
-                        <h3 style={{textAlign: left}}>Probabilidade atual: {probability*100}%</h3>
+                        <h3 style={{textAlign: 'left'}}>Probabilidade atual: {probability*100}%</h3>
                     </div>
                 </div>
                 

@@ -58,7 +58,7 @@ const Page = ({setCurrentPage, credentials}) => {
                         style={{marginTop: 0}}
                         value='Atualizar'
                         onClick={async () => {
-                            const res = await updateProbability({probability: input/100});
+                            const res = await updateProbability({...credentials, probability: input/100});
                             
                             if(res) {
                                 getData({

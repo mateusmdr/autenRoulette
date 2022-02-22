@@ -106,3 +106,13 @@ CREATE TABLE IF NOT EXISTS ads (
         (initialDatetime < expirationDatetime)
     )
 );
+
+CREATE TABLE IF NOT EXISTS probability_updates (
+    id SERIAL NOT NULL,
+    probability NUMERIC NOT NULL,
+    update_datetime TIMESTAMP NOT NULL DEFAULT NOW(),
+
+    CHECK (
+        0 < probability AND probability < 1
+    )
+);

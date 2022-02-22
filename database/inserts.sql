@@ -13,3 +13,7 @@ VALUES
     (NULL, NULL, 'retry', NULL, NULL),
     (NULL, NULL, 'fail', NULL, NULL)
 ;
+
+INSERT INTO probability_updates (probability)
+VALUES
+    (0.05);

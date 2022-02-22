@@ -48,3 +48,7 @@ export const updateAd = async({id, companyName, initialDateTime, expirationDateT
     
     fs.unlinkSync(path.join(path.resolve(),'./assets/',imgfilename)); // Remove old imageFile from assets
 };
+
+export const updateProbability = async({probability}) => {
+    await db.query('INSERT INTO probability_updates (probability) VALUES ($1)', probability);
+}

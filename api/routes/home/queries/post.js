@@ -18,6 +18,8 @@ export const registerUser = async({name, phone}) => {
     return id;
 };
 
+import {getProbability} from '../../admin/queries/get';
+
 export const generateDrawnOption = async({userId, ipAddress}) => {
     let query;
 
@@ -53,13 +55,16 @@ export const generateDrawnOption = async({userId, ipAddress}) => {
     }));
 
     //Calculate BaseChance
+    const generalProbability = await getProbability();
+
     const retryAmount = (await db.one("SELECT COUNT(*) FROM availablePrizes WHERE (resulttype='retry')")).count;
-
     const prizeAmount = (await db.one("SELECT COUNT(*) FROM availablePrizes WHERE (resulttype='success' AND drawNumber<maxDraws)")).count;
+    const optionAmount =  (await db.one("SELECT COUNT(*) FROM availablePrizes WHERE (resulttype!='success' OR drawNumber<maxDraws)")).count;
 
-    const baseChance = (12/prizeAmount)/(1+retryAmount/(12*prizeAmount - prizeAmount*retryAmount));
+    const baseChance = (optionAmount * generalProbability) / (prizeAmount + generalProbability * retryAmount)
     let drawnOption;
-    if(Math.floor(Math.random() * 100) > Math.ceil(baseChance)) {
+
+    if(Math.random() > baseChance) {
         const failureOptions = options.filter(option => option.resultType === 'fail');
         if(failureOptions.length === 0){
             drawnOption = (options.sort(() => Math.random() > .5 ? 1 : -1)[0]);

@@ -39,3 +39,7 @@ export const updateAd = [
         return(new Date(value).getTime() > new Date(req.body.initialDateTime).getTime());
     })
 ];
+
+export const updateProbability = [
+    body('probability').exists().bail().isNumeric().bail().custom(value => value > 0 && value < 1),
+];

@@ -56,7 +56,7 @@ export const getGivenPrizes = async () => {
 }
 
 export const getAds = async () => {
-    const query = await db.any('SELECT * FROM ads');
+    const query = await db.any('SELECT * FROM ads WHERE ((initialdatetime < NOW()) AND (NOW() < expirationdatetime))');
     return query.map(item => {
         return {
             id: item.id,
@@ -90,10 +90,15 @@ export const getGivenPrizeCount = async () => {
     return query;
 }
 export const getAdCount = async () => {
-    const query = await db.one('SELECT COUNT(*) FROM ads');
+    const query = await db.one('SELECT COUNT(*) FROM ads WHERE ((initialdatetime < NOW()) AND (NOW() < expirationdatetime))');
     return query;
 }
 export const getUserCount = async () => {
     const query = await db.one('SELECT COUNT(*) FROM users');
     return query;
+}
+
+export const getProbability = async () => {
+    const query = await db.oneOrNone('SELECT probability FROM probability_updates ORDER BY update_datetime DESC LIMIT 1');
+    return query?.probability;
 }

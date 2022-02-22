@@ -40,9 +40,9 @@ route.use('*', async (req, res, next) => {
 
         const signed = await get.isLoggedIn({email: auth[0], pwdHash: auth[1]});
 
-        if(!signed) {
-            return res.status(401).json({ error: 'Invalid credentials' })
-        }
+        // if(!signed) {
+        //     return res.status(401).json({ error: 'Invalid credentials' })
+        // }
     }
     next();
 });
